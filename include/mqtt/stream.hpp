@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mqtt/fixed_header.hpp>
+
 #include <boost/asio/async_result.hpp>
 #include <boost/asio/compose.hpp>
 #include <boost/asio/coroutine.hpp>
@@ -15,11 +17,6 @@ namespace mqtt {
 namespace beast = boost::beast;
 namespace asio = boost::asio;
 namespace system = boost::system;
-
-struct fixed_header {
-    uint8_t first_byte{};
-    uint32_t remaining_length{};
-};
 
 template<class CompletionToken, class... Results>
 using async_result_t = typename asio::async_result<std::decay_t<CompletionToken>, void(Results...)>::return_type;
