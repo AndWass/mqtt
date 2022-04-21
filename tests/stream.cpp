@@ -20,8 +20,7 @@ TEST(Stream, AsyncWrite) {
     boost::system::error_code final_ec;
     size_t amount_written = 0;
     bool called = false;
-    net::const_buffer buf(data, 4);
-    stream.async_write(0x10, buf, [&](boost::system::error_code ec, size_t n) {
+    stream.async_write(0x10, net::buffer(data, 4), [&](boost::system::error_code ec, size_t n) {
         final_ec = ec;
         amount_written = n;
         called = true;
