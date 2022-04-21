@@ -40,7 +40,7 @@ public:
     }
 
     executor_type get_executor() {
-        next_.get_executor();
+        return next_.get_executor();
     }
 
     next_layer_type &next_layer() {
@@ -80,6 +80,7 @@ public:
 
     template<class DynamicBuffer, class ReadHandler>
     async_result_t<ReadHandler, system::error_code, message_view> async_read(DynamicBuffer &buffer, ReadHandler &&handler) {
+        buffer.consume(buffer.max_size());
         return asio::async_compose<ReadHandler, void(system::error_code, message_view)>(
             details::stream::read_op<stream, DynamicBuffer>{
                 *this,

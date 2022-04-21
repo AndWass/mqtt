@@ -18,4 +18,5 @@ target_link_libraries(mqtt PUBLIC
 
 if (BUILD_TESTING)
     add_subdirectory(tests)
+    add_subdirectory(examples)
 endif()

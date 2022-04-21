@@ -1,0 +1,2 @@
+add_executable(stream_connect stream_connect.cpp)
+target_link_libraries(stream_connect mqtt)
