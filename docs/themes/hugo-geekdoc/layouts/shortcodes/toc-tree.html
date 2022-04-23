@@ -1,9 +1,9 @@
 {{ $tocLevels := default (default 6 .Site.Params.GeekdocToC) .Page.Params.GeekdocToC }}
 
 {{ if $tocLevels }}
-<div class="gdoc-toc gdoc-toc__level--{{ $tocLevels }}">
-    {{ template "toc-tree" dict "sect" .Page.Pages }}
-</div>
+  <div class="gdoc-toc gdoc-toc__level--{{ $tocLevels }}">
+      {{ template "toc-tree" dict "sect" .Page.Pages }}
+  </div>
 {{ end }}
 
 
