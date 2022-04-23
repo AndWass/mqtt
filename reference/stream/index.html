@@ -61,7 +61,7 @@ Types        Name Description     executor_type The type of executor associated 
       "url" : "https://andwass.github.io/mqtt/reference/stream/",
       "headline": "mqtt::stream",
       "description": "mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.\nNo validation of the validity of messages is done, it simply makes sure to send data using the correct wire format.\nTypes        Name Description     executor_type The type of executor associated with the stream   next_layer_type The type of the next layer stream     Member functions        Name Description     async_read Read a complete message asynchronously.",
-      "wordCount" : "100",
+      "wordCount" : "106",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -410,6 +410,8 @@ Types        Name Description     executor_type The type of executor associated 
       
         
       
+        
+      
     
   </ul>
 
@@ -510,7 +512,12 @@ Types        Name Description     executor_type The type of executor associated 
   >
     <h1>mqtt::stream</h1>
     <p><code>mqtt::stream</code> is a low level stream to read and write MQTT messages on
-the binary format specified by the MQTT standard.</p>
+the binary format specified by
+the <a
+  class="gdoc-markdown__link"
+  href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718018"
+  
+>MQTT standard</a>.</p>
 <p>No validation of the validity of messages is done, it simply makes sure
 to send data using the correct wire format.</p>
 <div class="gdoc-page__anchorwrap">
@@ -579,6 +586,14 @@ to send data using the correct wire format.</p>
   
 ><code>async_read_fixed_header</code></a></td>
 <td>Read the fixed header of the next incoming message.</td>
+</tr>
+<tr>
+<td><a
+  class="gdoc-markdown__link--code"
+  href="async_write"
+  
+><code>async_write</code></a></td>
+<td>Write a complete message asynchronously.</td>
 </tr>
 <tr>
 <td><a

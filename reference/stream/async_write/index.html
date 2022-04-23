@@ -8,9 +8,10 @@
 <meta name="generator" content="Hugo 0.97.3" />
 
 
-  <meta name="description" content="using executor_type = boost::beast::executor_type&lt;NextLayer&gt;; The type of executor associated with the object." />
+  <meta name="description" content="template&lt;class ConstBufferSequence, class WriteHandler&gt; DEDUCED async_write(uint8_t first_byte, const ConstBufferSequence &amp;buffer, WriteHandler &amp;&amp;handler); This function is used to asynchronously write a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
+ The complete message is written. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_write_some function. The program must ensure that no other calls to async_write are performed until this operation completes." />
 
-    <title>mqtt::stream::executor_type | Async MQTT</title>
+    <title>mqtt::stream::async_write | Async MQTT</title>
 
     <link rel="icon" type="image/svg+xml" href="/mqtt/favicon/favicon.svg" />
 <link
@@ -31,19 +32,21 @@
     
   <meta
     property="og:title"
-    content="mqtt::stream::executor_type"
+    content="mqtt::stream::async_write"
   />
   <meta property="og:site_name" content="Async MQTT" />
-  <meta property="og:description" content="using executor_type = boost::beast::executor_type&lt;NextLayer&gt;; The type of executor associated with the object." />
+  <meta property="og:description" content="template&lt;class ConstBufferSequence, class WriteHandler&gt; DEDUCED async_write(uint8_t first_byte, const ConstBufferSequence &amp;buffer, WriteHandler &amp;&amp;handler); This function is used to asynchronously write a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
+ The complete message is written. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_write_some function. The program must ensure that no other calls to async_write are performed until this operation completes." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://andwass.github.io/mqtt/reference/stream/executor_type/" />
+<meta property="og:url" content="https://andwass.github.io/mqtt/reference/stream/async_write/" />
 
 <meta property="article:section" content="Reference" />
 
 
   <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="mqtt::stream::executor_type" />
-  <meta name="twitter:description" content="using executor_type = boost::beast::executor_type&lt;NextLayer&gt;; The type of executor associated with the object." />
+<meta name="twitter:title" content="mqtt::stream::async_write" />
+  <meta name="twitter:description" content="template&lt;class ConstBufferSequence, class WriteHandler&gt; DEDUCED async_write(uint8_t first_byte, const ConstBufferSequence &amp;buffer, WriteHandler &amp;&amp;handler); This function is used to asynchronously write a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
+ The complete message is written. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_write_some function. The program must ensure that no other calls to async_write are performed until this operation completes." />
 
 
   <script type="application/ld+json">
@@ -51,16 +54,16 @@
       "@context": "http://schema.org",
       "@type": "TechArticle",
       "articleSection": "Reference",
-      "name": "mqtt::stream::executor_type",
-      "url" : "https://andwass.github.io/mqtt/reference/stream/executor_type/",
-      "headline": "mqtt::stream::executor_type",
-      "description": "using executor_type = boost::beast::executor_type\u003cNextLayer\u003e; The type of executor associated with the object.",
-      "wordCount" : "12",
+      "name": "mqtt::stream::async_write",
+      "url" : "https://andwass.github.io/mqtt/reference/stream/async_write/",
+      "headline": "mqtt::stream::async_write",
+      "description": "template\u003cclass ConstBufferSequence, class WriteHandler\u003e DEDUCED async_write(uint8_t first_byte, const ConstBufferSequence \u0026buffer, WriteHandler \u0026\u0026handler); This function is used to asynchronously write a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:\n The complete message is written. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_write_some function. The program must ensure that no other calls to async_write are performed until this operation completes.",
+      "wordCount" : "295",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://andwass.github.io/mqtt/reference/stream/executor_type/"
+          "@id": "https://andwass.github.io/mqtt/reference/stream/async_write/"
       },
       "copyrightHolder" : "Async MQTT",
       "copyrightYear" : "0001",
@@ -142,7 +145,7 @@
   href="/mqtt/custom.css"
   media="all"
 />
-  <link href="https://andwass.github.io/mqtt/reference/stream/executor_type/" rel="canonical" type="text/html" />
+  <link href="https://andwass.github.io/mqtt/reference/stream/async_write/" rel="canonical" type="text/html" />
 
 <!-- Made with Geekdoc theme https://github.com/thegeeklab/hugo-geekdoc -->
 
@@ -492,7 +495,7 @@
     
   
   
-    <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/' href='/mqtt/'><span itemprop='name'>Async MQTT</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/' href='/mqtt/reference/'><span itemprop='name'>Reference</span></a><meta itemprop='position' content='3' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/stream/' href='/mqtt/reference/stream/'><span itemprop='name'>mqtt::stream</span></a><meta itemprop='position' content='4' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>mqtt::stream::executor_type</span><meta itemprop='position' content='5' /></li>
+    <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/' href='/mqtt/'><span itemprop='name'>Async MQTT</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/' href='/mqtt/reference/'><span itemprop='name'>Reference</span></a><meta itemprop='position' content='3' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/stream/' href='/mqtt/reference/stream/'><span itemprop='name'>mqtt::stream</span></a><meta itemprop='position' content='4' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>mqtt::stream::async_write</span><meta itemprop='position' content='5' /></li>
   
 
   
@@ -512,9 +515,99 @@
   <article
     class="gdoc-markdown gdoc-markdown__align--left"
   >
-    <h1>mqtt::stream::executor_type</h1>
-    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">executor_type</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">beast</span><span class="o">::</span><span class="n">executor_type</span><span class="o">&lt;</span><span class="n">NextLayer</span><span class="o">&gt;</span><span class="p">;</span>
-</span></span></code></pre></div><p>The type of executor associated with the object.</p>
+    <h1>mqtt::stream::async_write</h1>
+    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">ConstBufferSequence</span><span class="p">,</span> <span class="k">class</span> <span class="nc">WriteHandler</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEDUCED</span> <span class="n">async_write</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">first_byte</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">const</span> <span class="n">ConstBufferSequence</span> <span class="o">&amp;</span><span class="n">buffer</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">WriteHandler</span> <span class="o">&amp;&amp;</span><span class="n">handler</span><span class="p">);</span>
+</span></span></code></pre></div><p>This function is used to asynchronously write a complete message.
+This call always returns immediately. The asynchronous operation
+will continue until one of the following conditions is true:</p>
+<ul>
+<li>The complete message is written.</li>
+<li>An error occurs.</li>
+</ul>
+<p>The algorithm, known as a composed asynchronous operation,
+is implemented in terms of calls to the next layers async_write_some
+function. The program must ensure that no other calls to <code>async_write</code>
+are performed until this operation completes.</p>
+<p>The variable length field of the fixed header is calculated internally,
+therefore the first byte of <code>buffer</code> must be the first byte of the variable header
+(if any) or payload (if any).</p>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="exceptions">
+        Exceptions
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write/#exceptions" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Exceptions" aria-label="Anchor to: Exceptions" href="#exceptions">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div>
+<div class=table-wrap> <table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Thrown on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>std::runtime_error</td>
+<td>If <code>beast::buffer_bytes(buffer) &gt; 268'435'455</code></td>
+</tr>
+</tbody>
+</table> </div>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="parameters">
+        Parameters
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write/#parameters" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Parameters" aria-label="Anchor to: Parameters" href="#parameters">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="first_byte">
+        <code>first_byte</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write/#first_byte" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: first_byte" aria-label="Anchor to: first_byte" href="#first_byte">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>The first byte of the MQTT message. The first byte contains the control packet type
+and flags.</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="buffer">
+        <code>buffer</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write/#buffer" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: buffer" aria-label="Anchor to: buffer" href="#buffer">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>A buffer sequence containing the variable header and payload.
+The implementation will make copies of this object as needed,
+but ownership of the underlying memory is not transferred.
+The caller is responsible for ensuring that the memory locations pointed to
+by buffers remains valid until the completion handler is called.</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="handler">
+        <code>handler</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write/#handler" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: handler" aria-label="Anchor to: handler" href="#handler">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>The completion handler to invoke when the operation completes.
+The implementation takes ownership of the handler by performing a decay-copy.
+The equivalent function signature of the handler must be:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">handler</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="n">error_code</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">ec</span><span class="p">,</span>           <span class="c1">// Result of operation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">bytes_transferred</span>   <span class="c1">// Total number of bytes sent
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="c1">// including complete fixed header.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="c1">// If no errors occurred this will be greater
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="c1">// than the buffer_size.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">);</span>
+</span></span></code></pre></div><p>Regardless of whether the asynchronous operation completes immediately or not,
+the handler will not be invoked from within this function. Invocation of the
+handler will be performed in a manner equivalent to using net::post.</p>
 
   </article>
 

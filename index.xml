@@ -27,6 +27,16 @@
     </item>
     
     <item>
+      <title>mqtt::stream::async_write</title>
+      <link>https://andwass.github.io/mqtt/reference/stream/async_write/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://andwass.github.io/mqtt/reference/stream/async_write/</guid>
+      <description>template&amp;lt;class ConstBufferSequence, class WriteHandler&amp;gt; DEDUCED async_write(uint8_t first_byte, const ConstBufferSequence &amp;amp;buffer, WriteHandler &amp;amp;&amp;amp;handler); This function is used to asynchronously write a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
+ The complete message is written. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_write_some function. The program must ensure that no other calls to async_write are performed until this operation completes.</description>
+    </item>
+    
+    <item>
       <title>mqtt::stream::executor_type</title>
       <link>https://andwass.github.io/mqtt/reference/stream/executor_type/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
