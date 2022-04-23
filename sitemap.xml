@@ -2,26 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://AndWass.github.io/mqtt/reference/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/</loc>
+    <loc>https://andwass.github.io/mqtt/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/reference/stream/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/stream/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/reference/stream/async_read/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/stream/async_read/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/reference/stream/async_read_fixed_header/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/stream/async_read_fixed_header/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/reference/stream/executor_type/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/stream/executor_type/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/reference/stream/get_executor/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/stream/get_executor/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/reference/stream/next_layer/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/stream/next_layer/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/reference/stream/next_layer_type/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/stream/next_layer_type/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/reference/stream/constructors/</loc>
+    <loc>https://andwass.github.io/mqtt/reference/stream/constructors/</loc>
   </url><url>
-    <loc>https://AndWass.github.io/mqtt/tags/</loc>
+    <loc>https://andwass.github.io/mqtt/tags/</loc>
   </url>
 </urlset>
