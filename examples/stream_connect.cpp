@@ -72,13 +72,13 @@ struct client {
         }
     }
 
-    void message_received(error_code ec, mqtt::message_view message) {
+    void message_received(error_code ec, mqtt::fixed_header header) {
         if (!ec) {
-            std::printf("Received first byte 0x%x\n", (unsigned)message.header.first_byte);
-            if (message.header.first_byte != 0x20 || message.payload.size() != 2) {
+            std::printf("Received first byte 0x%x\n", (unsigned)header.first_byte);
+            if (header.first_byte != 0x20 || read_buffer.size() != 2) {
                 stream.async_read(read_buffer, beast::bind_front_handler(&client::message_received, this));
             } else {
-                std::printf("CONNACK received (%d, %d)\n", (int)message.payload[0], (int)message.payload[1]);
+                std::printf("CONNACK received (%d, %d)\n", (int)read_buffer.at(0), (int)read_buffer.at(1));
             }
         }
     }
