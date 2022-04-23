@@ -68,20 +68,21 @@ public:
             handler, next_);
     }
 
-    template<class DynamicBuffer, class ReadHandler>
-    async_result_t<ReadHandler, system::error_code, fixed_header> async_read_fixed_header(DynamicBuffer &buffer, ReadHandler &&handler) {
+    template<class ReadHandler>
+    async_result_t<ReadHandler, system::error_code, fixed_header> async_read_fixed_header(ReadHandler &&handler) {
+
         return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_fixed_header_op<NextLayer, DynamicBuffer>{
+            details::stream::read_fixed_header_op<NextLayer>{
                 next_,
-                buffer,
+                {},
                 {}},
             handler, next_);
     }
 
     template<class DynamicBuffer, class ReadHandler>
-    async_result_t<ReadHandler, system::error_code, message_view> async_read(DynamicBuffer &buffer, ReadHandler &&handler) {
+    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer, ReadHandler &&handler) {
         buffer.consume(buffer.max_size());
-        return asio::async_compose<ReadHandler, void(system::error_code, message_view)>(
+        return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
             details::stream::read_op<stream, DynamicBuffer>{
                 *this,
                 buffer,

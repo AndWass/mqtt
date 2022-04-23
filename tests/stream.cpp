@@ -46,8 +46,7 @@ TEST(Stream, AsyncReadFixedHeader) {
     boost::system::error_code final_ec;
     mqtt::fixed_header header;
 
-    mqtt::byte_buffer buf(1024);
-    stream.async_read_fixed_header(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    stream.async_read_fixed_header([&](boost::system::error_code ec, mqtt::fixed_header h) {
         final_ec = ec;
         header = h;
     });
@@ -71,8 +70,7 @@ TEST(Stream, AsyncReadLargeFixedHeader) {
     boost::system::error_code final_ec;
     mqtt::fixed_header header;
 
-    mqtt::byte_buffer buf(1024);
-    stream.async_read_fixed_header(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    stream.async_read_fixed_header([&](boost::system::error_code ec, mqtt::fixed_header h) {
         final_ec = ec;
         header = h;
     });
@@ -96,8 +94,7 @@ TEST(Stream, AsyncReadBadFixedHeader) {
     boost::system::error_code final_ec;
     mqtt::fixed_header header;
 
-    mqtt::byte_buffer buf(1024);
-    stream.async_read_fixed_header(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    stream.async_read_fixed_header([&](boost::system::error_code ec, mqtt::fixed_header h) {
         final_ec = ec;
         header = h;
     });
@@ -119,8 +116,7 @@ TEST(Stream, AsyncReadWeirdFixedHeader) {
     boost::system::error_code final_ec;
     mqtt::fixed_header header;
 
-    mqtt::byte_buffer buf(1024);
-    stream.async_read_fixed_header(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    stream.async_read_fixed_header([&](boost::system::error_code ec, mqtt::fixed_header h) {
         final_ec = ec;
         header = h;
     });
@@ -129,7 +125,6 @@ TEST(Stream, AsyncReadWeirdFixedHeader) {
     EXPECT_FALSE(final_ec.failed());
     EXPECT_EQ(header.first_byte, 0x20);
     EXPECT_EQ(header.remaining_length, 0);
-    EXPECT_EQ(buf.size(), 0);
 }
 
 TEST(Stream, AsyncReadSmall) {
@@ -144,12 +139,12 @@ TEST(Stream, AsyncReadSmall) {
     });
 
     boost::system::error_code final_ec;
-    mqtt::message_view message;
+    mqtt::fixed_header header;
 
     mqtt::byte_buffer buf(1024);
-    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::message_view mv) {
+    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
         final_ec = ec;
-        message = mv;
+        header = h;
     });
 
     io.run();
@@ -159,13 +154,8 @@ TEST(Stream, AsyncReadSmall) {
     EXPECT_EQ(buf.at(1), 0x41);
     EXPECT_EQ(buf.at(2), 0x42);
 
-    EXPECT_EQ(message.header.first_byte, 0x20);
-    EXPECT_EQ(message.header.remaining_length, 0x03);
-    ASSERT_EQ(message.payload.size(), 3);
-
-    EXPECT_EQ(message.payload[0], 0x40);
-    EXPECT_EQ(message.payload[1], 0x41);
-    EXPECT_EQ(message.payload[2], 0x42);
+    EXPECT_EQ(header.first_byte, 0x20);
+    EXPECT_EQ(header.remaining_length, 0x03);
 }
 
 TEST(Stream, AsyncReadEmpty) {
@@ -180,19 +170,18 @@ TEST(Stream, AsyncReadEmpty) {
     });
 
     boost::system::error_code final_ec;
-    mqtt::message_view message;
+    mqtt::fixed_header header;
 
     mqtt::byte_buffer buf(1024);
-    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::message_view mv) {
+    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
         final_ec = ec;
-        message = mv;
+        header = h;
     });
 
     io.run();
     EXPECT_FALSE(final_ec.failed());
     ASSERT_EQ(buf.size(), 0);
 
-    EXPECT_EQ(message.header.first_byte, 0x20);
-    EXPECT_EQ(message.header.remaining_length, 0);
-    EXPECT_TRUE(message.payload.empty());
+    EXPECT_EQ(header.first_byte, 0x20);
+    EXPECT_EQ(header.remaining_length, 0);
 }
