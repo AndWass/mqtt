@@ -37,6 +37,11 @@ TEST(Stream, AsyncWrite) {
     EXPECT_EQ(amount_written, 6);
 }
 
+TEST(Stream, VarlenMax) {
+    EXPECT_EQ(mqtt::details::stream::num_varlen_int_bytes(268'435'455), 4);
+    EXPECT_THROW(mqtt::details::stream::num_varlen_int_bytes(268'435'456), std::runtime_error);
+}
+
 TEST(Stream, AsyncReadFixedHeader) {
     namespace net = boost::asio;
     net::io_context io;
