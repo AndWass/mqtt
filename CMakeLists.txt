@@ -7,16 +7,16 @@ conan_basic_setup(TARGETS)
 include(CTest)
 
 add_library(mqtt
-        src/connect.cpp
+        INTERFACE
         )
 
-target_compile_features(mqtt PUBLIC cxx_std_14)
-target_include_directories(mqtt PUBLIC include)
+target_compile_features(mqtt INTERFACE cxx_std_14)
+target_include_directories(mqtt INTERFACE include)
 
-target_link_libraries(mqtt PUBLIC
+target_link_libraries(mqtt INTERFACE
         CONAN_PKG::boost)
 
 if (BUILD_TESTING)
     add_subdirectory(tests)
     add_subdirectory(examples)
-endif()
+endif ()
