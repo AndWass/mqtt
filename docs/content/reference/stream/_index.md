@@ -3,7 +3,8 @@ title: "mqtt::stream"
 ---
 
 `mqtt::stream` is a low level stream to read and write MQTT messages on
-the binary format specified by the MQTT standard.
+the binary format specified by
+the [MQTT standard](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718018).
 
 No validation of the validity of messages is done, it simply makes sure
 to send data using the correct wire format.
@@ -23,6 +24,7 @@ to send data using the correct wire format.
 |------------------------------------------------------|-----------------------------------------------------|
 | [`async_read`](async_read)                           | Read a complete message asynchronously.             |
 | [`async_read_fixed_header`](async_read_fixed_header) | Read the fixed header of the next incoming message. |
+| [`async_write`](async_write)                         | Write a complete message asynchronously.            |
 | [`get_executor`](get_executor)                       | Get the executor associated with the object.        |
 | [`next_layer`](next_layer)                           | Get a reference to the next layer.                  |
 | [`stream`](constructors)                             | Constructor.                                        |
