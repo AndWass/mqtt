@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Async MQTT</title>
+    <link>https://AndWass.github.io/mqtt/</link>
+    <description>Recent content on Async MQTT</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://AndWass.github.io/mqtt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mqtt::stream::async_read</title>
+      <link>https://AndWass.github.io/mqtt/reference/stream/async_read/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://AndWass.github.io/mqtt/reference/stream/async_read/</guid>
+      <description>template&amp;lt;class DynamicBuffer, class ReadHandler&amp;gt; DEDUCED async_read(DynamicBuffer &amp;amp;buffer, ReadHandler &amp;amp;&amp;amp;handler); This function is used to asynchronously read a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
+ A complete message is received An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layer&amp;rsquo;s async_read_some. The program must ensure that no other calls to async_read or async_read_fixed_header are performed until this operation completes.</description>
+    </item>
+    
+    <item>
+      <title>mqtt::stream::async_read_fixed_header</title>
+      <link>https://AndWass.github.io/mqtt/reference/stream/async_read_fixed_header/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://AndWass.github.io/mqtt/reference/stream/async_read_fixed_header/</guid>
+      <description>template&amp;lt;class ReadHandler&amp;gt; DEDUCED async_read_fixed_header(ReadHandler &amp;amp;&amp;amp;handler); This function is used to asynchronously read the fixed header of a message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
+ A complete fixed header is received. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layer&amp;rsquo;s async_read_some. The program must ensure that no other calls to async_read or async_read_fixed_header are performed until this operation completes.</description>
+    </item>
+    
+    <item>
+      <title>mqtt::stream::executor_type</title>
+      <link>https://AndWass.github.io/mqtt/reference/stream/executor_type/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://AndWass.github.io/mqtt/reference/stream/executor_type/</guid>
+      <description>using executor_type = boost::beast::executor_type&amp;lt;NextLayer&amp;gt;; The type of executor associated with the object.</description>
+    </item>
+    
+    <item>
+      <title>mqtt::stream::get_executor</title>
+      <link>https://AndWass.github.io/mqtt/reference/stream/get_executor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://AndWass.github.io/mqtt/reference/stream/get_executor/</guid>
+      <description>executor_type get_executor(); This function may be used to obtain the executor object that the stream uses to dispatch handlers for asynchronous operations.
+Return value     A copy of the executor that the stream will use to dispatch handlers.</description>
+    </item>
+    
+    <item>
+      <title>mqtt::stream::next_layer</title>
+      <link>https://AndWass.github.io/mqtt/reference/stream/next_layer/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://AndWass.github.io/mqtt/reference/stream/next_layer/</guid>
+      <description>Overload 1 of 2     next_layer_type&amp;amp; next_layer(); This function returns a reference to the next layer in a stack of stream layers.
+Return value     A reference to the next layer in a stack of stream layers.
+ Overload 2 of 2     const next_layer_type&amp;amp; next_layer() const; This function returns a reference to the next layer in a stack of stream layers.</description>
+    </item>
+    
+    <item>
+      <title>mqtt::stream::next_layer_type</title>
+      <link>https://AndWass.github.io/mqtt/reference/stream/next_layer_type/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://AndWass.github.io/mqtt/reference/stream/next_layer_type/</guid>
+      <description>using next_layer_type = NextLayer; The type of the next layer.</description>
+    </item>
+    
+    <item>
+      <title>mqtt::stream::stream</title>
+      <link>https://AndWass.github.io/mqtt/reference/stream/constructors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://AndWass.github.io/mqtt/reference/stream/constructors/</guid>
+      <description>Overload 1 of 2     stream(stream&amp;amp;&amp;amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
+ Overload 2 of 2     template&amp;lt;class...Args&amp;gt; explicit stream(Args&amp;amp;&amp;amp;...args); Create an MQTT stream and construct the NextLayer type using args....
+Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer constructor.</description>
+    </item>
+    
+  </channel>
+</rss>
