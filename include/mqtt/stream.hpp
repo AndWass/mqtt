@@ -9,6 +9,7 @@
 #include <mqtt/message_view.hpp>
 
 #include "details/stream/read.hpp"
+#include "details/stream/read_buffer.hpp"
 #include "details/stream/varlen.hpp"
 #include "details/stream/write.hpp"
 
@@ -21,7 +22,8 @@
 #include <boost/beast/core/buffer_traits.hpp>
 #include <boost/beast/core/stream_traits.hpp>
 
-#include <memory>
+#include <array>
+#include <vector>
 
 namespace mqtt {
 namespace beast = boost::beast;
@@ -34,6 +36,8 @@ using async_result_t = typename asio::async_result<std::decay_t<CompletionToken>
 template<class NextLayer>
 class stream {
     NextLayer next_;
+    mqtt::details::stream::read_buffer read_buffer_;
+    std::array<uint8_t, 5> fixed_header_write_buffer_{};
 
 public:
     using executor_type = beast::executor_type<NextLayer>;
@@ -58,14 +62,13 @@ public:
 
     template<class ConstBufferSequence, class WriteHandler>
     async_result_t<WriteHandler, system::error_code, size_t> async_write(uint8_t first_byte, const ConstBufferSequence &buffer, WriteHandler &&handler) {
-        auto buffer_len = beast::buffer_bytes(buffer);
+        const size_t buffer_len = beast::buffer_bytes(buffer);
         const size_t fixed_header_len = 1 + details::stream::num_varlen_int_bytes(buffer_len);
-        auto fixed_header = std::make_unique<uint8_t[]>(fixed_header_len);
-        fixed_header[0] = first_byte;
-        details::stream::encode_varlen_int(buffer_len, fixed_header.get() + 1);
+        fixed_header_write_buffer_[0] = first_byte;
+        details::stream::encode_varlen_int(buffer_len, fixed_header_write_buffer_.data() + 1);
         return asio::async_compose<WriteHandler, void(system::error_code, size_t)>(
             details::stream::write_op<NextLayer, ConstBufferSequence>{
-                std::move(fixed_header),
+                fixed_header_write_buffer_.data(),
                 static_cast<uint8_t>(fixed_header_len),
                 next_,
                 buffer,
@@ -73,26 +76,19 @@ public:
             handler, next_);
     }
 
-    template<class ReadHandler>
-    async_result_t<ReadHandler, system::error_code, fixed_header> async_read_fixed_header(ReadHandler &&handler) {
-
+    template<class DynamicBuffer, class ReadHandler>
+    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer, ReadHandler &&handler) {
         return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_fixed_header_op<NextLayer>{
+            details::stream::read_op<NextLayer, DynamicBuffer>{
                 next_,
-                {},
+                read_buffer_,
+                buffer,
                 {}},
             handler, next_);
     }
 
-    template<class DynamicBuffer, class ReadHandler>
-    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer, ReadHandler &&handler) {
-        buffer.consume(buffer.max_size());
-        return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_op<stream, DynamicBuffer>{
-                *this,
-                buffer,
-                {}},
-            handler, next_);
+    void reset() {
+        read_buffer_.reset();
     }
 };
 }// namespace mqtt

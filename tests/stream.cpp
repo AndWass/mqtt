@@ -42,101 +42,6 @@ TEST(Stream, VarlenMax) {
     EXPECT_THROW(mqtt::details::stream::num_varlen_int_bytes(268'435'456), std::runtime_error);
 }
 
-TEST(Stream, AsyncReadFixedHeader) {
-    namespace net = boost::asio;
-    net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
-
-    boost::beast::test::stream server(io);
-    stream.next_layer().connect(server);
-
-    net::async_write(server, net::buffer("\x20\x03\x00\x00", 4), [](auto...) {
-    });
-
-    boost::system::error_code final_ec;
-    mqtt::fixed_header header;
-
-    stream.async_read_fixed_header([&](boost::system::error_code ec, mqtt::fixed_header h) {
-        final_ec = ec;
-        header = h;
-    });
-
-    io.run();
-    EXPECT_FALSE(final_ec.failed());
-    EXPECT_EQ(header.first_byte, 0x20);
-    EXPECT_EQ(header.remaining_length, 0x03);
-}
-
-TEST(Stream, AsyncReadLargeFixedHeader) {
-    namespace net = boost::asio;
-    net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
-
-    boost::beast::test::stream server(io);
-    stream.next_layer().connect(server);
-
-    net::async_write(server, net::buffer("\x20\xFF\xFF\xFF\x7F", 5), [](auto...) {});
-
-    boost::system::error_code final_ec;
-    mqtt::fixed_header header;
-
-    stream.async_read_fixed_header([&](boost::system::error_code ec, mqtt::fixed_header h) {
-        final_ec = ec;
-        header = h;
-    });
-
-    io.run();
-    EXPECT_FALSE(final_ec.failed());
-    EXPECT_EQ(header.first_byte, 0x20);
-    EXPECT_EQ(header.remaining_length, 268'435'455);
-}
-
-TEST(Stream, AsyncReadBadFixedHeader) {
-    namespace net = boost::asio;
-    net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
-
-    boost::beast::test::stream server(io);
-    stream.next_layer().connect(server);
-
-    net::async_write(server, net::buffer("\x20\xFF\xFF\xFF\xFF", 5), [](auto...) {});
-
-    boost::system::error_code final_ec;
-    mqtt::fixed_header header;
-
-    stream.async_read_fixed_header([&](boost::system::error_code ec, mqtt::fixed_header h) {
-        final_ec = ec;
-        header = h;
-    });
-
-    io.run();
-    EXPECT_TRUE(final_ec.failed());
-}
-
-TEST(Stream, AsyncReadWeirdFixedHeader) {
-    namespace net = boost::asio;
-    net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
-
-    boost::beast::test::stream server(io);
-    stream.next_layer().connect(server);
-
-    net::async_write(server, net::buffer("\x20\x80\x80\x80\x00", 5), [](auto...) {});
-
-    boost::system::error_code final_ec;
-    mqtt::fixed_header header;
-
-    stream.async_read_fixed_header([&](boost::system::error_code ec, mqtt::fixed_header h) {
-        final_ec = ec;
-        header = h;
-    });
-
-    io.run();
-    EXPECT_FALSE(final_ec.failed());
-    EXPECT_EQ(header.first_byte, 0x20);
-    EXPECT_EQ(header.remaining_length, 0);
-}
-
 TEST(Stream, AsyncReadSmall) {
     namespace net = boost::asio;
     net::io_context io;
@@ -168,6 +73,87 @@ TEST(Stream, AsyncReadSmall) {
     EXPECT_EQ(header.remaining_length, 0x03);
 }
 
+TEST(Stream, AsyncReadLarge) {
+    namespace net = boost::asio;
+    net::io_context io;
+    mqtt::stream<boost::beast::test::stream> stream(io);
+
+    boost::beast::test::stream server(io);
+    stream.next_layer().connect(server);
+
+    net::async_write(server, net::buffer("\x20\x80\x80\x80\x01", 5), [](auto...) {
+    });
+
+    {
+        constexpr size_t block_size = 512;
+        std::shared_ptr<std::vector<uint8_t>> block(new std::vector<uint8_t>());
+        for (size_t j = 0; j < block_size; j++) {
+            block->push_back(j & 0x00FF);
+        }
+        for (size_t i = 0; i < 2'097'152; i += block_size) {
+            net::async_write(server, net::buffer(*block), [block](auto...) {
+            });
+        }
+    }
+
+    boost::system::error_code final_ec;
+    mqtt::fixed_header header;
+
+    mqtt::byte_buffer buf(0x20000000);
+    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+        final_ec = ec;
+        header = h;
+    });
+
+    io.run();
+    EXPECT_FALSE(final_ec.failed());
+    ASSERT_EQ(buf.size(), 2'097'152);
+
+    for (size_t i = 0; i < buf.size(); i++) {
+        ASSERT_EQ(buf[i], i & 0x00FF);
+    }
+
+    EXPECT_EQ(header.first_byte, 0x20);
+    EXPECT_EQ(header.remaining_length, 2'097'152);
+}
+
+TEST(Stream, AsyncReadBad) {
+    namespace net = boost::asio;
+    net::io_context io;
+    mqtt::stream<boost::beast::test::stream> stream(io);
+
+    boost::beast::test::stream server(io);
+    stream.next_layer().connect(server);
+
+    net::async_write(server, net::buffer("\x20\x80\x80\x80\x80", 5), [](auto...) {
+    });
+
+    {
+        constexpr size_t block_size = 512;
+        std::shared_ptr<std::vector<uint8_t>> block(new std::vector<uint8_t>());
+        for (size_t j = 0; j < block_size; j++) {
+            block->push_back(j & 0x00FF);
+        }
+        for (size_t i = 0; i < 2'097'152; i += block_size) {
+            net::async_write(server, net::buffer(*block), [block](auto...) {
+            });
+        }
+    }
+
+    boost::system::error_code final_ec;
+    mqtt::fixed_header header;
+
+    mqtt::byte_buffer buf(0x20000000);
+    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+        final_ec = ec;
+        header = h;
+    });
+
+    io.run();
+    EXPECT_TRUE(final_ec.failed());
+    EXPECT_EQ(buf.size(), 0);
+}
+
 TEST(Stream, AsyncReadEmpty) {
     namespace net = boost::asio;
     net::io_context io;
@@ -194,4 +180,55 @@ TEST(Stream, AsyncReadEmpty) {
 
     EXPECT_EQ(header.first_byte, 0x20);
     EXPECT_EQ(header.remaining_length, 0);
+}
+
+TEST(Stream, AsyncReadMultiple) {
+    namespace net = boost::asio;
+    net::io_context io;
+    mqtt::stream<boost::beast::test::stream> stream(io);
+
+    boost::beast::test::stream server(io);
+    stream.next_layer().connect(server);
+
+    net::async_write(server, net::buffer("\x20\x03\x40\x41\x42\x90\x04\x01\x02\x03\x04", 11), [](auto...) {
+    });
+
+    struct result {
+        boost::system::error_code final_ec;
+        mqtt::fixed_header header;
+
+        mqtt::byte_buffer buf = mqtt::byte_buffer(1024);
+    };
+
+    result results[2];
+
+    stream.async_read(results[0].buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+        results[0].final_ec = ec;
+        results[0].header = h;
+
+        stream.async_read(results[1].buf, [&](auto ec, auto h) {
+            results[1].final_ec = ec;
+            results[1].header = h;
+        });
+    });
+
+    io.run();
+    EXPECT_FALSE(results[0].final_ec.failed());
+    ASSERT_EQ(results[0].buf.size(), 3);
+    EXPECT_EQ(results[0].buf.at(0), 0x40);
+    EXPECT_EQ(results[0].buf.at(1), 0x41);
+    EXPECT_EQ(results[0].buf.at(2), 0x42);
+
+    EXPECT_EQ(results[0].header.first_byte, 0x20);
+    EXPECT_EQ(results[0].header.remaining_length, 0x03);
+
+    EXPECT_FALSE(results[1].final_ec.failed());
+    ASSERT_EQ(results[1].buf.size(), 4);
+    EXPECT_EQ(results[1].buf.at(0), 0x01);
+    EXPECT_EQ(results[1].buf.at(1), 0x02);
+    EXPECT_EQ(results[1].buf.at(2), 0x03);
+    EXPECT_EQ(results[1].buf.at(3), 0x04);
+
+    EXPECT_EQ(results[1].header.first_byte, 0x90);
+    EXPECT_EQ(results[1].header.remaining_length, 0x04);
 }

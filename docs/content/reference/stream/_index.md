@@ -23,7 +23,6 @@ to send data using the correct wire format.
 | Name                                                 | Description                                         |
 |------------------------------------------------------|-----------------------------------------------------|
 | [`async_read`](async_read)                           | Read a complete message asynchronously.             |
-| [`async_read_fixed_header`](async_read_fixed_header) | Read the fixed header of the next incoming message. |
 | [`async_write`](async_write)                         | Write a complete message asynchronously.            |
 | [`get_executor`](get_executor)                       | Get the executor associated with the object.        |
 | [`next_layer`](next_layer)                           | Get a reference to the next layer.                  |
