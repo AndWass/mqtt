@@ -16,9 +16,9 @@ namespace details {
 namespace stream {
 struct read_buffer {
 private:
-    static constexpr size_t capacity_ = 512;
     std::unique_ptr<uint8_t[]> storage_;
     std::size_t ready_to_read_ = 0;
+    std::size_t capacity_;
     uint8_t *out() {
         return storage_.get() + ready_to_read_;
     }
@@ -30,8 +30,8 @@ public:
     using const_buffers_type = boost::asio::const_buffer;
     using mutable_buffers_type = boost::asio::mutable_buffer;
 
-    read_buffer()
-        : storage_(std::make_unique<uint8_t[]>(capacity_)) {
+    explicit read_buffer(std::size_t capacity)
+        : storage_(std::make_unique<uint8_t[]>(capacity)), capacity_(capacity) {
     }
 
     boost::asio::mutable_buffer mutable_buffer() {

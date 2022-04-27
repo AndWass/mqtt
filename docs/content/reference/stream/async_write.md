@@ -28,9 +28,9 @@ therefore the first byte of `buffer` must be the first byte of the variable head
 
 ## Exceptions
 
-| Type               | Thrown on                                      |
-|--------------------|------------------------------------------------|
-| std::runtime_error | If `beast::buffer_bytes(buffer) > 268'435'455` |
+| Type                | Thrown on                                      |
+|---------------------|------------------------------------------------|
+| `std::length_error` | If `beast::buffer_bytes(buffer) > 268'435'455` |
 
 ## Parameters
 

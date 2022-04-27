@@ -44,8 +44,16 @@ public:
     using next_layer_type = NextLayer;
 
     template<class... Args>
+    explicit stream(std::size_t read_buffer_size, Args &&...args)
+        : read_buffer_(read_buffer_size), next_(std::forward<Args>(args)...) {
+        if (read_buffer_size < 5) {
+            throw std::length_error("The internal read buffer must be at least 5 bytes long");
+        }
+    }
+
+    template<class... Args>
     explicit stream(Args &&...args)
-        : next_(std::forward<Args>(args)...) {
+        : stream(size_t(1024), std::forward<Args>(args)...) {
     }
 
     executor_type get_executor() {
@@ -60,6 +68,17 @@ public:
         return next_;
     }
 
+    template<class DynamicBuffer, class ReadHandler>
+    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer, ReadHandler &&handler) {
+        return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
+            details::stream::read_op<NextLayer, DynamicBuffer>{
+                next_,
+                read_buffer_,
+                buffer,
+                {}},
+            handler, next_);
+    }
+
     template<class ConstBufferSequence, class WriteHandler>
     async_result_t<WriteHandler, system::error_code, size_t> async_write(uint8_t first_byte, const ConstBufferSequence &buffer, WriteHandler &&handler) {
         const size_t buffer_len = beast::buffer_bytes(buffer);
@@ -71,17 +90,6 @@ public:
                 fixed_header_write_buffer_.data(),
                 static_cast<uint8_t>(fixed_header_len),
                 next_,
-                buffer,
-                {}},
-            handler, next_);
-    }
-
-    template<class DynamicBuffer, class ReadHandler>
-    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer, ReadHandler &&handler) {
-        return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_op<NextLayer, DynamicBuffer>{
-                next_,
-                read_buffer_,
                 buffer,
                 {}},
             handler, next_);

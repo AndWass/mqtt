@@ -22,7 +22,7 @@ inline size_t num_varlen_int_bytes(uint32_t value) {
     } else if (value < 268'435'456) {
         return 4;
     }
-    throw std::runtime_error("Value cannot be encoded as varlen integer");
+    throw std::length_error("Value cannot be encoded as varlen integer");
 }
 
 inline void encode_varlen_int(uint32_t value, uint8_t *out) {

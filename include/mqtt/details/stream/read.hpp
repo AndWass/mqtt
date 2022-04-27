@@ -92,24 +92,23 @@ struct read_op {
                 }
             }
             if (!ec) {
+                // At this point we know that the internal buffer contains a valid fixed header.
                 header_ = consume_fixed_header(ec);
                 if (!ec) {
-                    if (internal_buffer_.readable_area().size() >= header_.remaining_length) {
-                        boost::asio::buffer_copy(user_buffer_.prepare(header_.remaining_length), internal_buffer_.const_buffer(), header_.remaining_length);
-                        user_buffer_.commit(header_.remaining_length);
-                        internal_buffer_.consume(header_.remaining_length);
-                    } else {
-                        payload_left_to_read_ = header_.remaining_length - internal_buffer_.readable_area().size();
-                        boost::asio::buffer_copy(user_buffer_.prepare(internal_buffer_.readable_area().size()),
-                                                 internal_buffer_.const_buffer(), internal_buffer_.readable_area().size());
-                        user_buffer_.commit(internal_buffer_.readable_area().size());
-                        internal_buffer_.consume(internal_buffer_.readable_area().size());
-                        while (payload_left_to_read_ > 0) {
-                            BOOST_ASIO_CORO_YIELD stream_.async_read_some(user_buffer_.prepare(payload_left_to_read_),
-                                                                          boost::beast::bind_front_handler(std::move(self), user_buffer_tag{}));
-                            if (ec) {
-                                break;
-                            }
+                    {
+                        const size_t amount_to_copy = (std::min<size_t>)(internal_buffer_.size(), header_.remaining_length);
+                        payload_left_to_read_ = header_.remaining_length - amount_to_copy;
+                        if (amount_to_copy > 0) {
+                            boost::asio::buffer_copy(user_buffer_.prepare(amount_to_copy), internal_buffer_.const_buffer(), amount_to_copy);
+                            user_buffer_.commit(amount_to_copy);
+                            internal_buffer_.consume(amount_to_copy);
+                        }
+                    }
+                    while (payload_left_to_read_ > 0) {
+                        BOOST_ASIO_CORO_YIELD stream_.async_read_some(user_buffer_.prepare(payload_left_to_read_),
+                                                                      boost::beast::bind_front_handler(std::move(self), user_buffer_tag{}));
+                        if (ec) {
+                            break;
                         }
                     }
                 }

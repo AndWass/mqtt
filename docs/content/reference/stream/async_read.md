@@ -12,14 +12,15 @@ This function is used to asynchronously read a complete message.
 This call always returns immediately. The asynchronous operation will
 continue until one of the following conditions is true:
 
-* A complete message is received
+* A complete message is received.
 * An error occurs.
 
 The algorithm, known as a composed asynchronous operation,
-is implemented in terms of calls to the next layer's async_read_some.
-The program must ensure that no other calls to `async_read` or
-`async_read_fixed_header` are performed until this operation
-completes. Received message data is appended to the buffer.
+is implemented in terms of calls to the next layers async_read_some.
+The program must ensure that no other calls to `async_read` are
+performed until this operation completes.
+Received message data is appended to the buffer, starting with the first byte
+of the variable header.
 
 ## Parameters
 
