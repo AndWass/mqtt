@@ -8,8 +8,11 @@
 <meta name="generator" content="Hugo 0.97.3" />
 
 
+  <meta name="description" content="template&lt;class WriteHandler&gt; DEDUCED async_write_short(uint8_t first_byte, std::array&lt;uint8_t, 3&gt; payload, uint8_t payload_length, WriteHandler &amp;&amp;handler) This is a helper function that utilizes the internal fixed header write buffer to write short messages, with a payload no greater than 3 bytes.
+This is useful for sending things like PINGREQ or other short control frames that can be sent without having to go through a secondary buffer.
+Exceptions        Type Thrown on     std::length_error If payload_length &gt; payload." />
 
-    <title>Async MQTT</title>
+    <title>mqtt::stream::async_write_short | Async MQTT</title>
 
     <link rel="icon" type="image/svg+xml" href="/mqtt/favicon/favicon.svg" />
 <link
@@ -28,24 +31,59 @@
     
 
     
+  <meta
+    property="og:title"
+    content="mqtt::stream::async_write_short"
+  />
   <meta property="og:site_name" content="Async MQTT" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://andwass.github.io/mqtt/" />
+  <meta property="og:description" content="template&lt;class WriteHandler&gt; DEDUCED async_write_short(uint8_t first_byte, std::array&lt;uint8_t, 3&gt; payload, uint8_t payload_length, WriteHandler &amp;&amp;handler) This is a helper function that utilizes the internal fixed header write buffer to write short messages, with a payload no greater than 3 bytes.
+This is useful for sending things like PINGREQ or other short control frames that can be sent without having to go through a secondary buffer.
+Exceptions        Type Thrown on     std::length_error If payload_length &gt; payload." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://andwass.github.io/mqtt/reference/stream/async_write_short/" />
 
-
+<meta property="article:section" content="Reference" />
 
 
   <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Async MQTT" />
+<meta name="twitter:title" content="mqtt::stream::async_write_short" />
+  <meta name="twitter:description" content="template&lt;class WriteHandler&gt; DEDUCED async_write_short(uint8_t first_byte, std::array&lt;uint8_t, 3&gt; payload, uint8_t payload_length, WriteHandler &amp;&amp;handler) This is a helper function that utilizes the internal fixed header write buffer to write short messages, with a payload no greater than 3 bytes.
+This is useful for sending things like PINGREQ or other short control frames that can be sent without having to go through a secondary buffer.
+Exceptions        Type Thrown on     std::length_error If payload_length &gt; payload." />
 
 
   <script type="application/ld+json">
   {
       "@context": "http://schema.org",
-      "@type": "WebSite",
-      "name": "Async MQTT",
-      "url": "https://andwass.github.io/mqtt",
-      "inLanguage": "en"
+      "@type": "TechArticle",
+      "articleSection": "Reference",
+      "name": "mqtt::stream::async_write_short",
+      "url" : "https://andwass.github.io/mqtt/reference/stream/async_write_short/",
+      "headline": "mqtt::stream::async_write_short",
+      "description": "template\u003cclass WriteHandler\u003e DEDUCED async_write_short(uint8_t first_byte, std::array\u003cuint8_t, 3\u003e payload, uint8_t payload_length, WriteHandler \u0026\u0026handler) This is a helper function that utilizes the internal fixed header write buffer to write short messages, with a payload no greater than 3 bytes.\nThis is useful for sending things like PINGREQ or other short control frames that can be sent without having to go through a secondary buffer.\nExceptions        Type Thrown on     std::length_error If payload_length \u003e payload.",
+      "wordCount" : "190",
+      "inLanguage": "en",
+      "isFamilyFriendly": "true",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://andwass.github.io/mqtt/reference/stream/async_write_short/"
+      },
+      "copyrightHolder" : "Async MQTT",
+      "copyrightYear" : "0001",
+      "dateCreated": "0001-01-01T00:00:00.00Z",
+      "datePublished": "0001-01-01T00:00:00.00Z",
+      "dateModified": "0001-01-01T00:00:00.00Z",
+      "publisher":{
+          "@type":"Organization",
+          "name": "Async MQTT",
+          "url": "https://andwass.github.io/mqtt",
+          "logo": {
+              "@type": "ImageObject",
+              "url": "https://andwass.github.io/mqtt/brand.svg",
+              "width":"32",
+              "height":"32"
+          }
+      }
   }
   </script>
 
@@ -110,7 +148,7 @@
   href="/mqtt/custom.css"
   media="all"
 />
-  <link href="https://andwass.github.io/mqtt/" rel="canonical" type="text/html" />
+  <link href="https://andwass.github.io/mqtt/reference/stream/async_write_short/" rel="canonical" type="text/html" />
 
 <!-- Made with Geekdoc theme https://github.com/thegeeklab/hugo-geekdoc -->
 
@@ -268,7 +306,7 @@
               type="checkbox"
               
                 class="gdoc-nav__toggle" id="navtree-77a68170"
-                
+                checked
               
             />
             <label
@@ -444,7 +482,31 @@
         
   
   
-    <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>Async MQTT</span><meta itemprop='position' content='2' /></li>
+    
+    
+    
+    
+  
+  
+    
+    
+    
+    
+  
+  
+    
+    
+    
+    
+  
+  
+    <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/' href='/mqtt/'><span itemprop='name'>Async MQTT</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/' href='/mqtt/reference/'><span itemprop='name'>Reference</span></a><meta itemprop='position' content='3' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/stream/' href='/mqtt/reference/stream/'><span itemprop='name'>mqtt::stream</span></a><meta itemprop='position' content='4' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>mqtt::stream::async_write_short</span><meta itemprop='position' content='5' /></li>
+  
+
+  
+
+  
+
   
 
       </ol>
@@ -458,8 +520,100 @@
   <article
     class="gdoc-markdown gdoc-markdown__align--left"
   >
-    <h1>Async MQTT</h1>
-    
+    <h1>mqtt::stream::async_write_short</h1>
+    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">WriteHandler</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEDUCED</span> <span class="n">async_write_short</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">first_byte</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">payload</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                          <span class="kt">uint8_t</span> <span class="n">payload_length</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">WriteHandler</span> <span class="o">&amp;&amp;</span><span class="n">handler</span><span class="p">)</span>
+</span></span></code></pre></div><p>This is a helper function that utilizes the internal fixed header write buffer
+to write short messages, with a payload no greater than 3 bytes.</p>
+<p>This is useful for sending things
+like <a
+  class="gdoc-markdown__link"
+  href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718081"
+  
+>PINGREQ</a>
+or other short control frames that can be sent without having to go through a secondary
+buffer.</p>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="exceptions">
+        Exceptions
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write_short/#exceptions" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Exceptions" aria-label="Anchor to: Exceptions" href="#exceptions">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div>
+<div class=table-wrap> <table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Thrown on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std::length_error</code></td>
+<td>If <code>payload_length &gt; payload.size()</code>.</td>
+</tr>
+</tbody>
+</table> </div>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="parameters">
+        Parameters
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write_short/#parameters" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Parameters" aria-label="Anchor to: Parameters" href="#parameters">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="first_byte">
+        <code>first_byte</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write_short/#first_byte" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: first_byte" aria-label="Anchor to: first_byte" href="#first_byte">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>The first byte of the MQTT message. The first byte contains the control packet type
+and flags.</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="payload">
+        <code>payload</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write_short/#payload" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: payload" aria-label="Anchor to: payload" href="#payload">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>The payload to send.</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="payload_length">
+        <code>payload_length</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write_short/#payload_length" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: payload_length" aria-label="Anchor to: payload_length" href="#payload_length">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>Number of payload bytes to actually send.</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="handler">
+        <code>handler</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/async_write_short/#handler" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: handler" aria-label="Anchor to: handler" href="#handler">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>The completion handler to invoke when the operation completes.
+The implementation takes ownership of the handler by performing a decay-copy.
+The equivalent function signature of the handler must be:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">handler</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="n">error_code</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">ec</span><span class="p">,</span>           <span class="c1">// Result of operation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">bytes_transferred</span>   <span class="c1">// Total number of bytes sent
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="c1">// including complete fixed header.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">);</span>
+</span></span></code></pre></div><p>Regardless of whether the asynchronous operation completes immediately or not,
+the handler will not be invoked from within this function. Invocation of the
+handler will be performed in a manner equivalent to using net::post.</p>
+
   </article>
 
 

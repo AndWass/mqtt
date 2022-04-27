@@ -10,9 +10,9 @@
   </url><url>
     <loc>https://andwass.github.io/mqtt/reference/stream/async_read/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/async_read_fixed_header/</loc>
-  </url><url>
     <loc>https://andwass.github.io/mqtt/reference/stream/async_write/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/stream/async_write_short/</loc>
   </url><url>
     <loc>https://andwass.github.io/mqtt/reference/stream/executor_type/</loc>
   </url><url>
@@ -21,6 +21,8 @@
     <loc>https://andwass.github.io/mqtt/reference/stream/next_layer/</loc>
   </url><url>
     <loc>https://andwass.github.io/mqtt/reference/stream/next_layer_type/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/stream/reset/</loc>
   </url><url>
     <loc>https://andwass.github.io/mqtt/reference/stream/constructors/</loc>
   </url><url>

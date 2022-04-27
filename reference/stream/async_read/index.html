@@ -9,7 +9,7 @@
 
 
   <meta name="description" content="template&lt;class DynamicBuffer, class ReadHandler&gt; DEDUCED async_read(DynamicBuffer &amp;buffer, ReadHandler &amp;&amp;handler); This function is used to asynchronously read a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
- A complete message is received An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layer&rsquo;s async_read_some. The program must ensure that no other calls to async_read or async_read_fixed_header are performed until this operation completes." />
+ A complete message is received. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_read_some. The program must ensure that no other calls to async_read are performed until this operation completes." />
 
     <title>mqtt::stream::async_read | Async MQTT</title>
 
@@ -36,7 +36,7 @@
   />
   <meta property="og:site_name" content="Async MQTT" />
   <meta property="og:description" content="template&lt;class DynamicBuffer, class ReadHandler&gt; DEDUCED async_read(DynamicBuffer &amp;buffer, ReadHandler &amp;&amp;handler); This function is used to asynchronously read a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
- A complete message is received An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layer’s async_read_some. The program must ensure that no other calls to async_read or async_read_fixed_header are performed until this operation completes." />
+ A complete message is received. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_read_some. The program must ensure that no other calls to async_read are performed until this operation completes." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://andwass.github.io/mqtt/reference/stream/async_read/" />
 
@@ -46,7 +46,7 @@
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="mqtt::stream::async_read" />
   <meta name="twitter:description" content="template&lt;class DynamicBuffer, class ReadHandler&gt; DEDUCED async_read(DynamicBuffer &amp;buffer, ReadHandler &amp;&amp;handler); This function is used to asynchronously read a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
- A complete message is received An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layer’s async_read_some. The program must ensure that no other calls to async_read or async_read_fixed_header are performed until this operation completes." />
+ A complete message is received. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_read_some. The program must ensure that no other calls to async_read are performed until this operation completes." />
 
 
   <script type="application/ld+json">
@@ -57,8 +57,8 @@
       "name": "mqtt::stream::async_read",
       "url" : "https://andwass.github.io/mqtt/reference/stream/async_read/",
       "headline": "mqtt::stream::async_read",
-      "description": "template\u003cclass DynamicBuffer, class ReadHandler\u003e DEDUCED async_read(DynamicBuffer \u0026buffer, ReadHandler \u0026\u0026handler); This function is used to asynchronously read a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:\n A complete message is received An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layer’s async_read_some. The program must ensure that no other calls to async_read or async_read_fixed_header are performed until this operation completes.",
-      "wordCount" : "203",
+      "description": "template\u003cclass DynamicBuffer, class ReadHandler\u003e DEDUCED async_read(DynamicBuffer \u0026buffer, ReadHandler \u0026\u0026handler); This function is used to asynchronously read a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:\n A complete message is received. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_read_some. The program must ensure that no other calls to async_read are performed until this operation completes.",
+      "wordCount" : "210",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -409,6 +409,8 @@
       
         
       
+        
+      
     
   </ul>
 
@@ -522,14 +524,15 @@
 This call always returns immediately. The asynchronous operation will
 continue until one of the following conditions is true:</p>
 <ul>
-<li>A complete message is received</li>
+<li>A complete message is received.</li>
 <li>An error occurs.</li>
 </ul>
 <p>The algorithm, known as a composed asynchronous operation,
-is implemented in terms of calls to the next layer&rsquo;s async_read_some.
-The program must ensure that no other calls to <code>async_read</code> or
-<code>async_read_fixed_header</code> are performed until this operation
-completes. Received message data is appended to the buffer.</p>
+is implemented in terms of calls to the next layers async_read_some.
+The program must ensure that no other calls to <code>async_read</code> are
+performed until this operation completes.
+Received message data is appended to the buffer, starting with the first byte
+of the variable header.</p>
 <div class="gdoc-page__anchorwrap">
     <h2 id="parameters">
         Parameters

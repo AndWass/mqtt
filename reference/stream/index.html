@@ -8,7 +8,7 @@
 <meta name="generator" content="Hugo 0.97.3" />
 
 
-  <meta name="description" content="mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.
+  <meta name="description" content="template&lt;class NextLayer&gt; class stream; mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.
 No validation of the validity of messages is done, it simply makes sure to send data using the correct wire format.
 Types        Name Description     executor_type The type of executor associated with the stream   next_layer_type The type of the next layer stream     Member functions        Name Description     async_read Read a complete message asynchronously." />
 
@@ -36,7 +36,7 @@ Types        Name Description     executor_type The type of executor associated 
     content="mqtt::stream"
   />
   <meta property="og:site_name" content="Async MQTT" />
-  <meta property="og:description" content="mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.
+  <meta property="og:description" content="template&lt;class NextLayer&gt; class stream; mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.
 No validation of the validity of messages is done, it simply makes sure to send data using the correct wire format.
 Types        Name Description     executor_type The type of executor associated with the stream   next_layer_type The type of the next layer stream     Member functions        Name Description     async_read Read a complete message asynchronously." />
 <meta property="og:type" content="article" />
@@ -47,7 +47,7 @@ Types        Name Description     executor_type The type of executor associated 
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="mqtt::stream" />
-  <meta name="twitter:description" content="mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.
+  <meta name="twitter:description" content="template&lt;class NextLayer&gt; class stream; mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.
 No validation of the validity of messages is done, it simply makes sure to send data using the correct wire format.
 Types        Name Description     executor_type The type of executor associated with the stream   next_layer_type The type of the next layer stream     Member functions        Name Description     async_read Read a complete message asynchronously." />
 
@@ -60,8 +60,8 @@ Types        Name Description     executor_type The type of executor associated 
       "name": "mqtt::stream",
       "url" : "https://andwass.github.io/mqtt/reference/stream/",
       "headline": "mqtt::stream",
-      "description": "mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.\nNo validation of the validity of messages is done, it simply makes sure to send data using the correct wire format.\nTypes        Name Description     executor_type The type of executor associated with the stream   next_layer_type The type of the next layer stream     Member functions        Name Description     async_read Read a complete message asynchronously.",
-      "wordCount" : "106",
+      "description": "template\u003cclass NextLayer\u003e class stream; mqtt::stream is a low level stream to read and write MQTT messages on the binary format specified by the MQTT standard.\nNo validation of the validity of messages is done, it simply makes sure to send data using the correct wire format.\nTypes        Name Description     executor_type The type of executor associated with the stream   next_layer_type The type of the next layer stream     Member functions        Name Description     async_read Read a complete message asynchronously.",
+      "wordCount" : "110",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -412,6 +412,8 @@ Types        Name Description     executor_type The type of executor associated 
       
         
       
+        
+      
     
   </ul>
 
@@ -511,7 +513,9 @@ Types        Name Description     executor_type The type of executor associated 
     class="gdoc-markdown gdoc-markdown__align--left"
   >
     <h1>mqtt::stream</h1>
-    <p><code>mqtt::stream</code> is a low level stream to read and write MQTT messages on
+    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">NextLayer</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">stream</span><span class="p">;</span>
+</span></span></code></pre></div><p><code>mqtt::stream</code> is a low level stream to read and write MQTT messages on
 the binary format specified by
 the <a
   class="gdoc-markdown__link"
@@ -582,14 +586,6 @@ to send data using the correct wire format.</p>
 <tr>
 <td><a
   class="gdoc-markdown__link--code"
-  href="async_read_fixed_header"
-  
-><code>async_read_fixed_header</code></a></td>
-<td>Read the fixed header of the next incoming message.</td>
-</tr>
-<tr>
-<td><a
-  class="gdoc-markdown__link--code"
   href="async_write"
   
 ><code>async_write</code></a></td>
@@ -610,6 +606,14 @@ to send data using the correct wire format.</p>
   
 ><code>next_layer</code></a></td>
 <td>Get a reference to the next layer.</td>
+</tr>
+<tr>
+<td><a
+  class="gdoc-markdown__link--code"
+  href="reset"
+  
+><code>reset</code></a></td>
+<td>Reset the stream to prepare for a new connection.</td>
 </tr>
 <tr>
 <td><a

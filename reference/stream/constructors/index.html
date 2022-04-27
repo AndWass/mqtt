@@ -8,9 +8,8 @@
 <meta name="generator" content="Hugo 0.97.3" />
 
 
-  <meta name="description" content="Overload 1 of 2     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
- Overload 2 of 2     template&lt;class...Args&gt; explicit stream(Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args....
-Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer constructor." />
+  <meta name="description" content="Overload 1 of 3     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
+ Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size." />
 
     <title>mqtt::stream::stream | Async MQTT</title>
 
@@ -36,9 +35,8 @@ Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer cons
     content="mqtt::stream::stream"
   />
   <meta property="og:site_name" content="Async MQTT" />
-  <meta property="og:description" content="Overload 1 of 2     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
- Overload 2 of 2     template&lt;class...Args&gt; explicit stream(Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args....
-Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer constructor." />
+  <meta property="og:description" content="Overload 1 of 3     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
+ Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://andwass.github.io/mqtt/reference/stream/constructors/" />
 
@@ -47,9 +45,8 @@ Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer cons
 
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="mqtt::stream::stream" />
-  <meta name="twitter:description" content="Overload 1 of 2     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
- Overload 2 of 2     template&lt;class...Args&gt; explicit stream(Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args....
-Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer constructor." />
+  <meta name="twitter:description" content="Overload 1 of 3     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
+ Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size." />
 
 
   <script type="application/ld+json">
@@ -60,8 +57,8 @@ Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer cons
       "name": "mqtt::stream::stream",
       "url" : "https://andwass.github.io/mqtt/reference/stream/constructors/",
       "headline": "mqtt::stream::stream",
-      "description": "Overload 1 of 2     stream(stream\u0026\u0026); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.\n Overload 2 of 2     template\u003cclass...Args\u003e explicit stream(Args\u0026\u0026...args); Create an MQTT stream and construct the NextLayer type using args....\nExceptions        Type Thrown on     Any exceptions thrown by the NextLayer constructor.",
-      "wordCount" : "85",
+      "description": "Overload 1 of 3     stream(stream\u0026\u0026); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.\n Overload 2 of 3     template\u003cclass...Args\u003e explicit stream(size_t read_buffer_size, Args\u0026\u0026...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size.",
+      "wordCount" : "175",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -412,6 +409,8 @@ Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer cons
       
         
       
+        
+      
     
   </ul>
 
@@ -520,9 +519,9 @@ Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer cons
   >
     <h1>mqtt::stream::stream</h1>
     <div class="gdoc-page__anchorwrap">
-    <h2 id="overload-1-of-2">
-        Overload 1 of 2
-        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#overload-1-of-2" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Overload 1 of 2" aria-label="Anchor to: Overload 1 of 2" href="#overload-1-of-2">
+    <h2 id="overload-1-of-3">
+        Overload 1 of 3
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#overload-1-of-3" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Overload 1 of 3" aria-label="Anchor to: Overload 1 of 3" href="#overload-1-of-3">
             <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
         </a>
     </h2>
@@ -532,20 +531,87 @@ Exceptions        Type Thrown on     Any exceptions thrown by the NextLayer cons
 After the move, the only valid operation on the moved-from object is destruction.</p>
 <hr>
 <div class="gdoc-page__anchorwrap">
-    <h2 id="overload-2-of-2">
-        Overload 2 of 2
-        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#overload-2-of-2" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Overload 2 of 2" aria-label="Anchor to: Overload 2 of 2" href="#overload-2-of-2">
+    <h2 id="overload-2-of-3">
+        Overload 2 of 3
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#overload-2-of-3" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Overload 2 of 3" aria-label="Anchor to: Overload 2 of 3" href="#overload-2-of-3">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="nc">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">explicit</span> <span class="n">stream</span><span class="p">(</span><span class="n">size_t</span> <span class="n">read_buffer_size</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="n">args</span><span class="p">);</span>
+</span></span></code></pre></div><p>Create an MQTT stream and construct the <code>NextLayer</code> type using <code>args...</code>. The size
+of the internal read buffer is controlled by <code>read_buffer_size</code>.</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="exceptions">
+        Exceptions
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#exceptions" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Exceptions" aria-label="Anchor to: Exceptions" href="#exceptions">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<div class=table-wrap> <table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Thrown on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>std::length_error</code></td>
+<td>If <code>read_buffer_size &lt; 5</code>.</td>
+</tr>
+<tr>
+<td>Any</td>
+<td>exceptions thrown by the NextLayer constructor.</td>
+</tr>
+</tbody>
+</table> </div>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="parameters">
+        Parameters
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#parameters" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Parameters" aria-label="Anchor to: Parameters" href="#parameters">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<div class="gdoc-page__anchorwrap">
+    <h4 id="read_buffer_size">
+        <code>read_buffer_size</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#read_buffer_size" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: read_buffer_size" aria-label="Anchor to: read_buffer_size" href="#read_buffer_size">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div>
+<p>The size of the internal read buffer. Must be at least 5.</p>
+<div class="gdoc-page__anchorwrap">
+    <h4 id="args">
+        <code>args</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#args" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: args" aria-label="Anchor to: args" href="#args">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div>
+<p>The arguments to be passed to initialize the next layer object.
+The arguments are forwarded to the next layers constructor.</p>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="overload-3-of-3">
+        Overload 3 of 3
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#overload-3-of-3" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Overload 3 of 3" aria-label="Anchor to: Overload 3 of 3" href="#overload-3-of-3">
             <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
         </a>
     </h2>
 </div>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="nc">Args</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">explicit</span> <span class="n">stream</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="n">args</span><span class="p">);</span>
-</span></span></code></pre></div><p>Create an MQTT stream and construct the <code>NextLayer</code> type using <code>args...</code>.</p>
+</span></span></code></pre></div><p>Create an MQTT stream and construct the <code>NextLayer</code> type using <code>args...</code>. Uses a default
+internal buffer of 1024 bytes.</p>
 <div class="gdoc-page__anchorwrap">
-    <h3 id="exceptions">
+    <h3 id="exceptions-1">
         Exceptions
-        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#exceptions" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Exceptions" aria-label="Anchor to: Exceptions" href="#exceptions">
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#exceptions-1" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Exceptions" aria-label="Anchor to: Exceptions" href="#exceptions-1">
             <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
         </a>
     </h3>
@@ -565,17 +631,17 @@ After the move, the only valid operation on the moved-from object is destruction
 </tbody>
 </table> </div>
 <div class="gdoc-page__anchorwrap">
-    <h3 id="parameters">
+    <h3 id="parameters-1">
         Parameters
-        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#parameters" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Parameters" aria-label="Anchor to: Parameters" href="#parameters">
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#parameters-1" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Parameters" aria-label="Anchor to: Parameters" href="#parameters-1">
             <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
         </a>
     </h3>
 </div>
 <div class="gdoc-page__anchorwrap">
-    <h4 id="args">
+    <h4 id="args-1">
         <code>args</code>
-        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#args" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: args" aria-label="Anchor to: args" href="#args">
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#args-1" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: args" aria-label="Anchor to: args" href="#args-1">
             <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
         </a>
     </h4>
