@@ -95,6 +95,21 @@ public:
             handler, next_);
     }
 
+    template<class WriteHandler>
+    async_result_t<WriteHandler, system::error_code, size_t> async_write_short(uint8_t first_byte,
+                                                                               std::array<uint8_t, 3> payload,
+                                                                               uint8_t payload_length,
+                                                                               WriteHandler &&handler) {
+        if (payload_length > payload.size()) {
+            throw std::length_error("Payload length can not be greater than payload size");
+        }
+        fixed_header_write_buffer_[0] = first_byte;
+        fixed_header_write_buffer_[1] = payload_length;
+        std::copy(payload.begin(), payload.begin() + payload_length, fixed_header_write_buffer_.begin() + 2);
+        return details::stream::async_write(next_, asio::buffer(fixed_header_write_buffer_.data(), 2 + payload_length),
+                                            std::forward<WriteHandler>(handler));
+    }
+
     void reset() {
         read_buffer_.reset();
     }
