@@ -25,12 +25,13 @@ to send data using the correct wire format.
 
 ## Member functions
 
-| Name                           | Description                                       |
-|--------------------------------|---------------------------------------------------|
-| [`async_read`](async_read)     | Read a complete message asynchronously.           |
-| [`async_write`](async_write)   | Write a complete message asynchronously.          |
-| [`get_executor`](get_executor) | Get the executor associated with the object.      |
-| [`next_layer`](next_layer)     | Get a reference to the next layer.                |
-| [`reset`](reset)               | Reset the stream to prepare for a new connection. |
-| [`stream`](constructors)       | Constructor.                                      |
+| Name                                       | Description                                       |
+|--------------------------------------------|---------------------------------------------------|
+| [`async_read`](async_read)                 | Read a complete message asynchronously.           |
+| [`async_write`](async_write)               | Write a complete message asynchronously.          |
+| [`async_write_short`](async_write_short)   | Write a short message asynchronously.             |
+| [`get_executor`](get_executor)             | Get the executor associated with the object.      |
+| [`next_layer`](next_layer)                 | Get a reference to the next layer.                |
+| [`reset`](reset)                           | Reset the stream to prepare for a new connection. |
+| [`stream`](constructors)                   | Constructor.                                      |
 
