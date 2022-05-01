@@ -5,7 +5,7 @@
 <meta name="referrer" content="no-referrer" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light dark" />
-<meta name="generator" content="Hugo 0.97.3" />
+<meta name="generator" content="Hugo 0.98.0" />
 
 
   <meta name="description" content="template&lt;class ConstBufferSequence, class WriteHandler&gt; DEDUCED async_write(uint8_t first_byte, const ConstBufferSequence &amp;buffer, WriteHandler &amp;&amp;handler); This function is used to asynchronously write a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
@@ -58,7 +58,7 @@
       "url" : "https://andwass.github.io/mqtt/reference/stream/async_write/",
       "headline": "mqtt::stream::async_write",
       "description": "template\u003cclass ConstBufferSequence, class WriteHandler\u003e DEDUCED async_write(uint8_t first_byte, const ConstBufferSequence \u0026buffer, WriteHandler \u0026\u0026handler); This function is used to asynchronously write a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:\n The complete message is written. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_write_some function. The program must ensure that no other calls to async_write are performed until this operation completes.",
-      "wordCount" : "295",
+      "wordCount" : "348",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -85,7 +85,7 @@
   </script>
 
 
-    <script src="/mqtt/js/main-88a42144.bundle.min.js"></script>
+    <script src="/mqtt/js/main-2c9620b6.bundle.min.js"></script>
 
 <link
   rel="preload"
@@ -409,8 +409,6 @@
       
         
       
-        
-      
     
   </ul>
 
@@ -536,6 +534,10 @@ are performed until this operation completes.</p>
 <p>The variable length field of the fixed header is calculated internally,
 therefore the first byte of <code>buffer</code> must be the first byte of the variable header
 (if any) or payload (if any).</p>
+<p>If the entire message, including the fixed header, fits inside the internal write buffer
+the data will be copied from <code>buffer</code> to the internal write buffer before writing the
+data to the stream. Otherwise, the write will be done in two stages; first writing the
+fixed header and then the data in <code>buffer</code>.</p>
 <div class="gdoc-page__anchorwrap">
     <h2 id="exceptions">
         Exceptions

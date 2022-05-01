@@ -5,11 +5,11 @@
 <meta name="referrer" content="no-referrer" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light dark" />
-<meta name="generator" content="Hugo 0.97.3" />
+<meta name="generator" content="Hugo 0.98.0" />
 
 
   <meta name="description" content="Overload 1 of 3     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
- Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size." />
+ Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, size_t write_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size, and the size of the internal write buffer is controlled by write_buffer_size." />
 
     <title>mqtt::stream::stream | Async MQTT</title>
 
@@ -36,7 +36,7 @@
   />
   <meta property="og:site_name" content="Async MQTT" />
   <meta property="og:description" content="Overload 1 of 3     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
- Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size." />
+ Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, size_t write_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size, and the size of the internal write buffer is controlled by write_buffer_size." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://andwass.github.io/mqtt/reference/stream/constructors/" />
 
@@ -46,7 +46,7 @@
   <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="mqtt::stream::stream" />
   <meta name="twitter:description" content="Overload 1 of 3     stream(stream&amp;&amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
- Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size." />
+ Overload 2 of 3     template&lt;class...Args&gt; explicit stream(size_t read_buffer_size, size_t write_buffer_size, Args&amp;&amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size, and the size of the internal write buffer is controlled by write_buffer_size." />
 
 
   <script type="application/ld+json">
@@ -57,8 +57,8 @@
       "name": "mqtt::stream::stream",
       "url" : "https://andwass.github.io/mqtt/reference/stream/constructors/",
       "headline": "mqtt::stream::stream",
-      "description": "Overload 1 of 3     stream(stream\u0026\u0026); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.\n Overload 2 of 3     template\u003cclass...Args\u003e explicit stream(size_t read_buffer_size, Args\u0026\u0026...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size.",
-      "wordCount" : "175",
+      "description": "Overload 1 of 3     stream(stream\u0026\u0026); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.\n Overload 2 of 3     template\u003cclass...Args\u003e explicit stream(size_t read_buffer_size, size_t write_buffer_size, Args\u0026\u0026...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size, and the size of the internal write buffer is controlled by write_buffer_size.",
+      "wordCount" : "205",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
@@ -85,7 +85,7 @@
   </script>
 
 
-    <script src="/mqtt/js/main-88a42144.bundle.min.js"></script>
+    <script src="/mqtt/js/main-2c9620b6.bundle.min.js"></script>
 
 <link
   rel="preload"
@@ -409,8 +409,6 @@
       
         
       
-        
-      
     
   </ul>
 
@@ -539,9 +537,10 @@ After the move, the only valid operation on the moved-from object is destruction
     </h2>
 </div>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="nc">Args</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">explicit</span> <span class="n">stream</span><span class="p">(</span><span class="n">size_t</span> <span class="n">read_buffer_size</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="n">args</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">explicit</span> <span class="n">stream</span><span class="p">(</span><span class="n">size_t</span> <span class="n">read_buffer_size</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">write_buffer_size</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="n">args</span><span class="p">);</span>
 </span></span></code></pre></div><p>Create an MQTT stream and construct the <code>NextLayer</code> type using <code>args...</code>. The size
-of the internal read buffer is controlled by <code>read_buffer_size</code>.</p>
+of the internal read buffer is controlled by <code>read_buffer_size</code>, and the size of
+the internal write buffer is controlled by <code>write_buffer_size</code>.</p>
 <div class="gdoc-page__anchorwrap">
     <h3 id="exceptions">
         Exceptions
@@ -560,7 +559,7 @@ of the internal read buffer is controlled by <code>read_buffer_size</code>.</p>
 <tbody>
 <tr>
 <td><code>std::length_error</code></td>
-<td>If <code>read_buffer_size &lt; 5</code>.</td>
+<td>If <code>read_buffer_size &lt; 5 or write_buffer_size &lt; 5</code>.</td>
 </tr>
 <tr>
 <td>Any</td>
@@ -586,6 +585,15 @@ of the internal read buffer is controlled by <code>read_buffer_size</code>.</p>
 </div>
 <p>The size of the internal read buffer. Must be at least 5.</p>
 <div class="gdoc-page__anchorwrap">
+    <h4 id="write_buffer_size">
+        <code>write_buffer_size</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#write_buffer_size" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: write_buffer_size" aria-label="Anchor to: write_buffer_size" href="#write_buffer_size">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div>
+<p>The size of the internal write buffer. Must be at least 5.</p>
+<div class="gdoc-page__anchorwrap">
     <h4 id="args">
         <code>args</code>
         <a data-clipboard-text="https://andwass.github.io/mqtt/reference/stream/constructors/#args" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: args" aria-label="Anchor to: args" href="#args">
@@ -606,8 +614,8 @@ The arguments are forwarded to the next layers constructor.</p>
 </div>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="nc">Args</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">explicit</span> <span class="n">stream</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="n">args</span><span class="p">);</span>
-</span></span></code></pre></div><p>Create an MQTT stream and construct the <code>NextLayer</code> type using <code>args...</code>. Uses a default
-internal buffer of 1024 bytes.</p>
+</span></span></code></pre></div><p>Create an MQTT stream and construct the <code>NextLayer</code> type using <code>args...</code>. Uses default
+internal buffers of 1024 bytes.</p>
 <div class="gdoc-page__anchorwrap">
     <h3 id="exceptions-1">
         Exceptions

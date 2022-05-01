@@ -27,17 +27,6 @@
     </item>
     
     <item>
-      <title>mqtt::stream::async_write_short</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/async_write_short/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://andwass.github.io/mqtt/reference/stream/async_write_short/</guid>
-      <description>template&amp;lt;class WriteHandler&amp;gt; DEDUCED async_write_short(uint8_t first_byte, std::array&amp;lt;uint8_t, 3&amp;gt; payload, uint8_t payload_length, WriteHandler &amp;amp;&amp;amp;handler) This is a helper function that utilizes the internal fixed header write buffer to write short messages, with a payload no greater than 3 bytes.
-This is useful for sending things like PINGREQ or other short control frames that can be sent without having to go through a secondary buffer.
-Exceptions        Type Thrown on     std::length_error If payload_length &amp;gt; payload.</description>
-    </item>
-    
-    <item>
       <title>mqtt::stream::executor_type</title>
       <link>https://andwass.github.io/mqtt/reference/stream/executor_type/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -92,7 +81,7 @@ Return value     A reference to the next layer in a stack of stream layers.
       
       <guid>https://andwass.github.io/mqtt/reference/stream/constructors/</guid>
       <description>Overload 1 of 3     stream(stream&amp;amp;&amp;amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
- Overload 2 of 3     template&amp;lt;class...Args&amp;gt; explicit stream(size_t read_buffer_size, Args&amp;amp;&amp;amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size.</description>
+ Overload 2 of 3     template&amp;lt;class...Args&amp;gt; explicit stream(size_t read_buffer_size, size_t write_buffer_size, Args&amp;amp;&amp;amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size, and the size of the internal write buffer is controlled by write_buffer_size.</description>
     </item>
     
   </channel>
