@@ -26,6 +26,11 @@ The variable length field of the fixed header is calculated internally,
 therefore the first byte of `buffer` must be the first byte of the variable header
 (if any) or payload (if any).
 
+If the entire message, including the fixed header, fits inside the internal write buffer
+the data will be copied from `buffer` to the internal write buffer before writing the
+data to the stream. Otherwise, the write will be done in two stages; first writing the
+fixed header and then the data in `buffer`.
+
 ## Exceptions
 
 | Type                | Thrown on                                      |

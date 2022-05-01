@@ -18,24 +18,29 @@ After the move, the only valid operation on the moved-from object is destruction
 
 ```cpp
 template<class...Args>
-explicit stream(size_t read_buffer_size, Args&&...args);
+explicit stream(size_t read_buffer_size, size_t write_buffer_size, Args&&...args);
 ```
 
 Create an MQTT stream and construct the `NextLayer` type using `args...`. The size
-of the internal read buffer is controlled by `read_buffer_size`.
+of the internal read buffer is controlled by `read_buffer_size`, and the size of
+the internal write buffer is controlled by `write_buffer_size`.
 
 ### Exceptions
 
-| Type                | Thrown on                                       |
-|---------------------|-------------------------------------------------|
-| `std::length_error` | If `read_buffer_size < 5`.                      |
-| Any                 | exceptions thrown by the NextLayer constructor. |
+| Type                | Thrown on                                           |
+|---------------------|-----------------------------------------------------|
+| `std::length_error` | If `read_buffer_size < 5 or write_buffer_size < 5`. |
+| Any                 | exceptions thrown by the NextLayer constructor.     |
 
 ### Parameters
 
 #### `read_buffer_size`
 
 The size of the internal read buffer. Must be at least 5.
+
+#### `write_buffer_size`
+
+The size of the internal write buffer. Must be at least 5.
 
 #### `args`
 
@@ -51,8 +56,8 @@ template<class...Args>
 explicit stream(Args&&...args);
 ```
 
-Create an MQTT stream and construct the `NextLayer` type using `args...`. Uses a default
-internal buffer of 1024 bytes.
+Create an MQTT stream and construct the `NextLayer` type using `args...`. Uses default
+internal buffers of 1024 bytes.
 
 ### Exceptions
 

@@ -46,9 +46,8 @@ auto async_write(AsyncStream &stream, const ConstBufferSequence &buffer, Handler
 
 template<class AsyncWrite, class ConstBufferSequence>
 struct write_op {
-    const uint8_t *fixed_header_{};
-    uint8_t fixed_header_len_{};
     AsyncWrite &stream_;
+    boost::asio::const_buffer header_;
     ConstBufferSequence buffer_;
     boost::asio::coroutine coro_;
 
@@ -56,12 +55,12 @@ struct write_op {
     void operator()(Self &self, boost::system::error_code ec = {}, size_t n = 0) {
         namespace asio = boost::asio;
         BOOST_ASIO_CORO_REENTER(coro_) {
-            BOOST_ASIO_CORO_YIELD mqtt::details::stream::async_write(stream_, asio::buffer(fixed_header_, fixed_header_len_), std::move(self));
+            BOOST_ASIO_CORO_YIELD mqtt::details::stream::async_write(stream_, header_, std::move(self));
             if (ec) {
                 self.complete(ec, n);
             } else {
                 BOOST_ASIO_CORO_YIELD mqtt::details::stream::async_write(stream_, buffer_, std::move(self));
-                self.complete(ec, n + fixed_header_len_);
+                self.complete(ec, n + header_.size());
             }
         }
     }

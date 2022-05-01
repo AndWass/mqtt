@@ -12,6 +12,7 @@
 #include "details/stream/read_buffer.hpp"
 #include "details/stream/varlen.hpp"
 #include "details/stream/write.hpp"
+#include "details/stream/write_buffer.hpp"
 
 #include <boost/asio/async_result.hpp>
 #include <boost/asio/compose.hpp>
@@ -37,23 +38,27 @@ template<class NextLayer>
 class stream {
     NextLayer next_;
     mqtt::details::stream::read_buffer read_buffer_;
-    std::array<uint8_t, 5> fixed_header_write_buffer_{};
+    mqtt::details::stream::write_buffer write_buffer_;
 
 public:
     using executor_type = beast::executor_type<NextLayer>;
     using next_layer_type = NextLayer;
 
     template<class... Args>
-    explicit stream(std::size_t read_buffer_size, Args &&...args)
-        : read_buffer_(read_buffer_size), next_(std::forward<Args>(args)...) {
+    explicit stream(std::size_t read_buffer_size, std::size_t write_buffer_size, Args &&...args)
+        : next_(std::forward<Args>(args)...), read_buffer_(read_buffer_size), write_buffer_(write_buffer_size) {
         if (read_buffer_size < 5) {
             throw std::length_error("The internal read buffer must be at least 5 bytes long");
+        }
+
+        if (write_buffer_size < 5) {
+            throw std::length_error("The internal write buffer must be at least 5 bytes long");
         }
     }
 
     template<class... Args>
     explicit stream(Args &&...args)
-        : stream(size_t(1024), std::forward<Args>(args)...) {
+        : stream(size_t(1024), size_t(1024), std::forward<Args>(args)...) {
     }
 
     executor_type get_executor() {
@@ -83,31 +88,23 @@ public:
     async_result_t<WriteHandler, system::error_code, size_t> async_write(uint8_t first_byte, const ConstBufferSequence &buffer, WriteHandler &&handler) {
         const size_t buffer_len = beast::buffer_bytes(buffer);
         const size_t fixed_header_len = 1 + details::stream::num_varlen_int_bytes(buffer_len);
-        fixed_header_write_buffer_[0] = first_byte;
-        details::stream::encode_varlen_int(buffer_len, fixed_header_write_buffer_.data() + 1);
+
+        uint8_t *data = write_buffer_.data();
+        data[0] = first_byte;
+        details::stream::encode_varlen_int(buffer_len, data + 1);
+
+        if (fixed_header_len + buffer_len < write_buffer_.capacity()) {
+            boost::asio::buffer_copy(write_buffer_.mutable_buffer(fixed_header_len), buffer);
+            return asio::async_write(next_, write_buffer_.const_buffer(fixed_header_len + buffer_len), std::forward<WriteHandler>(handler));
+        }
+
         return asio::async_compose<WriteHandler, void(system::error_code, size_t)>(
             details::stream::write_op<NextLayer, ConstBufferSequence>{
-                fixed_header_write_buffer_.data(),
-                static_cast<uint8_t>(fixed_header_len),
                 next_,
+                write_buffer_.const_buffer(fixed_header_len),
                 buffer,
                 {}},
             handler, next_);
-    }
-
-    template<class WriteHandler>
-    async_result_t<WriteHandler, system::error_code, size_t> async_write_short(uint8_t first_byte,
-                                                                               std::array<uint8_t, 3> payload,
-                                                                               uint8_t payload_length,
-                                                                               WriteHandler &&handler) {
-        if (payload_length > payload.size()) {
-            throw std::length_error("Payload length can not be greater than payload size");
-        }
-        fixed_header_write_buffer_[0] = first_byte;
-        fixed_header_write_buffer_[1] = payload_length;
-        std::copy(payload.begin(), payload.begin() + payload_length, fixed_header_write_buffer_.begin() + 2);
-        return details::stream::async_write(next_, asio::buffer(fixed_header_write_buffer_.data(), 2 + payload_length),
-                                            std::forward<WriteHandler>(handler));
     }
 
     void reset() {
