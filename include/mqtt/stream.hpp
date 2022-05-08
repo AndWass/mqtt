@@ -6,7 +6,6 @@
 #pragma once
 
 #include <mqtt/fixed_header.hpp>
-#include <mqtt/message_view.hpp>
 
 #include "details/stream/read.hpp"
 #include "details/stream/read_buffer.hpp"
