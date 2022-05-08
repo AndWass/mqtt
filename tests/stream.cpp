@@ -232,3 +232,53 @@ TEST(Stream, AsyncReadMultiple) {
     EXPECT_EQ(results[1].header.first_byte, 0x90);
     EXPECT_EQ(results[1].header.remaining_length, 0x04);
 }
+
+TEST(Stream, AsyncReadFromExisting) {
+    namespace net = boost::asio;
+    net::io_context io;
+    mqtt::stream<boost::beast::test::stream> stream(io);
+
+    boost::beast::test::stream server(io);
+    stream.next_layer().connect(server);
+
+    net::write(server, net::buffer("\x20\x00\x21\x01\x42", 5));
+
+    boost::system::error_code final_ec;
+    mqtt::fixed_header header;
+    bool called = false;
+
+    mqtt::byte_buffer buf(1024);
+    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+        final_ec = ec;
+        header = h;
+        called = true;
+    });
+
+    EXPECT_FALSE(called);
+
+    io.run();
+    EXPECT_FALSE(final_ec.failed());
+    ASSERT_EQ(buf.size(), 0);
+
+    EXPECT_EQ(header.first_byte, 0x20);
+    EXPECT_EQ(header.remaining_length, 0);
+    EXPECT_TRUE(called);
+
+    called = false;
+
+    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+        final_ec = ec;
+        header = h;
+        called = true;
+    });
+
+    EXPECT_FALSE(called);
+    io.restart();
+    io.run();
+    EXPECT_FALSE(final_ec.failed());
+    ASSERT_EQ(buf.size(), 1);
+
+    EXPECT_EQ(header.first_byte, 0x21);
+    EXPECT_EQ(header.remaining_length, 1);
+    EXPECT_TRUE(called);
+}

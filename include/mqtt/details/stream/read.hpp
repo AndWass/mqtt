@@ -6,6 +6,7 @@
 #pragma once
 
 #include <boost/asio/coroutine.hpp>
+#include <boost/asio/post.hpp>
 #include <boost/asio/read.hpp>
 #include <boost/beast/core/bind_handler.hpp>
 
@@ -14,7 +15,6 @@
 
 #include <mqtt/byte_buffer.hpp>
 #include <mqtt/fixed_header.hpp>
-#include <mqtt/message_view.hpp>
 
 #include "read_buffer.hpp"
 
@@ -32,6 +32,8 @@ struct read_op {
     asio::coroutine coro_;
     fixed_header header_;
     size_t payload_left_to_read_ = 0;
+
+    bool needs_post_ = true;
 
     struct internal_buffer_tag {};
     struct user_buffer_tag {};
@@ -87,6 +89,7 @@ struct read_op {
                 }
                 BOOST_ASIO_CORO_YIELD stream_.async_read_some(internal_buffer_.mutable_buffer(),
                                                               boost::beast::bind_front_handler(std::move(self), internal_buffer_tag{}));
+                needs_post_ = false;
                 if (ec) {
                     break;
                 }
@@ -107,6 +110,7 @@ struct read_op {
                     while (payload_left_to_read_ > 0) {
                         BOOST_ASIO_CORO_YIELD stream_.async_read_some(user_buffer_.prepare(payload_left_to_read_),
                                                                       boost::beast::bind_front_handler(std::move(self), user_buffer_tag{}));
+                        needs_post_ = false;
                         if (ec) {
                             break;
                         }
@@ -115,7 +119,14 @@ struct read_op {
             } else {
                 header_ = fixed_header{};
             }
-            self.complete(ec, header_);
+            if (needs_post_) {
+                auto exec = boost::asio::get_associated_executor(self);
+                boost::asio::post(exec, [self = std::move(self), ec, header = this->header_]() mutable {
+                    self.complete(ec, header);
+                });
+            } else {
+                self.complete(ec, header_);
+            }
         }
     }
 
