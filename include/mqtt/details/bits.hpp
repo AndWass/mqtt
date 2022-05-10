@@ -8,10 +8,13 @@
 #include <cstdint>
 #include <stdexcept>
 
+#include <cstring>
+
+#include <boost/core/span.hpp>
+#include <boost/utility/string_view.hpp>
+
 namespace mqtt {
 namespace details {
-namespace stream
-{
 inline size_t num_varlen_int_bytes(uint32_t value) {
     if (value < 128) {
         return 1;
@@ -25,7 +28,7 @@ inline size_t num_varlen_int_bytes(uint32_t value) {
     throw std::length_error("Value cannot be encoded as varlen integer");
 }
 
-inline void encode_varlen_int(uint32_t value, uint8_t *out) {
+inline uint8_t *put_varlen_int(uint32_t value, uint8_t *out) {
     do {
         *out = value % 128;
         value /= 128;
@@ -34,7 +37,25 @@ inline void encode_varlen_int(uint32_t value, uint8_t *out) {
         }
         ++out;
     } while (value > 0);
+    return out;
 }
+
+inline uint8_t *put_u16(uint16_t value, uint8_t *out) {
+    *out++ = value >> 8;
+    *out++ = value & 0x00FF;
+    return out;
 }
+
+inline uint8_t *put_bin(boost::span<const uint8_t> value, uint8_t *out) {
+    uint16_t len = static_cast<uint8_t>(value.size_bytes());
+    out = put_u16(len, out);
+    memcpy(out, value.data(), len);
+    return out + len;
 }
+
+inline uint8_t *put_str(boost::string_view sv, uint8_t *out) {
+    return put_bin({reinterpret_cast<const uint8_t *>(sv.data()), sv.size()}, out);
 }
+
+}// namespace details
+}// namespace mqtt

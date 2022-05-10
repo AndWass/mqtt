@@ -7,9 +7,10 @@
 
 #include <mqtt/fixed_header.hpp>
 
+#include "details/bits.hpp"
+
 #include "details/stream/read.hpp"
 #include "details/stream/read_buffer.hpp"
-#include "details/stream/varlen.hpp"
 #include "details/stream/write.hpp"
 #include "details/stream/write_buffer.hpp"
 
@@ -86,11 +87,11 @@ public:
     template<class ConstBufferSequence, class WriteHandler>
     async_result_t<WriteHandler, system::error_code, size_t> async_write(uint8_t first_byte, const ConstBufferSequence &buffer, WriteHandler &&handler) {
         const size_t buffer_len = beast::buffer_bytes(buffer);
-        const size_t fixed_header_len = 1 + details::stream::num_varlen_int_bytes(buffer_len);
+        const size_t fixed_header_len = 1 + details::num_varlen_int_bytes(buffer_len);
 
         uint8_t *data = write_buffer_.data();
         data[0] = first_byte;
-        details::stream::encode_varlen_int(buffer_len, data + 1);
+        details::put_varlen_int(buffer_len, data + 1);
 
         if (fixed_header_len + buffer_len < write_buffer_.capacity()) {
             boost::asio::buffer_copy(write_buffer_.mutable_buffer(fixed_header_len), buffer);

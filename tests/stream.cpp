@@ -38,8 +38,8 @@ TEST(Stream, AsyncWrite) {
 }
 
 TEST(Stream, VarlenMax) {
-    EXPECT_EQ(mqtt::details::stream::num_varlen_int_bytes(268'435'455), 4);
-    EXPECT_THROW(mqtt::details::stream::num_varlen_int_bytes(268'435'456), std::length_error);
+    EXPECT_EQ(mqtt::details::num_varlen_int_bytes(268'435'455), 4);
+    EXPECT_THROW(mqtt::details::num_varlen_int_bytes(268'435'456), std::length_error);
 }
 
 TEST(Stream, AsyncReadSmall) {
