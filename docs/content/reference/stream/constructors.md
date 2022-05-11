@@ -18,7 +18,7 @@ After the move, the only valid operation on the moved-from object is destruction
 
 ```cpp
 template<class...Args>
-explicit stream(size_t read_buffer_size, size_t write_buffer_size, Args&&...args);
+stream(size_t read_buffer_size, size_t write_buffer_size, Args&&...args);
 ```
 
 Create an MQTT stream and construct the `NextLayer` type using `args...`. The size

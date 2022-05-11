@@ -45,7 +45,7 @@ public:
     using next_layer_type = NextLayer;
 
     template<class... Args>
-    explicit stream(std::size_t read_buffer_size, std::size_t write_buffer_size, Args &&...args)
+    stream(std::size_t read_buffer_size, std::size_t write_buffer_size, Args &&...args)
         : next_(std::forward<Args>(args)...), read_buffer_(read_buffer_size), write_buffer_(write_buffer_size) {
         if (read_buffer_size < 5) {
             throw std::length_error("The internal read buffer must be at least 5 bytes long");
@@ -72,8 +72,7 @@ public:
         return next_;
     }
 
-    template<class DynamicBuffer, class ReadHandler,
-             std::enable_if_t<boost::asio::is_dynamic_buffer<DynamicBuffer>::value> * = nullptr>
+    template<class DynamicBuffer, class ReadHandler>
     async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer,
                                                                              ReadHandler &&handler) {
         return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(

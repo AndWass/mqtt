@@ -2,6 +2,7 @@
 geekdocCollapseSection: true
 ---
 
-## Low level primitives
+## Streams
 
 - [`stream`](stream)
+- [`client_stream`](client_stream)

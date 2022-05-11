@@ -25,12 +25,7 @@ public:
     using next_layer_type = typename mqtt::stream<NextLayer>::next_layer_type;
 
     template<class... Args>
-    client_stream(std::size_t read_buffer_size, std::size_t write_buffer_size, Args &&...args)
-        : next_(read_buffer_size, write_buffer_size, std::forward<Args>(args)...) {
-    }
-
-    template<class... Args>
-    client_stream(Args &&...args) : next_(std::forward<Args>(args)...) {
+    explicit client_stream(Args &&...args) : next_(std::forward<Args>(args)...) {
     }
 
     executor_type get_executor() {
