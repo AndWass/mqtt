@@ -1,13 +1,13 @@
 
 add_executable(
-        mqtt-unittests
+        purple-unittests
         stream.cpp
         client_stream.cpp
 )
 
-target_link_libraries(mqtt-unittests PUBLIC
+target_link_libraries(purple-unittests PUBLIC
         CONAN_PKG::gtest
-        mqtt
+        purple
         )
 
-add_test(NAME mqtt-unittests COMMAND mqtt-unittests)
+add_test(NAME purple-unittests COMMAND purple-unittests)

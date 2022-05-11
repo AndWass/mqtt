@@ -16,14 +16,14 @@
 
 #include <boost/optional.hpp>
 
-namespace mqtt {
+namespace purple {
 namespace v311 {
 struct connect_opts {
     std::string client_id;
 
     boost::optional<std::string> username;
-    boost::optional<mqtt::binary_t> password;
-    boost::optional<mqtt::v311::will_t> will;
+    boost::optional<purple::binary_t> password;
+    boost::optional<purple::v311::will_t> will;
 
     std::chrono::seconds keep_alive;
     bool clean_session = true;
@@ -66,18 +66,18 @@ struct connect_opts {
         memcpy(out, "\x00\x04MQTT\x04", 7);// NOLINT(bugprone-not-null-terminated-result)
         out += 7;
         *out++ = flag_byte();
-        out = mqtt::details::put_u16(keep_alive.count(), out);
-        out = mqtt::details::put_str(client_id, out);
+        out = purple::details::put_u16(keep_alive.count(), out);
+        out = purple::details::put_str(client_id, out);
 
         if (will.has_value()) {
-            out = mqtt::details::put_str(will->topic, out);
-            out = mqtt::details::put_bin(will->payload, out);
+            out = purple::details::put_str(will->topic, out);
+            out = purple::details::put_bin(will->payload, out);
         }
 
         if (username.has_value()) {
-            out = mqtt::details::put_str(*username, out);
+            out = purple::details::put_str(*username, out);
             if (password.has_value()) {
-                out = mqtt::details::put_bin(*password, out);
+                out = purple::details::put_bin(*password, out);
             }
         }
 
@@ -85,4 +85,4 @@ struct connect_opts {
     }
 };
 }// namespace v311
-}// namespace mqtt
+}// namespace purple

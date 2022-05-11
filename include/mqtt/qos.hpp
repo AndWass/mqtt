@@ -5,6 +5,6 @@
 
 #pragma once
 
-namespace mqtt {
+namespace purple {
 enum class qos : unsigned char { qos0, qos1, qos2 };
 }

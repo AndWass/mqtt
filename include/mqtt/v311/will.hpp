@@ -10,13 +10,13 @@
 #include <mqtt/binary.hpp>
 #include <mqtt/qos.hpp>
 
-namespace mqtt {
+namespace purple {
 namespace v311 {
 struct will_t {
     std::string topic;
     binary_t payload;
-    mqtt::qos quality_of_service = mqtt::qos::qos1;
+    purple::qos quality_of_service = purple::qos::qos1;
     bool retain = false;
 };
 }// namespace v311
-}// namespace mqtt
+}// namespace purple

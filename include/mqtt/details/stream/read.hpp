@@ -19,7 +19,7 @@
 
 #include "read_buffer.hpp"
 
-namespace mqtt {
+namespace purple {
 namespace details {
 namespace stream {
 namespace asio = boost::asio;
@@ -228,7 +228,7 @@ struct read_into_fixed_op {
                     if (!ec) {
                         if (header_.remaining_length > boost::asio::buffer_size(user_buffer_)) {
                             header_ = fixed_header{};
-                            ec = ::mqtt::make_error_code(mqtt::error::message_too_large);
+                            ec = ::purple::make_error_code(purple::error::message_too_large);
                         } else {
                             internal_buffer_.consume(to_consume);
                         }
@@ -283,4 +283,4 @@ struct read_into_fixed_op {
 };
 }// namespace stream
 }// namespace details
-}// namespace mqtt
+}// namespace purple

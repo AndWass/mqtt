@@ -13,7 +13,7 @@
 #include <boost/core/span.hpp>
 #include <boost/utility/string_view.hpp>
 
-namespace mqtt {
+namespace purple {
 namespace details {
 inline size_t num_varlen_int_bytes(uint32_t value) {
     if (value < 128) {
@@ -58,4 +58,4 @@ inline uint8_t *put_str(boost::string_view sv, uint8_t *out) {
 }
 
 }// namespace details
-}// namespace mqtt
+}// namespace purple

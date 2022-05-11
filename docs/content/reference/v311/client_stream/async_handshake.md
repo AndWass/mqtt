@@ -1,5 +1,5 @@
 ---
-title: "mqtt::v311::client_stream::async_handshake"
+title: "purple::v311::client_stream::async_handshake"
 geekdocHidden: true
 ---
 

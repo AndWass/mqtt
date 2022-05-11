@@ -8,7 +8,7 @@
 #include <boost/beast/core/flat_buffer.hpp>
 #include <memory>
 
-namespace mqtt {
+namespace purple {
 template<class Allocator>
 class basic_byte_buffer : public boost::beast::basic_flat_buffer<Allocator> {
 public:
@@ -38,4 +38,4 @@ public:
 };
 
 using byte_buffer = basic_byte_buffer<std::allocator<unsigned char>>;
-}// namespace mqtt
+}// namespace purple

@@ -7,7 +7,7 @@
 
 #include <memory>
 
-namespace mqtt {
+namespace purple {
 namespace details {
 namespace stream {
 class write_buffer {
@@ -36,4 +36,4 @@ public:
 };
 }// namespace stream
 }// namespace details
-}// namespace mqtt
+}// namespace purple

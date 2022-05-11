@@ -1,5 +1,5 @@
 ---
-title: "mqtt::stream::async_read"
+title: "purple::stream::async_read"
 geekdocHidden: true
 ---
 
@@ -41,7 +41,7 @@ decay-copy. The equivalent function signature of the handler must be:
 ```cpp
 void handler(
 error_code const& ec,       // Result of operation
-mqtt::fixed_header header   // The fixed header data of the message
+purple::fixed_header header   // The fixed header data of the message
 );
 ```
 
@@ -61,7 +61,7 @@ Works the same as [Overload 1 of 2](#overload-1-of-2) but uses a fixed sized buf
 instead of a growable dynamic buffer.
 
 If the message  doesn't fit in the provided buffer no bytes will
-be read and `ec` will be set to `mqtt::error::message_too_large`.
+be read and `ec` will be set to `purple::error::message_too_large`.
 
 ### Parameters
 
@@ -79,7 +79,7 @@ decay-copy. The equivalent function signature of the handler must be:
 ```cpp
 void handler(
 error_code const& ec,       // Result of operation
-mqtt::fixed_header header   // The fixed header data of the message
+purple::fixed_header header   // The fixed header data of the message
 );
 ```
 

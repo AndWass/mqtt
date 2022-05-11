@@ -1,5 +1,5 @@
 ---
-title: "mqtt::v311::client_stream::next_layer"
+title: "purple::v311::client_stream::next_layer"
 geekdocHidden: true
 ---
 

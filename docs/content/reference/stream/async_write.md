@@ -1,5 +1,5 @@
 ---
-title: "mqtt::stream::async_write"
+title: "purple::stream::async_write"
 geekdocHidden: true
 ---
 

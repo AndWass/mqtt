@@ -23,9 +23,9 @@ using socket_type = net::ip::tcp::socket;
 using resolver_type = net::ip::tcp::resolver;
 
 struct client {
-    mqtt::stream<socket_type> stream;
+    purple::stream<socket_type> stream;
     resolver_type resolver;
-    mqtt::byte_buffer read_buffer;
+    purple::byte_buffer read_buffer;
 
     template<class... Args>
     explicit client(Args &&...args)
@@ -44,7 +44,7 @@ struct client {
     void connected(error_code ec) {
         if (!ec) {
             std::printf("TCP connection established, sending CONNECT\n");
-            mqtt::v311::connect_opts connect;
+            purple::v311::connect_opts connect;
             connect.client_id = "ASIOMQTTCLIENT";
             connect.keep_alive = std::chrono::minutes(2);
 
@@ -62,7 +62,7 @@ struct client {
         }
     }
 
-    void message_received(error_code ec, mqtt::fixed_header header) {
+    void message_received(error_code ec, purple::fixed_header header) {
         if (!ec) {
             std::printf("Received first byte 0x%x\n", (unsigned)header.first_byte);
             if (header.first_byte != 0x20 || read_buffer.size() != 2) {

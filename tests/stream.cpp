@@ -17,7 +17,7 @@ TEST(Stream, AsyncWrite) {
 
     namespace net = boost::asio;
     net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
+    purple::stream<boost::beast::test::stream> stream(io);
 
     boost::beast::test::stream server(io);
     stream.next_layer().connect(server);
@@ -38,14 +38,14 @@ TEST(Stream, AsyncWrite) {
 }
 
 TEST(Stream, VarlenMax) {
-    EXPECT_EQ(mqtt::details::num_varlen_int_bytes(268'435'455), 4);
-    EXPECT_THROW(mqtt::details::num_varlen_int_bytes(268'435'456), std::length_error);
+    EXPECT_EQ(purple::details::num_varlen_int_bytes(268'435'455), 4);
+    EXPECT_THROW(purple::details::num_varlen_int_bytes(268'435'456), std::length_error);
 }
 
 TEST(Stream, AsyncReadSmall) {
     namespace net = boost::asio;
     net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
+    purple::stream<boost::beast::test::stream> stream(io);
 
     boost::beast::test::stream server(io);
     stream.next_layer().connect(server);
@@ -54,10 +54,10 @@ TEST(Stream, AsyncReadSmall) {
     });
 
     boost::system::error_code final_ec;
-    mqtt::fixed_header header;
+    purple::fixed_header header;
 
-    mqtt::byte_buffer buf(1024);
-    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    purple::byte_buffer buf(1024);
+    stream.async_read(buf, [&](boost::system::error_code ec, purple::fixed_header h) {
         final_ec = ec;
         header = h;
     });
@@ -76,7 +76,7 @@ TEST(Stream, AsyncReadSmall) {
 TEST(Stream, AsyncReadLarge) {
     namespace net = boost::asio;
     net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
+    purple::stream<boost::beast::test::stream> stream(io);
 
     boost::beast::test::stream server(io);
     stream.next_layer().connect(server);
@@ -97,10 +97,10 @@ TEST(Stream, AsyncReadLarge) {
     }
 
     boost::system::error_code final_ec;
-    mqtt::fixed_header header;
+    purple::fixed_header header;
 
-    mqtt::byte_buffer buf(0x20000000);
-    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    purple::byte_buffer buf(0x20000000);
+    stream.async_read(buf, [&](boost::system::error_code ec, purple::fixed_header h) {
         final_ec = ec;
         header = h;
     });
@@ -120,7 +120,7 @@ TEST(Stream, AsyncReadLarge) {
 TEST(Stream, AsyncReadBad) {
     namespace net = boost::asio;
     net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
+    purple::stream<boost::beast::test::stream> stream(io);
 
     boost::beast::test::stream server(io);
     stream.next_layer().connect(server);
@@ -141,10 +141,10 @@ TEST(Stream, AsyncReadBad) {
     }
 
     boost::system::error_code final_ec;
-    mqtt::fixed_header header;
+    purple::fixed_header header;
 
-    mqtt::byte_buffer buf(0x20000000);
-    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    purple::byte_buffer buf(0x20000000);
+    stream.async_read(buf, [&](boost::system::error_code ec, purple::fixed_header h) {
         final_ec = ec;
         header = h;
     });
@@ -157,7 +157,7 @@ TEST(Stream, AsyncReadBad) {
 TEST(Stream, AsyncReadEmpty) {
     namespace net = boost::asio;
     net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
+    purple::stream<boost::beast::test::stream> stream(io);
 
     boost::beast::test::stream server(io);
     stream.next_layer().connect(server);
@@ -166,10 +166,10 @@ TEST(Stream, AsyncReadEmpty) {
     });
 
     boost::system::error_code final_ec;
-    mqtt::fixed_header header;
+    purple::fixed_header header;
 
-    mqtt::byte_buffer buf(1024);
-    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    purple::byte_buffer buf(1024);
+    stream.async_read(buf, [&](boost::system::error_code ec, purple::fixed_header h) {
         final_ec = ec;
         header = h;
     });
@@ -185,7 +185,7 @@ TEST(Stream, AsyncReadEmpty) {
 TEST(Stream, AsyncReadMultiple) {
     namespace net = boost::asio;
     net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
+    purple::stream<boost::beast::test::stream> stream(io);
 
     boost::beast::test::stream server(io);
     stream.next_layer().connect(server);
@@ -195,14 +195,14 @@ TEST(Stream, AsyncReadMultiple) {
 
     struct result {
         boost::system::error_code final_ec;
-        mqtt::fixed_header header;
+        purple::fixed_header header;
 
-        mqtt::byte_buffer buf = mqtt::byte_buffer(1024);
+        purple::byte_buffer buf = purple::byte_buffer(1024);
     };
 
     result results[2];
 
-    stream.async_read(results[0].buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    stream.async_read(results[0].buf, [&](boost::system::error_code ec, purple::fixed_header h) {
         results[0].final_ec = ec;
         results[0].header = h;
 
@@ -236,7 +236,7 @@ TEST(Stream, AsyncReadMultiple) {
 TEST(Stream, AsyncReadFromExisting) {
     namespace net = boost::asio;
     net::io_context io;
-    mqtt::stream<boost::beast::test::stream> stream(io);
+    purple::stream<boost::beast::test::stream> stream(io);
 
     boost::beast::test::stream server(io);
     stream.next_layer().connect(server);
@@ -244,11 +244,11 @@ TEST(Stream, AsyncReadFromExisting) {
     net::write(server, net::buffer("\x20\x00\x21\x01\x42", 5));
 
     boost::system::error_code final_ec;
-    mqtt::fixed_header header;
+    purple::fixed_header header;
     bool called = false;
 
-    mqtt::byte_buffer buf(1024);
-    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    purple::byte_buffer buf(1024);
+    stream.async_read(buf, [&](boost::system::error_code ec, purple::fixed_header h) {
         final_ec = ec;
         header = h;
         called = true;
@@ -266,7 +266,7 @@ TEST(Stream, AsyncReadFromExisting) {
 
     called = false;
 
-    stream.async_read(buf, [&](boost::system::error_code ec, mqtt::fixed_header h) {
+    stream.async_read(buf, [&](boost::system::error_code ec, purple::fixed_header h) {
         final_ec = ec;
         header = h;
         called = true;

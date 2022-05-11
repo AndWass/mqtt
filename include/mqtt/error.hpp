@@ -10,7 +10,7 @@
 #include <boost/system/error_category.hpp>
 #include <boost/system/is_error_code_enum.hpp>
 
-namespace mqtt {
+namespace purple {
 enum class error {
     success = 0,
     invalid_connect_response,
@@ -26,15 +26,15 @@ enum class error {
 namespace boost {
 namespace system {
 template<>
-struct is_error_code_enum<mqtt::error> : std::true_type {};
+struct is_error_code_enum<purple::error> : std::true_type {};
 }// namespace system
 }// namespace boost
 
-namespace mqtt {
-class mqtt_category_impl : public boost::system::error_category {
+namespace purple {
+class purple_category_impl : public boost::system::error_category {
 public:
     const char *name() const noexcept override {
-        return "mqtt";
+        return "purple mqtt";
     }
     std::string message(int ev) const override {
         char buffer[64];
@@ -60,12 +60,12 @@ public:
 private:
 };
 
-inline const boost::system::error_category &mqtt_category() {
-    static const mqtt_category_impl instance;
+inline const boost::system::error_category &purple_category() {
+    static const purple_category_impl instance;
     return instance;
 }
 
-boost::system::error_code make_error_code(error e) {
-    return boost::system::error_code(static_cast<int>(e), mqtt_category());
+inline boost::system::error_code make_error_code(error e) {
+    return boost::system::error_code(static_cast<int>(e), purple_category());
 }
-}// namespace mqtt
+}// namespace purple

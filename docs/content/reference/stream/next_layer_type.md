@@ -1,5 +1,5 @@
 ---
-title: "mqtt::stream::next_layer_type"
+title: "purple::stream::next_layer_type"
 geekdocHidden: true
 ---
 

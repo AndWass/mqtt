@@ -13,16 +13,16 @@
 
 #include <boost/asio/steady_timer.hpp>
 
-namespace mqtt {
+namespace purple {
 namespace v311 {
 
 template<class NextLayer>
 class client_stream {
-    mqtt::stream<NextLayer> next_;
+    purple::stream<NextLayer> next_;
 
 public:
-    using executor_type = typename mqtt::stream<NextLayer>::executor_type;
-    using next_layer_type = typename mqtt::stream<NextLayer>::next_layer_type;
+    using executor_type = typename purple::stream<NextLayer>::executor_type;
+    using next_layer_type = typename purple::stream<NextLayer>::next_layer_type;
 
     template<class... Args>
     explicit client_stream(Args &&...args) : next_(std::forward<Args>(args)...) {
@@ -41,7 +41,7 @@ public:
     }
 
     template<class WriteHandler = boost::asio::default_completion_token_t<executor_type>>
-    mqtt::async_result_t<WriteHandler, boost::system::error_code, bool>
+    purple::async_result_t<WriteHandler, boost::system::error_code, bool>
     async_handshake(const connect_opts &opts,
                     WriteHandler &&handler = boost::asio::default_completion_token_t<executor_type>{}) {
         const size_t wire_size = opts.wire_size();
@@ -52,4 +52,4 @@ public:
     }
 };
 }// namespace v311
-}// namespace mqtt
+}// namespace purple

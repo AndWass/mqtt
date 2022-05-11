@@ -1,5 +1,5 @@
 ---
-title: "mqtt::v311::client_stream"
+title: "purple::v311::client_stream"
 geekdocHidden: true
 ---
 
@@ -9,7 +9,7 @@ geekdocHidden: true
 client_stream(client_stream&&);
 ```
 
-If `mqtt::stream<NextLayer>` is move constructible, this function will move-construct a new stream from the existing stream.
+If `purple::stream<NextLayer>` is move constructible, this function will move-construct a new stream from the existing stream.
 After the move, the only valid operation on the moved-from object is destruction.
 
 ---
@@ -21,15 +21,15 @@ template<class... Args>
 explicit client_stream(Args &&...args);
 ```
 
-Create an MQTT stream and construct the `mqtt::stream<NextLayer>` type using`args...`.
-See [`mqtt::stream::stream`]({{< ref "/reference/stream/constructors" >}}) for available
+Create an MQTT stream and construct the `purple::stream<NextLayer>` type using`args...`.
+See [`purple::stream::stream`]({{< ref "/reference/stream/constructors" >}}) for available
 constructors.
 
 ### Exceptions
 
 | Type                | Thrown on                                                       |
 |---------------------|-----------------------------------------------------------------|
-| Any                 | exceptions thrown by the `mqtt::stream<NextLayer>` constructor. |
+| Any                 | exceptions thrown by the `purple::stream<NextLayer>` constructor. |
 
 ### Parameters
 

@@ -1,5 +1,5 @@
 ---
-title: "mqtt::stream::stream"
+title: "purple::stream::stream"
 geekdocHidden: true
 ---
 

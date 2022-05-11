@@ -1,5 +1,5 @@
 ---
-title: "mqtt::stream::get_executor"
+title: "purple::stream::get_executor"
 geekdocHidden: true
 ---
 

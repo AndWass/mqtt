@@ -9,9 +9,9 @@
 #include <cstdint>
 #include <mqtt/fixed_header.hpp>
 
-namespace mqtt {
+namespace purple {
 struct message_view {
     fixed_header header;
     boost::span<const uint8_t> payload{};
 };
-}// namespace mqtt
+}// namespace purple

@@ -26,7 +26,7 @@
 #include <array>
 #include <vector>
 
-namespace mqtt {
+namespace purple {
 namespace beast = boost::beast;
 namespace asio = boost::asio;
 namespace system = boost::system;
@@ -37,8 +37,8 @@ using async_result_t = typename asio::async_result<std::decay_t<CompletionToken>
 template<class NextLayer>
 class stream {
     NextLayer next_;
-    mqtt::details::stream::read_buffer read_buffer_;
-    mqtt::details::stream::write_buffer write_buffer_;
+    purple::details::stream::read_buffer read_buffer_;
+    purple::details::stream::write_buffer write_buffer_;
 
 public:
     using executor_type = beast::executor_type<NextLayer>;
@@ -114,4 +114,4 @@ public:
         read_buffer_.reset();
     }
 };
-}// namespace mqtt
+}// namespace purple

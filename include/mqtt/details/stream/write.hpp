@@ -10,7 +10,7 @@
 
 #include <boost/asio/write.hpp>
 
-namespace mqtt {
+namespace purple {
 namespace details {
 namespace stream {
 
@@ -59,11 +59,11 @@ struct write_op {
     void operator()(Self &self, boost::system::error_code ec = {}, size_t n = 0) {
         namespace asio = boost::asio;
         BOOST_ASIO_CORO_REENTER(coro_) {
-            BOOST_ASIO_CORO_YIELD mqtt::details::stream::async_write(stream_, header_, std::move(self));
+            BOOST_ASIO_CORO_YIELD purple::details::stream::async_write(stream_, header_, std::move(self));
             if (ec) {
                 self.complete(ec, n);
             } else {
-                BOOST_ASIO_CORO_YIELD mqtt::details::stream::async_write(stream_, buffer_, std::move(self));
+                BOOST_ASIO_CORO_YIELD purple::details::stream::async_write(stream_, buffer_, std::move(self));
                 self.complete(ec, n + header_.size());
             }
         }
@@ -81,7 +81,7 @@ struct write_op<AsyncWrite, no_buffer_tag> {
     void operator()(Self &self, boost::system::error_code ec = {}, size_t n = 0) {
         namespace asio = boost::asio;
         BOOST_ASIO_CORO_REENTER(coro_) {
-            BOOST_ASIO_CORO_YIELD mqtt::details::stream::async_write(
+            BOOST_ASIO_CORO_YIELD purple::details::stream::async_write(
                 stream_, asio::buffer(fixed_header_, fixed_header_len_), std::move(self));
             self.complete(ec, n);
         }
@@ -89,4 +89,4 @@ struct write_op<AsyncWrite, no_buffer_tag> {
 };
 }// namespace stream
 }// namespace details
-}// namespace mqtt
+}// namespace purple

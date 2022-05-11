@@ -1,5 +1,5 @@
 ---
-title: "mqtt::v311::client_stream"
+title: "purple::v311::client_stream"
 ---
 
 ```cpp
@@ -7,8 +7,8 @@ template<class NextLayer>
 class client_stream;
 ```
 
-`mqtt::v311::client_stream` is a stream suitable for a client connection.
-Internally it uses an [`mqtt::stream`]({{< ref "/reference/stream" >}}) but
+`purple::v311::client_stream` is a stream suitable for a client connection.
+Internally it uses an [`purple::stream`]({{< ref "/reference/stream" >}}) but
 for all intents and purposes this is hidden and should be treated mostly
 as an implementation detail.
 

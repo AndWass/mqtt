@@ -11,7 +11,7 @@
 #include <boost/container/vector.hpp>
 #include <boost/core/span.hpp>
 
-namespace mqtt {
+namespace purple {
 namespace details {
 namespace stream {
 struct read_buffer {
@@ -86,4 +86,4 @@ public:
 };
 }// namespace stream
 }// namespace details
-}// namespace mqtt
+}// namespace purple

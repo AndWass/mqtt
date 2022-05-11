@@ -1,5 +1,5 @@
 ---
-title: "mqtt::stream::reset"
+title: "purple::stream::reset"
 geekdocHidden: true
 ---
 

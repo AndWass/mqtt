@@ -1,5 +1,5 @@
 ---
-title: "mqtt::stream"
+title: "purple::stream"
 ---
 
 ```cpp
@@ -7,7 +7,7 @@ template<class NextLayer>
 class stream;
 ```
 
-`mqtt::stream` is a low level stream to read and write MQTT messages on
+`purple::stream` is a low level stream to read and write MQTT messages on
 the binary format specified by
 the [MQTT standard](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718018).
 

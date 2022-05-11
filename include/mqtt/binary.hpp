@@ -9,7 +9,7 @@
 #include <boost/utility/string_view.hpp>
 #include <cstdint>
 
-namespace mqtt {
+namespace purple {
 using binary_t = boost::container::vector<uint8_t, void,
                                           boost::container::vector_options_t<boost::container::stored_size<uint16_t>>>;
 
@@ -17,4 +17,4 @@ inline void assign_string(binary_t &bin, boost::string_view str) {
     bin.reserve(str.size());
     bin.insert(bin.end(), str.begin(), str.end());
 }
-}// namespace mqtt
+}// namespace purple

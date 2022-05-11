@@ -21,9 +21,9 @@ using socket_type = net::ip::tcp::socket;
 using resolver_type = net::ip::tcp::resolver;
 
 struct client {
-    mqtt::v311::client_stream<socket_type> stream;
+    purple::v311::client_stream<socket_type> stream;
     resolver_type resolver;
-    mqtt::byte_buffer read_buffer;
+    purple::byte_buffer read_buffer;
 
     template<class... Args>
     explicit client(Args &&...args)
@@ -42,12 +42,12 @@ struct client {
     void connected(error_code ec) {
         if (!ec) {
             std::printf("TCP connection established, sending CONNECT\n");
-            mqtt::v311::connect_opts connect;
+            purple::v311::connect_opts connect;
             connect.client_id = "ASIOMQTTCLIENT";
             connect.keep_alive = std::chrono::seconds(10);
             connect.will.emplace();
             connect.will->topic = "/asiomqtt";
-            mqtt::assign_string(connect.will->payload, "Hello world");
+            purple::assign_string(connect.will->payload, "Hello world");
 
             stream.async_handshake(connect, beast::bind_front_handler(&client::handshake, this));
         }
