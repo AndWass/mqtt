@@ -5,6 +5,7 @@
 
 #include <mqtt/byte_buffer.hpp>
 #include <mqtt/stream.hpp>
+#include <mqtt/v311/connect_opts.hpp>
 
 #include <boost/asio.hpp>
 
@@ -20,17 +21,6 @@ namespace beast = boost::beast;
 using boost::system::error_code;
 using socket_type = net::ip::tcp::socket;
 using resolver_type = net::ip::tcp::resolver;
-
-// Helpers to help us construct the CONNECT packet payload
-void add_u16(uint16_t data, std::vector<uint8_t> &out) {
-    out.push_back(data >> 8);
-    out.push_back(data & 0x00FF);
-}
-
-void add_string(boost::string_view str, std::vector<uint8_t> &out) {
-    add_u16(str.size(), out);
-    out.insert(out.end(), str.begin(), str.end());
-}
 
 struct client {
     mqtt::stream<socket_type> stream;
@@ -53,22 +43,21 @@ struct client {
     void connected(error_code ec) {
         if (!ec) {
             std::printf("TCP connection established, sending CONNECT\n");
+            mqtt::v311::connect_opts connect;
+            connect.client_id = "ASIOMQTTCLIENT";
+            connect.keep_alive = std::chrono::minutes(2);
+
             std::vector<uint8_t> connect_packet;
-            // Manually build the CONNECT payload
-            // Don't include the fixed header, this is constructed and handled
-            // by stream.async_write().
-            add_string("MQTT", connect_packet);
-            connect_packet.push_back(4);
-            connect_packet.push_back(0x02);
-            add_u16(10, connect_packet);
-            add_string("ASIOMQTTCLIENT", connect_packet);
+            connect_packet.resize(connect.wire_size());
+            connect.write_to(connect_packet.data());
 
             // Start reading so we can get the CONNACK response
             stream.async_read(read_buffer, beast::bind_front_handler(&client::message_received, this));
             // We will move the vector, so ensure that the buffer view refers to the correct data
             auto to_write = net::buffer(connect_packet);
             // By moving the vector we ensure that the data is kept alive until connect_sent is invoked
-            stream.async_write(0x10, to_write, beast::bind_front_handler(&client::connect_sent, std::move(connect_packet)));
+            stream.async_write(0x10, to_write,
+                               beast::bind_front_handler(&client::connect_sent, std::move(connect_packet)));
         }
     }
 

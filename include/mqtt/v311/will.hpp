@@ -5,13 +5,18 @@
 
 #pragma once
 
+#include <string>
+
+#include <mqtt/binary.hpp>
 #include <mqtt/qos.hpp>
-#include <vector>
+
 namespace mqtt {
-struct will {
+namespace v311 {
+struct will_t {
     std::string topic;
-    std::vector<uint8_t> message;
-    qos quality_of_service = qos::qos1;
+    binary_t payload;
+    mqtt::qos quality_of_service = mqtt::qos::qos1;
     bool retain = false;
 };
-}
+}// namespace v311
+}// namespace mqtt

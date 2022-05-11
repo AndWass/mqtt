@@ -73,19 +73,24 @@ public:
         return next_;
     }
 
-    template<class DynamicBuffer, class ReadHandler>
-    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer, ReadHandler &&handler) {
+    template<class DynamicBuffer, class ReadHandler,
+             std::enable_if_t<boost::asio::is_dynamic_buffer<DynamicBuffer>::value> * = nullptr>
+    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer,
+                                                                             ReadHandler &&handler) {
         return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_op<NextLayer, DynamicBuffer>{
-                next_,
-                read_buffer_,
-                buffer,
-                {}},
-            handler, next_);
+            details::stream::read_op<NextLayer, DynamicBuffer>{next_, read_buffer_, buffer, {}}, handler, next_);
+    }
+
+    template<class ReadHandler>
+    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(const boost::asio::mutable_buffer &buffer,
+                                                                             ReadHandler &&handler) {
+        return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
+            details::stream::read_into_fixed_op<NextLayer>{next_, read_buffer_, buffer, {}}, handler, next_);
     }
 
     template<class ConstBufferSequence, class WriteHandler>
-    async_result_t<WriteHandler, system::error_code, size_t> async_write(uint8_t first_byte, const ConstBufferSequence &buffer, WriteHandler &&handler) {
+    async_result_t<WriteHandler, system::error_code, size_t>
+    async_write(uint8_t first_byte, const ConstBufferSequence &buffer, WriteHandler &&handler) {
         const size_t buffer_len = beast::buffer_bytes(buffer);
         const size_t fixed_header_len = 1 + details::num_varlen_int_bytes(buffer_len);
 
