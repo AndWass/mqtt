@@ -16,7 +16,8 @@
 namespace mqtt {
 namespace v311 {
 
-template<class NextLayer> class client_stream {
+template<class NextLayer>
+class client_stream {
     mqtt::stream<NextLayer> next_;
 
 public:
@@ -28,7 +29,8 @@ public:
         : next_(read_buffer_size, write_buffer_size, std::forward<Args>(args)...) {
     }
 
-    template<class... Args> client_stream(Args &&...args) : next_(std::forward<Args>(args)...) {
+    template<class... Args>
+    client_stream(Args &&...args) : next_(std::forward<Args>(args)...) {
     }
 
     executor_type get_executor() {

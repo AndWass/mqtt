@@ -88,8 +88,9 @@ struct read_op {
                 if (ec) {
                     break;
                 }
-                BOOST_ASIO_CORO_YIELD stream_.async_read_some(internal_buffer_.mutable_buffer(),
-                                                              boost::beast::bind_front_handler(std::move(self), internal_buffer_tag{}));
+                BOOST_ASIO_CORO_YIELD stream_.async_read_some(
+                    internal_buffer_.mutable_buffer(),
+                    boost::beast::bind_front_handler(std::move(self), internal_buffer_tag{}));
                 needs_post_ = false;
                 if (ec) {
                     break;
@@ -100,17 +101,20 @@ struct read_op {
                 header_ = consume_fixed_header(ec);
                 if (!ec) {
                     {
-                        const size_t amount_to_copy = (std::min<size_t>)(internal_buffer_.size(), header_.remaining_length);
+                        const size_t amount_to_copy =
+                            (std::min<size_t>)(internal_buffer_.size(), header_.remaining_length);
                         payload_left_to_read_ = header_.remaining_length - amount_to_copy;
                         if (amount_to_copy > 0) {
-                            boost::asio::buffer_copy(user_buffer_.prepare(amount_to_copy), internal_buffer_.const_buffer(), amount_to_copy);
+                            boost::asio::buffer_copy(user_buffer_.prepare(amount_to_copy),
+                                                     internal_buffer_.const_buffer(), amount_to_copy);
                             user_buffer_.commit(amount_to_copy);
                             internal_buffer_.consume(amount_to_copy);
                         }
                     }
                     while (payload_left_to_read_ > 0) {
-                        BOOST_ASIO_CORO_YIELD stream_.async_read_some(user_buffer_.prepare(payload_left_to_read_),
-                                                                      boost::beast::bind_front_handler(std::move(self), user_buffer_tag{}));
+                        BOOST_ASIO_CORO_YIELD stream_.async_read_some(
+                            user_buffer_.prepare(payload_left_to_read_),
+                            boost::beast::bind_front_handler(std::move(self), user_buffer_tag{}));
                         needs_post_ = false;
                         if (ec) {
                             break;
@@ -137,14 +141,16 @@ struct read_op {
         (*this)(self, ec, header_);
     }
 
-    template<class Self> void operator()(Self &self, user_buffer_tag, system::error_code ec, size_t n) {
+    template<class Self>
+    void operator()(Self &self, user_buffer_tag, system::error_code ec, size_t n) {
         user_buffer_.commit(n);
         payload_left_to_read_ -= n;
         (*this)(self, ec, header_);
     }
 };
 
-template<class AsyncRead> struct read_into_fixed_op {
+template<class AsyncRead>
+struct read_into_fixed_op {
     AsyncRead &stream_;
     read_buffer &internal_buffer_;
     boost::asio::mutable_buffer user_buffer_;
@@ -199,7 +205,8 @@ template<class AsyncRead> struct read_into_fixed_op {
         return retval;
     }
 
-    template<class Self> void operator()(Self &self, system::error_code ec = {}, fixed_header header = {}) {
+    template<class Self>
+    void operator()(Self &self, system::error_code ec = {}, fixed_header header = {}) {
         BOOST_ASIO_CORO_REENTER(coro_) {
             while (need_more_data_for_header(ec)) {
                 if (ec) {
@@ -261,12 +268,14 @@ template<class AsyncRead> struct read_into_fixed_op {
         }
     }
 
-    template<class Self> void operator()(Self &self, internal_buffer_tag, system::error_code ec, size_t n) {
+    template<class Self>
+    void operator()(Self &self, internal_buffer_tag, system::error_code ec, size_t n) {
         internal_buffer_.commit(n);
         (*this)(self, ec, header_);
     }
 
-    template<class Self> void operator()(Self &self, user_buffer_tag, system::error_code ec, size_t n) {
+    template<class Self>
+    void operator()(Self &self, user_buffer_tag, system::error_code ec, size_t n) {
         user_buffer_ += n;
         payload_left_to_read_ -= n;
         (*this)(self, ec, header_);

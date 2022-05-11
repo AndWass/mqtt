@@ -25,7 +25,8 @@ enum class error {
 
 namespace boost {
 namespace system {
-template<> struct is_error_code_enum<mqtt::error> : std::true_type {};
+template<>
+struct is_error_code_enum<mqtt::error> : std::true_type {};
 }// namespace system
 }// namespace boost
 

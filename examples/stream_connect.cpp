@@ -30,7 +30,8 @@ struct client {
     template<class... Args>
     explicit client(Args &&...args)
         : stream(std::forward<Args>(args)...), resolver(stream.get_executor()), read_buffer(1024) {
-        resolver.async_resolve("test.mosquitto.org", "1883", beast::bind_front_handler(&client::resolve_complete, this));
+        resolver.async_resolve("test.mosquitto.org", "1883",
+                               beast::bind_front_handler(&client::resolve_complete, this));
     }
 
     void resolve_complete(error_code ec, const resolver_type::results_type &results) {

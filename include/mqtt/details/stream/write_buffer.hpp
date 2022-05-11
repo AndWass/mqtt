@@ -15,8 +15,7 @@ class write_buffer {
     size_t capacity_;
 
 public:
-    explicit write_buffer(size_t capacity)
-        : buffer_(std::make_unique<uint8_t[]>(capacity)), capacity_(capacity) {
+    explicit write_buffer(size_t capacity) : buffer_(std::make_unique<uint8_t[]>(capacity)), capacity_(capacity) {
     }
 
     [[nodiscard]] size_t capacity() const {

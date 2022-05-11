@@ -57,8 +57,7 @@ public:
     }
 
     template<class... Args>
-    explicit stream(Args &&...args)
-        : stream(size_t(1024), size_t(1024), std::forward<Args>(args)...) {
+    explicit stream(Args &&...args) : stream(size_t(1024), size_t(1024), std::forward<Args>(args)...) {
     }
 
     executor_type get_executor() {
@@ -100,15 +99,15 @@ public:
 
         if (fixed_header_len + buffer_len < write_buffer_.capacity()) {
             boost::asio::buffer_copy(write_buffer_.mutable_buffer(fixed_header_len), buffer);
-            return asio::async_write(next_, write_buffer_.const_buffer(fixed_header_len + buffer_len), std::forward<WriteHandler>(handler));
+            return asio::async_write(next_, write_buffer_.const_buffer(fixed_header_len + buffer_len),
+                                     std::forward<WriteHandler>(handler));
         }
 
         return asio::async_compose<WriteHandler, void(system::error_code, size_t)>(
-            details::stream::write_op<NextLayer, ConstBufferSequence>{
-                next_,
-                write_buffer_.const_buffer(fixed_header_len),
-                buffer,
-                {}},
+            details::stream::write_op<NextLayer, ConstBufferSequence>{next_,
+                                                                      write_buffer_.const_buffer(fixed_header_len),
+                                                                      buffer,
+                                                                      {}},
             handler, next_);
     }
 

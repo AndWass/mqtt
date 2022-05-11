@@ -14,4 +14,4 @@ struct message_view {
     fixed_header header;
     boost::span<const uint8_t> payload{};
 };
-}
+}// namespace mqtt

@@ -12,7 +12,8 @@ namespace mqtt {
 namespace v311 {
 namespace details {
 
-template<class NextLayer> struct handshake_op {
+template<class NextLayer>
+struct handshake_op {
     mqtt::stream<NextLayer> &stream_;
     std::unique_ptr<uint8_t[]> buffer_;
     size_t buffer_size{};
@@ -46,7 +47,8 @@ template<class NextLayer> struct handshake_op {
         }
     }
 
-    template<class Self> void operator()(Self &self, boost::system::error_code ec, size_t /*n*/) {
+    template<class Self>
+    void operator()(Self &self, boost::system::error_code ec, size_t /*n*/) {
         (*this)(self, ec);
     }
 };

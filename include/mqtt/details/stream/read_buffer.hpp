@@ -30,8 +30,7 @@ public:
     using const_buffers_type = boost::asio::const_buffer;
     using mutable_buffers_type = boost::asio::mutable_buffer;
 
-    explicit read_buffer(std::size_t capacity)
-        : storage_(std::make_unique<uint8_t[]>(capacity)), capacity_(capacity) {
+    explicit read_buffer(std::size_t capacity) : storage_(std::make_unique<uint8_t[]>(capacity)), capacity_(capacity) {
     }
 
     boost::asio::mutable_buffer mutable_buffer() {

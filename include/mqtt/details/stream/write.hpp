@@ -20,8 +20,11 @@ template<class AsyncStream, class ConstBufferSequence, class Handler, class = vo
 struct use_asio_write : std::false_type {};
 
 template<class AsyncStream, class ConstBufferSequence, class Handler>
-struct use_asio_write<AsyncStream, ConstBufferSequence, Handler,
-                      std::void_t<decltype(boost::asio::async_write(std::declval<AsyncStream &>(), std::declval<const ConstBufferSequence &>(), std::declval<Handler &&>()))>> : std::true_type {};
+struct use_asio_write<
+    AsyncStream, ConstBufferSequence, Handler,
+    std::void_t<decltype(boost::asio::async_write(
+        std::declval<AsyncStream &>(), std::declval<const ConstBufferSequence &>(), std::declval<Handler &&>()))>>
+    : std::true_type {};
 
 template<bool>
 struct async_write_impl {
@@ -41,7 +44,8 @@ struct async_write_impl<true> {
 
 template<class AsyncStream, class ConstBufferSequence, class Handler>
 auto async_write(AsyncStream &stream, const ConstBufferSequence &buffer, Handler &&handler) {
-    async_write_impl<use_asio_write<AsyncStream, ConstBufferSequence, Handler>::value>::async_write(stream, buffer, std::forward<Handler>(handler));
+    async_write_impl<use_asio_write<AsyncStream, ConstBufferSequence, Handler>::value>::async_write(
+        stream, buffer, std::forward<Handler>(handler));
 }
 
 template<class AsyncWrite, class ConstBufferSequence>
@@ -77,7 +81,8 @@ struct write_op<AsyncWrite, no_buffer_tag> {
     void operator()(Self &self, boost::system::error_code ec = {}, size_t n = 0) {
         namespace asio = boost::asio;
         BOOST_ASIO_CORO_REENTER(coro_) {
-            BOOST_ASIO_CORO_YIELD mqtt::details::stream::async_write(stream_, asio::buffer(fixed_header_, fixed_header_len_), std::move(self));
+            BOOST_ASIO_CORO_YIELD mqtt::details::stream::async_write(
+                stream_, asio::buffer(fixed_header_, fixed_header_len_), std::move(self));
             self.complete(ec, n);
         }
     }
