@@ -24,6 +24,22 @@
   </url><url>
     <loc>https://andwass.github.io/mqtt/reference/stream/constructors/</loc>
   </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/v311/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/executor_type/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/get_executor/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/next_layer/</loc>
+  </url><url>
+    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/next_layer_type/</loc>
+  </url><url>
     <loc>https://andwass.github.io/mqtt/tags/</loc>
   </url>
 </urlset>

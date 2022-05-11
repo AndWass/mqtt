@@ -8,9 +8,11 @@
 <meta name="generator" content="Hugo 0.98.0" />
 
 
-  <meta name="description" content="void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used." />
+  <meta name="description" content="Overload 1 of 2     client_stream(client_stream&amp;&amp;); If purple::stream&lt;NextLayer&gt; is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
+ Overload 2 of 2     template&lt;class... Args&gt; explicit client_stream(Args &amp;&amp;...args); Create an MQTT stream and construct the purple::stream&lt;NextLayer&gt; type usingargs.... See purple::stream::stream for available constructors.
+Exceptions        Type Thrown on     Any exceptions thrown by the purple::stream&lt;NextLayer&gt; constructor." />
 
-    <title>purple::stream::reset | Async MQTT</title>
+    <title>purple::v311::client_stream | Async MQTT</title>
 
     <link rel="icon" type="image/svg+xml" href="/mqtt/favicon/favicon.svg" />
 <link
@@ -31,19 +33,23 @@
     
   <meta
     property="og:title"
-    content="purple::stream::reset"
+    content="purple::v311::client_stream"
   />
   <meta property="og:site_name" content="Async MQTT" />
-  <meta property="og:description" content="void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used." />
+  <meta property="og:description" content="Overload 1 of 2     client_stream(client_stream&amp;&amp;); If purple::stream&lt;NextLayer&gt; is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
+ Overload 2 of 2     template&lt;class... Args&gt; explicit client_stream(Args &amp;&amp;...args); Create an MQTT stream and construct the purple::stream&lt;NextLayer&gt; type usingargs.... See purple::stream::stream for available constructors.
+Exceptions        Type Thrown on     Any exceptions thrown by the purple::stream&lt;NextLayer&gt; constructor." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://andwass.github.io/mqtt/reference/stream/reset/" />
+<meta property="og:url" content="https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/" />
 
 <meta property="article:section" content="Reference" />
 
 
   <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="purple::stream::reset" />
-  <meta name="twitter:description" content="void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used." />
+<meta name="twitter:title" content="purple::v311::client_stream" />
+  <meta name="twitter:description" content="Overload 1 of 2     client_stream(client_stream&amp;&amp;); If purple::stream&lt;NextLayer&gt; is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
+ Overload 2 of 2     template&lt;class... Args&gt; explicit client_stream(Args &amp;&amp;...args); Create an MQTT stream and construct the purple::stream&lt;NextLayer&gt; type usingargs.... See purple::stream::stream for available constructors.
+Exceptions        Type Thrown on     Any exceptions thrown by the purple::stream&lt;NextLayer&gt; constructor." />
 
 
   <script type="application/ld+json">
@@ -51,16 +57,16 @@
       "@context": "http://schema.org",
       "@type": "TechArticle",
       "articleSection": "Reference",
-      "name": "purple::stream::reset",
-      "url" : "https://andwass.github.io/mqtt/reference/stream/reset/",
-      "headline": "purple::stream::reset",
-      "description": "void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used.",
-      "wordCount" : "24",
+      "name": "purple::v311::client_stream",
+      "url" : "https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/",
+      "headline": "purple::v311::client_stream",
+      "description": "Overload 1 of 2     client_stream(client_stream\u0026\u0026); If purple::stream\u003cNextLayer\u003e is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.\n Overload 2 of 2     template\u003cclass... Args\u003e explicit client_stream(Args \u0026\u0026...args); Create an MQTT stream and construct the purple::stream\u003cNextLayer\u003e type usingargs.... See purple::stream::stream for available constructors.\nExceptions        Type Thrown on     Any exceptions thrown by the purple::stream\u003cNextLayer\u003e constructor.",
+      "wordCount" : "89",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://andwass.github.io/mqtt/reference/stream/reset/"
+          "@id": "https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/"
       },
       "copyrightHolder" : "Async MQTT",
       "copyrightYear" : "0001",
@@ -142,7 +148,7 @@
   href="/mqtt/custom.css"
   media="all"
 />
-  <link href="https://andwass.github.io/mqtt/reference/stream/reset/" rel="canonical" type="text/html" />
+  <link href="https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/" rel="canonical" type="text/html" />
 
 <!-- Made with Geekdoc theme https://github.com/thegeeklab/hugo-geekdoc -->
 
@@ -605,7 +611,15 @@
     
   
   
-    <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/' href='/mqtt/'><span itemprop='name'>Async MQTT</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/' href='/mqtt/reference/'><span itemprop='name'>Reference</span></a><meta itemprop='position' content='3' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/stream/' href='/mqtt/reference/stream/'><span itemprop='name'>purple::stream</span></a><meta itemprop='position' content='4' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>purple::stream::reset</span><meta itemprop='position' content='5' /></li>
+    
+    
+    
+    
+  
+  
+    <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/' href='/mqtt/'><span itemprop='name'>Async MQTT</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/' href='/mqtt/reference/'><span itemprop='name'>Reference</span></a><meta itemprop='position' content='3' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/v311/' href='/mqtt/reference/v311/'><span itemprop='name'>purple::v311</span></a><meta itemprop='position' content='4' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/v311/client_stream/' href='/mqtt/reference/v311/client_stream/'><span itemprop='name'>purple::v311::client_stream</span></a><meta itemprop='position' content='5' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>purple::v311::client_stream</span><meta itemprop='position' content='6' /></li>
+  
+
   
 
   
@@ -625,10 +639,76 @@
   <article
     class="gdoc-markdown gdoc-markdown__align--left"
   >
-    <h1>purple::stream::reset</h1>
-    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">reset</span><span class="p">()</span>
-</span></span></code></pre></div><p>Resets the internal state of the stream. This must be called if the connection is
-re-established before the stream can be used.</p>
+    <h1>purple::v311::client_stream</h1>
+    <div class="gdoc-page__anchorwrap">
+    <h2 id="overload-1-of-2">
+        Overload 1 of 2
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/#overload-1-of-2" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Overload 1 of 2" aria-label="Anchor to: Overload 1 of 2" href="#overload-1-of-2">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">client_stream</span><span class="p">(</span><span class="n">client_stream</span><span class="o">&amp;&amp;</span><span class="p">);</span>
+</span></span></code></pre></div><p>If <code>purple::stream&lt;NextLayer&gt;</code> is move constructible, this function will move-construct a new stream from the existing stream.
+After the move, the only valid operation on the moved-from object is destruction.</p>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="overload-2-of-2">
+        Overload 2 of 2
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/#overload-2-of-2" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Overload 2 of 2" aria-label="Anchor to: Overload 2 of 2" href="#overload-2-of-2">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">explicit</span> <span class="n">client_stream</span><span class="p">(</span><span class="n">Args</span> <span class="o">&amp;&amp;</span><span class="p">...</span><span class="n">args</span><span class="p">);</span>
+</span></span></code></pre></div><p>Create an MQTT stream and construct the <code>purple::stream&lt;NextLayer&gt;</code> type using<code>args...</code>.
+See <a
+  class="gdoc-markdown__link--code"
+  href="https://andwass.github.io/mqtt/reference/stream/constructors/"
+  
+><code>purple::stream::stream</code></a> for available
+constructors.</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="exceptions">
+        Exceptions
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/#exceptions" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Exceptions" aria-label="Anchor to: Exceptions" href="#exceptions">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<div class=table-wrap> <table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Thrown on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Any</td>
+<td>exceptions thrown by the <code>purple::stream&lt;NextLayer&gt;</code> constructor.</td>
+</tr>
+</tbody>
+</table> </div>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="parameters">
+        Parameters
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/#parameters" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Parameters" aria-label="Anchor to: Parameters" href="#parameters">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<div class="gdoc-page__anchorwrap">
+    <h4 id="args">
+        <code>args</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/#args" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: args" aria-label="Anchor to: args" href="#args">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div>
+<p>The arguments to be passed to initialize the stream object.
+The arguments are forwarded to the stream constructor.</p>
 
   </article>
 

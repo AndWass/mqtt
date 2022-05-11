@@ -8,9 +8,9 @@
 <meta name="generator" content="Hugo 0.98.0" />
 
 
-  <meta name="description" content="void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used." />
+  <meta name="description" content="template&lt;class WriteHandler = boost::asio::default_completion_token_t&lt;executor_type&gt;&gt; DEDUCED async_handshake(const connect_opts &amp;opts, WriteHandler &amp;&amp;handler = boost::asio::default_completion_token_t&lt;executor_type&gt;{}) This function is used to asynchronously perform a handshake with a server. This is done by first sending a CONNECT message and then waiting for a message from the server. If the message received from the server isn&rsquo;t a CONNACK message (or the CONNACK doesn&rsquo;t signal success) ec will be set to an error. This call always returns immediately." />
 
-    <title>purple::stream::reset | Async MQTT</title>
+    <title>purple::v311::client_stream::async_handshake | Async MQTT</title>
 
     <link rel="icon" type="image/svg+xml" href="/mqtt/favicon/favicon.svg" />
 <link
@@ -31,19 +31,19 @@
     
   <meta
     property="og:title"
-    content="purple::stream::reset"
+    content="purple::v311::client_stream::async_handshake"
   />
   <meta property="og:site_name" content="Async MQTT" />
-  <meta property="og:description" content="void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used." />
+  <meta property="og:description" content="template&lt;class WriteHandler = boost::asio::default_completion_token_t&lt;executor_type&gt;&gt; DEDUCED async_handshake(const connect_opts &amp;opts, WriteHandler &amp;&amp;handler = boost::asio::default_completion_token_t&lt;executor_type&gt;{}) This function is used to asynchronously perform a handshake with a server. This is done by first sending a CONNECT message and then waiting for a message from the server. If the message received from the server isn’t a CONNACK message (or the CONNACK doesn’t signal success) ec will be set to an error. This call always returns immediately." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://andwass.github.io/mqtt/reference/stream/reset/" />
+<meta property="og:url" content="https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/" />
 
 <meta property="article:section" content="Reference" />
 
 
   <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="purple::stream::reset" />
-  <meta name="twitter:description" content="void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used." />
+<meta name="twitter:title" content="purple::v311::client_stream::async_handshake" />
+  <meta name="twitter:description" content="template&lt;class WriteHandler = boost::asio::default_completion_token_t&lt;executor_type&gt;&gt; DEDUCED async_handshake(const connect_opts &amp;opts, WriteHandler &amp;&amp;handler = boost::asio::default_completion_token_t&lt;executor_type&gt;{}) This function is used to asynchronously perform a handshake with a server. This is done by first sending a CONNECT message and then waiting for a message from the server. If the message received from the server isn’t a CONNACK message (or the CONNACK doesn’t signal success) ec will be set to an error. This call always returns immediately." />
 
 
   <script type="application/ld+json">
@@ -51,16 +51,16 @@
       "@context": "http://schema.org",
       "@type": "TechArticle",
       "articleSection": "Reference",
-      "name": "purple::stream::reset",
-      "url" : "https://andwass.github.io/mqtt/reference/stream/reset/",
-      "headline": "purple::stream::reset",
-      "description": "void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used.",
-      "wordCount" : "24",
+      "name": "purple::v311::client_stream::async_handshake",
+      "url" : "https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/",
+      "headline": "purple::v311::client_stream::async_handshake",
+      "description": "template\u003cclass WriteHandler = boost::asio::default_completion_token_t\u003cexecutor_type\u003e\u003e DEDUCED async_handshake(const connect_opts \u0026opts, WriteHandler \u0026\u0026handler = boost::asio::default_completion_token_t\u003cexecutor_type\u003e{}) This function is used to asynchronously perform a handshake with a server. This is done by first sending a CONNECT message and then waiting for a message from the server. If the message received from the server isn’t a CONNACK message (or the CONNACK doesn’t signal success) ec will be set to an error. This call always returns immediately.",
+      "wordCount" : "253",
       "inLanguage": "en",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://andwass.github.io/mqtt/reference/stream/reset/"
+          "@id": "https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/"
       },
       "copyrightHolder" : "Async MQTT",
       "copyrightYear" : "0001",
@@ -142,7 +142,7 @@
   href="/mqtt/custom.css"
   media="all"
 />
-  <link href="https://andwass.github.io/mqtt/reference/stream/reset/" rel="canonical" type="text/html" />
+  <link href="https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/" rel="canonical" type="text/html" />
 
 <!-- Made with Geekdoc theme https://github.com/thegeeklab/hugo-geekdoc -->
 
@@ -605,7 +605,15 @@
     
   
   
-    <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/' href='/mqtt/'><span itemprop='name'>Async MQTT</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/' href='/mqtt/reference/'><span itemprop='name'>Reference</span></a><meta itemprop='position' content='3' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/stream/' href='/mqtt/reference/stream/'><span itemprop='name'>purple::stream</span></a><meta itemprop='position' content='4' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>purple::stream::reset</span><meta itemprop='position' content='5' /></li>
+    
+    
+    
+    
+  
+  
+    <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/' href='/mqtt/'><span itemprop='name'>Async MQTT</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/' href='/mqtt/reference/'><span itemprop='name'>Reference</span></a><meta itemprop='position' content='3' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/v311/' href='/mqtt/reference/v311/'><span itemprop='name'>purple::v311</span></a><meta itemprop='position' content='4' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/mqtt/reference/v311/client_stream/' href='/mqtt/reference/v311/client_stream/'><span itemprop='name'>purple::v311::client_stream</span></a><meta itemprop='position' content='5' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>purple::v311::client_stream::async_handshake</span><meta itemprop='position' content='6' /></li>
+  
+
   
 
   
@@ -625,10 +633,64 @@
   <article
     class="gdoc-markdown gdoc-markdown__align--left"
   >
-    <h1>purple::stream::reset</h1>
-    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">reset</span><span class="p">()</span>
-</span></span></code></pre></div><p>Resets the internal state of the stream. This must be called if the connection is
-re-established before the stream can be used.</p>
+    <h1>purple::v311::client_stream::async_handshake</h1>
+    <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">WriteHandler</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">default_completion_token_t</span><span class="o">&lt;</span><span class="n">executor_type</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEDUCED</span>
+</span></span><span class="line"><span class="cl"><span class="n">async_handshake</span><span class="p">(</span><span class="k">const</span> <span class="n">connect_opts</span> <span class="o">&amp;</span><span class="n">opts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">WriteHandler</span> <span class="o">&amp;&amp;</span><span class="n">handler</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">default_completion_token_t</span><span class="o">&lt;</span><span class="n">executor_type</span><span class="o">&gt;</span><span class="p">{})</span>
+</span></span></code></pre></div><p>This function is used to asynchronously perform a handshake with a server.
+This is done by first sending a <code>CONNECT</code> message and then waiting for a
+message from the server. If the message received from the server isn&rsquo;t a <code>CONNACK</code>
+message (or the <code>CONNACK</code> doesn&rsquo;t signal success) <code>ec</code> will be set to an error.
+This call always returns immediately. The asynchronous operation
+will continue until one of the following conditions is true:</p>
+<ul>
+<li>A message is received.</li>
+<li>An error occurs.</li>
+</ul>
+<p>The algorithm, known as a composed asynchronous operation,
+is implemented in terms of calls to the next layers async_write_some
+function. The program must ensure that no other calls to <code>async_write</code>
+are performed until this operation completes.</p>
+<p>The connect options will be copied to an internal buffer used when sending
+the connect message. The caller can therefore discard that data immediately after
+the call has returned.</p>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="parameters">
+        Parameters
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/#parameters" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: Parameters" aria-label="Anchor to: Parameters" href="#parameters">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="opts">
+        <code>opts</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/#opts" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: opts" aria-label="Anchor to: opts" href="#opts">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>The options to use to build the <code>CONNECT</code> message.</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="handler">
+        <code>handler</code>
+        <a data-clipboard-text="https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/#handler" class="gdoc-page__anchor gdoc-page__anchor--right clip" title="Anchor to: handler" aria-label="Anchor to: handler" href="#handler">
+            <svg class="gdoc-icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div>
+<p>The completion handler to invoke when the operation completes.
+The implementation takes ownership of the handler by performing a decay-copy.
+The equivalent function signature of the handler must be:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">handler</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="n">error_code</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">ec</span><span class="p">,</span>           <span class="c1">// Result of operation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="n">session_present</span>            <span class="c1">// Whether server response
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="c1">// indicated session present or not.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">);</span>
+</span></span></code></pre></div><p>Regardless of whether the asynchronous operation completes immediately or not,
+the handler will not be invoked from within this function. Invocation of the
+handler will be performed in a manner equivalent to using net::post.</p>
 
   </article>
 
