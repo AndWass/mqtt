@@ -13,28 +13,34 @@ jobs:
         os: [ubuntu-18.04]
         include:
           - cxx: g++-8
+            cc: gcc-8
             build_type: Debug
             std: 14
             install: sudo apt install g++-8
             os: ubuntu-18.04
           - cxx: g++-10
+            cc: gcc-10
             build_type: Debug
             std: 17
             os: ubuntu-18.04
           - cxx: g++-11
+            cc: gcc-11
             build_type: Debug
             std: 20
             os: ubuntu-20.04
             install: sudo apt install g++-11
           - cxx: clang++-9
+            cc: clang-9
             build_type: Debug
             std: 17
             os: ubuntu-18.04
           - cxx: clang++-11
+            cc: clang-11
             build_type: Debug
             std: 20
             os: ubuntu-20.04
           - cxx: clang++-11
+            cc: clang-11
             build_type: Debug
             std: 20
             cxxflags: -stdlib=libc++
@@ -49,13 +55,13 @@ jobs:
         ${{matrix.install}}
         sudo apt update
         sudo apt install locales-all
-        sudo apt install python3-pip
         pip install conan
         cmake -E make_directory ${{runner.workspace}}/build
 
     - name: Configure
       working-directory: ${{runner.workspace}}/build
       env:
+        CC: ${{matrix.cc}}
         CXX: ${{matrix.cxx}}
         CXXFLAGS: ${{matrix.cxxflags}}
       run: |
