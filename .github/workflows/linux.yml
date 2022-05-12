@@ -57,7 +57,7 @@ jobs:
         ${{matrix.install}}
         sudo apt update
         sudo apt install locales-all
-        pip install conan
+        pip3 install conan
         cmake -E make_directory ${{runner.workspace}}/build
 
     - name: Configure
