@@ -11,6 +11,7 @@ jobs:
           - cxx: g++-8
             cc: gcc-8
             conan_compiler: gcc
+            conan_libcxx: libstdc++11
             build_type: Debug
             std: 14
             install: sudo apt install g++-8
@@ -18,12 +19,14 @@ jobs:
           - cxx: g++-10
             cc: gcc-10
             conan_compiler: gcc
+            conan_libcxx: libstdc++11
             build_type: Debug
             std: 17
             os: ubuntu-18.04
           - cxx: g++-11
             cc: gcc-11
             conan_compiler: gcc
+            conan_libcxx: libstdc++11
             build_type: Debug
             std: 20
             os: ubuntu-20.04
@@ -31,12 +34,14 @@ jobs:
           - cxx: clang++-9
             cc: clang-9
             conan_compiler: clang
+            conan_libcxx: libstdc++11
             build_type: Debug
             std: 17
             os: ubuntu-18.04
           - cxx: clang++-11
             cc: clang-11
             conan_compiler: clang
+            conan_libcxx: libstdc++11
             build_type: Debug
             std: 20
             os: ubuntu-20.04
@@ -46,6 +51,7 @@ jobs:
             build_type: Debug
             std: 20
             cxxflags: -stdlib=libc++
+            conan_libcxx: libc++
             os: ubuntu-20.04
             install: sudo apt install libc++-11-dev libc++abi-11-dev
 
@@ -67,7 +73,8 @@ jobs:
         CXX: ${{matrix.cxx}}
         CXXFLAGS: ${{matrix.cxxflags}}
       run: |
-        conan install -s build_type=${{matrix.build_type}} -s compiler=${{matrix.conan_compiler}} $GITHUB_WORKSPACE
+        conan install -s build_type=${{matrix.build_type}} -s compiler=${{matrix.conan_compiler}} \
+              -s compiler.libcxx=${{conan_libcxx}} $GITHUB_WORKSPACE
         cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
               $GITHUB_WORKSPACE
