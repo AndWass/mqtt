@@ -5,8 +5,8 @@
 
 #include <gtest/gtest.h>
 
-#include <mqtt/byte_buffer.hpp>
-#include <mqtt/stream.hpp>
+#include <purple/byte_buffer.hpp>
+#include <purple/stream.hpp>
 
 #include <boost/asio.hpp>
 

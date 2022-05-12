@@ -7,8 +7,8 @@
 
 #include <string>
 
-#include <mqtt/binary.hpp>
-#include <mqtt/qos.hpp>
+#include <purple/binary.hpp>
+#include <purple/qos.hpp>
 
 namespace purple {
 namespace v311 {

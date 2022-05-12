@@ -1,8 +1,8 @@
 #pragma once
 
-#include <mqtt/error.hpp>
-#include <mqtt/fixed_header.hpp>
-#include <mqtt/stream.hpp>
+#include <purple/error.hpp>
+#include <purple/fixed_header.hpp>
+#include <purple/stream.hpp>
 
 #include <boost/asio/coroutine.hpp>
 

@@ -1,6 +1,6 @@
 from conans import ConanFile, CMake
 
-class MqttConan(ConanFile):
+class PurpleConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     requires = "boost/1.78.0"
     generators = "cmake",

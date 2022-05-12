@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <mqtt/stream.hpp>
+#include <purple/stream.hpp>
 
 #include "details/handshake.hpp"
 

@@ -3,9 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          https://www.boost.org/LICENSE_1_0.txt)
 
-#include <mqtt/byte_buffer.hpp>
-#include <mqtt/v311/client_stream.hpp>
-#include <mqtt/v311/connect_opts.hpp>
+#include <purple/byte_buffer.hpp>
+#include <purple/v311/client_stream.hpp>
+#include <purple/v311/connect_opts.hpp>
 
 #include <boost/asio.hpp>
 

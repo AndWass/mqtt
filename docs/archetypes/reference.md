@@ -1,5 +1,5 @@
 ---
-title: "{{ replace (replace .File.Dir "/" "::") "reference" "mqtt" }}{{ .Name }}"
+title: "{{ replace (replace .File.Dir "/" "::") "reference" "purple" }}{{ .Name }}"
 geekdocHidden: true
 ---
 

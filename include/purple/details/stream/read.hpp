@@ -13,9 +13,9 @@
 #include <boost/system/error_code.hpp>
 #include <cstdint>
 
-#include <mqtt/byte_buffer.hpp>
-#include <mqtt/error.hpp>
-#include <mqtt/fixed_header.hpp>
+#include <purple/byte_buffer.hpp>
+#include <purple/error.hpp>
+#include <purple/fixed_header.hpp>
 
 #include "read_buffer.hpp"
 

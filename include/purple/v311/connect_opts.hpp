@@ -9,10 +9,10 @@
 #include <cstring>
 #include <string>
 
-#include <mqtt/binary.hpp>
-#include <mqtt/v311/will.hpp>
+#include <purple/binary.hpp>
+#include <purple/v311/will.hpp>
 
-#include <mqtt/details/bits.hpp>
+#include <purple/details/bits.hpp>
 
 #include <boost/optional.hpp>
 
