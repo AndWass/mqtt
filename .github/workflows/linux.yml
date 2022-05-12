@@ -56,7 +56,7 @@ jobs:
       run: |
         ${{matrix.install}}
         sudo apt update
-        sudo apt install locales-all
+        sudo apt install python3-setuptools
         pip3 install conan
         cmake -E make_directory ${{runner.workspace}}/build
 
