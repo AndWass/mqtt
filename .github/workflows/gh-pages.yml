@@ -21,7 +21,7 @@ jobs:
           hugo-version: 'latest'
           # extended: true
       - name: Prepare theme
-        run: mkdir -p docs/themes/hugo-geekdoc && curl -L https://github.com/thegeeklab/hugo-geekdoc/releases/latest/download/hugo-geekdoc.tar.gz | tar -xz -C docs/themes/hugo-geekdoc/ --strip-components=1
+        run: mkdir -p docs/themes/hugo-geekdoc && curl -L https://github.com/thegeeklab/hugo-geekdoc/archive/refs/tags/v0.29.5.tar.gz | tar -xz -C docs/themes/hugo-geekdoc/ --strip-components=1
       - name: Build
         run: hugo -s docs
 
