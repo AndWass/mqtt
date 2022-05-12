@@ -74,7 +74,7 @@ jobs:
         CXXFLAGS: ${{matrix.cxxflags}}
       run: |
         conan install -s build_type=${{matrix.build_type}} -s compiler=${{matrix.conan_compiler}} \
-              -s compiler.libcxx=${{matrix.conan_libcxx}} $GITHUB_WORKSPACE
+              -s compiler.libcxx=${{matrix.conan_libcxx}} $GITHUB_WORKSPACE --build=missing
         cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
               $GITHUB_WORKSPACE
