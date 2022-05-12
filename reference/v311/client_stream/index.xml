@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>purple::v311::client_stream on Async MQTT</title>
-    <link>https://andwass.github.io/mqtt/reference/v311/client_stream/</link>
+    <link>https://andwass.github.io/purple/reference/v311/client_stream/</link>
     <description>Recent content in purple::v311::client_stream on Async MQTT</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://andwass.github.io/mqtt/reference/v311/client_stream/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://andwass.github.io/purple/reference/v311/client_stream/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>purple::v311::client_stream</title>
-      <link>https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/</link>
+      <link>https://andwass.github.io/purple/reference/v311/client_stream/constructors/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/</guid>
+      <guid>https://andwass.github.io/purple/reference/v311/client_stream/constructors/</guid>
       <description>Overload 1 of 2     client_stream(client_stream&amp;amp;&amp;amp;); If purple::stream&amp;lt;NextLayer&amp;gt; is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
  Overload 2 of 2     template&amp;lt;class... Args&amp;gt; explicit client_stream(Args &amp;amp;&amp;amp;...args); Create an MQTT stream and construct the purple::stream&amp;lt;NextLayer&amp;gt; type usingargs.... See purple::stream::stream for available constructors.
 Exceptions        Type Thrown on     Any exceptions thrown by the purple::stream&amp;lt;NextLayer&amp;gt; constructor.</description>
@@ -19,38 +19,38 @@ Exceptions        Type Thrown on     Any exceptions thrown by the purple::stream
     
     <item>
       <title>purple::v311::client_stream::async_handshake</title>
-      <link>https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/</link>
+      <link>https://andwass.github.io/purple/reference/v311/client_stream/async_handshake/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/</guid>
+      <guid>https://andwass.github.io/purple/reference/v311/client_stream/async_handshake/</guid>
       <description>template&amp;lt;class WriteHandler = boost::asio::default_completion_token_t&amp;lt;executor_type&amp;gt;&amp;gt; DEDUCED async_handshake(const connect_opts &amp;amp;opts, WriteHandler &amp;amp;&amp;amp;handler = boost::asio::default_completion_token_t&amp;lt;executor_type&amp;gt;{}) This function is used to asynchronously perform a handshake with a server. This is done by first sending a CONNECT message and then waiting for a message from the server. If the message received from the server isn&amp;rsquo;t a CONNACK message (or the CONNACK doesn&amp;rsquo;t signal success) ec will be set to an error. This call always returns immediately.</description>
     </item>
     
     <item>
       <title>purple::v311::client_stream::executor_type</title>
-      <link>https://andwass.github.io/mqtt/reference/v311/client_stream/executor_type/</link>
+      <link>https://andwass.github.io/purple/reference/v311/client_stream/executor_type/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/v311/client_stream/executor_type/</guid>
+      <guid>https://andwass.github.io/purple/reference/v311/client_stream/executor_type/</guid>
       <description>using executor_type = typename purple::stream&amp;lt;NextLayer&amp;gt;::executor_type; The type of executor associated with the object.</description>
     </item>
     
     <item>
       <title>purple::v311::client_stream::get_executor</title>
-      <link>https://andwass.github.io/mqtt/reference/v311/client_stream/get_executor/</link>
+      <link>https://andwass.github.io/purple/reference/v311/client_stream/get_executor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/v311/client_stream/get_executor/</guid>
+      <guid>https://andwass.github.io/purple/reference/v311/client_stream/get_executor/</guid>
       <description>executor_type get_executor(); This function may be used to obtain the executor object that the stream uses to dispatch handlers for asynchronous operations.
 Return value     A copy of the executor that the stream will use to dispatch handlers.</description>
     </item>
     
     <item>
       <title>purple::v311::client_stream::next_layer</title>
-      <link>https://andwass.github.io/mqtt/reference/v311/client_stream/next_layer/</link>
+      <link>https://andwass.github.io/purple/reference/v311/client_stream/next_layer/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/v311/client_stream/next_layer/</guid>
+      <guid>https://andwass.github.io/purple/reference/v311/client_stream/next_layer/</guid>
       <description>Overload 1 of 2     next_layer_type&amp;amp; next_layer(); This function returns a reference to the next layer in a stack of stream layers.
 Return value     A reference to the next layer in a stack of stream layers.
  Overload 2 of 2     const next_layer_type&amp;amp; next_layer() const; This function returns a reference to the next layer in a stack of stream layers.</description>
@@ -58,10 +58,10 @@ Return value     A reference to the next layer in a stack of stream layers.
     
     <item>
       <title>purple::v311::client_stream::next_layer_type</title>
-      <link>https://andwass.github.io/mqtt/reference/v311/client_stream/next_layer_type/</link>
+      <link>https://andwass.github.io/purple/reference/v311/client_stream/next_layer_type/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/v311/client_stream/next_layer_type/</guid>
+      <guid>https://andwass.github.io/purple/reference/v311/client_stream/next_layer_type/</guid>
       <description>using next_layer_type = NextLayer; The type of the next layer.</description>
     </item>
     

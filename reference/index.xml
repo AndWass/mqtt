@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Async MQTT</title>
-    <link>https://andwass.github.io/mqtt/reference/</link>
+    <link>https://andwass.github.io/purple/reference/</link>
     <description>Recent content on Async MQTT</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://andwass.github.io/mqtt/reference/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://andwass.github.io/purple/reference/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

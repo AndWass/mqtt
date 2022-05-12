@@ -2,44 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://andwass.github.io/mqtt/reference/</loc>
+    <loc>https://andwass.github.io/purple/reference/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/</loc>
+    <loc>https://andwass.github.io/purple/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/async_read/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/async_read/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/async_write/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/async_write/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/executor_type/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/executor_type/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/get_executor/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/get_executor/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/next_layer/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/next_layer/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/next_layer_type/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/next_layer_type/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/reset/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/reset/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/stream/constructors/</loc>
+    <loc>https://andwass.github.io/purple/reference/stream/constructors/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/v311/</loc>
+    <loc>https://andwass.github.io/purple/reference/v311/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/</loc>
+    <loc>https://andwass.github.io/purple/reference/v311/client_stream/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/constructors/</loc>
+    <loc>https://andwass.github.io/purple/reference/v311/client_stream/constructors/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/async_handshake/</loc>
+    <loc>https://andwass.github.io/purple/reference/v311/client_stream/async_handshake/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/executor_type/</loc>
+    <loc>https://andwass.github.io/purple/reference/v311/client_stream/executor_type/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/get_executor/</loc>
+    <loc>https://andwass.github.io/purple/reference/v311/client_stream/get_executor/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/next_layer/</loc>
+    <loc>https://andwass.github.io/purple/reference/v311/client_stream/next_layer/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/reference/v311/client_stream/next_layer_type/</loc>
+    <loc>https://andwass.github.io/purple/reference/v311/client_stream/next_layer_type/</loc>
   </url><url>
-    <loc>https://andwass.github.io/mqtt/tags/</loc>
+    <loc>https://andwass.github.io/purple/tags/</loc>
   </url>
 </urlset>

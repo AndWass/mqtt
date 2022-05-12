@@ -2,55 +2,55 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>purple::stream on Async MQTT</title>
-    <link>https://andwass.github.io/mqtt/reference/stream/</link>
+    <link>https://andwass.github.io/purple/reference/stream/</link>
     <description>Recent content in purple::stream on Async MQTT</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://andwass.github.io/mqtt/reference/stream/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://andwass.github.io/purple/reference/stream/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>purple::stream::async_read</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/async_read/</link>
+      <link>https://andwass.github.io/purple/reference/stream/async_read/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/stream/async_read/</guid>
+      <guid>https://andwass.github.io/purple/reference/stream/async_read/</guid>
       <description>Overload 1 of 2     template&amp;lt;class DynamicBuffer, class ReadHandler&amp;gt; DEDUCED async_read(DynamicBuffer &amp;amp;buffer, ReadHandler &amp;amp;&amp;amp;handler); This function is used to asynchronously read a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
  A complete message is received. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_read_some.</description>
     </item>
     
     <item>
       <title>purple::stream::async_write</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/async_write/</link>
+      <link>https://andwass.github.io/purple/reference/stream/async_write/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/stream/async_write/</guid>
+      <guid>https://andwass.github.io/purple/reference/stream/async_write/</guid>
       <description>template&amp;lt;class ConstBufferSequence, class WriteHandler&amp;gt; DEDUCED async_write(uint8_t first_byte, const ConstBufferSequence &amp;amp;buffer, WriteHandler &amp;amp;&amp;amp;handler); This function is used to asynchronously write a complete message. This call always returns immediately. The asynchronous operation will continue until one of the following conditions is true:
  The complete message is written. An error occurs.  The algorithm, known as a composed asynchronous operation, is implemented in terms of calls to the next layers async_write_some function. The program must ensure that no other calls to async_write are performed until this operation completes.</description>
     </item>
     
     <item>
       <title>purple::stream::executor_type</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/executor_type/</link>
+      <link>https://andwass.github.io/purple/reference/stream/executor_type/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/stream/executor_type/</guid>
+      <guid>https://andwass.github.io/purple/reference/stream/executor_type/</guid>
       <description>using executor_type = boost::beast::executor_type&amp;lt;NextLayer&amp;gt;; The type of executor associated with the object.</description>
     </item>
     
     <item>
       <title>purple::stream::get_executor</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/get_executor/</link>
+      <link>https://andwass.github.io/purple/reference/stream/get_executor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/stream/get_executor/</guid>
+      <guid>https://andwass.github.io/purple/reference/stream/get_executor/</guid>
       <description>executor_type get_executor(); This function may be used to obtain the executor object that the stream uses to dispatch handlers for asynchronous operations.
 Return value     A copy of the executor that the stream will use to dispatch handlers.</description>
     </item>
     
     <item>
       <title>purple::stream::next_layer</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/next_layer/</link>
+      <link>https://andwass.github.io/purple/reference/stream/next_layer/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/stream/next_layer/</guid>
+      <guid>https://andwass.github.io/purple/reference/stream/next_layer/</guid>
       <description>Overload 1 of 2     next_layer_type&amp;amp; next_layer(); This function returns a reference to the next layer in a stack of stream layers.
 Return value     A reference to the next layer in a stack of stream layers.
  Overload 2 of 2     const next_layer_type&amp;amp; next_layer() const; This function returns a reference to the next layer in a stack of stream layers.</description>
@@ -58,28 +58,28 @@ Return value     A reference to the next layer in a stack of stream layers.
     
     <item>
       <title>purple::stream::next_layer_type</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/next_layer_type/</link>
+      <link>https://andwass.github.io/purple/reference/stream/next_layer_type/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/stream/next_layer_type/</guid>
+      <guid>https://andwass.github.io/purple/reference/stream/next_layer_type/</guid>
       <description>using next_layer_type = NextLayer; The type of the next layer.</description>
     </item>
     
     <item>
       <title>purple::stream::reset</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/reset/</link>
+      <link>https://andwass.github.io/purple/reference/stream/reset/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/stream/reset/</guid>
+      <guid>https://andwass.github.io/purple/reference/stream/reset/</guid>
       <description>void reset() Resets the internal state of the stream. This must be called if the connection is re-established before the stream can be used.</description>
     </item>
     
     <item>
       <title>purple::stream::stream</title>
-      <link>https://andwass.github.io/mqtt/reference/stream/constructors/</link>
+      <link>https://andwass.github.io/purple/reference/stream/constructors/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andwass.github.io/mqtt/reference/stream/constructors/</guid>
+      <guid>https://andwass.github.io/purple/reference/stream/constructors/</guid>
       <description>Overload 1 of 3     stream(stream&amp;amp;&amp;amp;); If NextLayer is move constructible, this function will move-construct a new stream from the existing stream. After the move, the only valid operation on the moved-from object is destruction.
  Overload 2 of 3     template&amp;lt;class...Args&amp;gt; stream(size_t read_buffer_size, size_t write_buffer_size, Args&amp;amp;&amp;amp;...args); Create an MQTT stream and construct the NextLayer type using args.... The size of the internal read buffer is controlled by read_buffer_size, and the size of the internal write buffer is controlled by write_buffer_size.</description>
     </item>
