@@ -67,7 +67,7 @@ jobs:
         CXX: ${{matrix.cxx}}
         CXXFLAGS: ${{matrix.cxxflags}}
       run: |
-        conan install -s build_type=${{matrix.build_type}} -s compiler=${{matrix.conan_compiler}} ../
+        conan install -s build_type=${{matrix.build_type}} -s compiler=${{matrix.conan_compiler}} $GITHUB_WORKSPACE
         cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
               $GITHUB_WORKSPACE
