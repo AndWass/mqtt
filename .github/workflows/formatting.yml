@@ -12,5 +12,5 @@ jobs:
           echo $GITHUB_WORKSPACE
           pwd
           clang-format --version
-          find $GITHUB_WORKSPACE/include -iname *.hpp | xargs clang-format --style=file:$GITHUB_WORKSPACE/.clang-format --dry-run -Werror
-          find $GITHUB_WORKSPACE/examples -iname *.cpp | xargs clang-format --style=file:$GITHUB_WORKSPACE/.clang-format --dry-run -Werror
+          find $GITHUB_WORKSPACE/include -iname *.hpp | xargs clang-format --dry-run -Werror
+          find $GITHUB_WORKSPACE/examples -iname *.cpp | xargs clang-format --dry-run -Werror
