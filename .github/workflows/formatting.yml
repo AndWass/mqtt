@@ -1,0 +1,14 @@
+name: formatting
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+  steps:
+    - uses: actions/checkout@v2
+
+    - name: Check formatting
+      run: |
+        find $GITHUB_WORKSPACE/include -iname *.hpp | xargs clang-format --style=file:$GITHUB_WORKSPACE/.clang-format --dry-run -Werror
+        find $GITHUB_WORKSPACE/examples -iname *.cpp | xargs clang-format --style=file:$GITHUB_WORKSPACE/.clang-format --dry-run -Werror
