@@ -5,6 +5,9 @@
 
 #include <purple/byte_buffer.hpp>
 #include <purple/stream.hpp>
+
+#include <purple/tcp/resolving_socket.hpp>
+
 #include <purple/v311/connect_opts.hpp>
 
 #include <boost/asio.hpp>
@@ -19,26 +22,16 @@ namespace net = boost::asio;
 namespace beast = boost::beast;
 
 using boost::system::error_code;
-using socket_type = net::ip::tcp::socket;
+using socket_type = purple::tcp::resolving_socket;
 using resolver_type = net::ip::tcp::resolver;
 
 struct client {
     purple::stream<socket_type> stream;
-    resolver_type resolver;
     purple::byte_buffer read_buffer;
 
-    template<class... Args>
-    explicit client(Args &&...args)
-        : stream(std::forward<Args>(args)...), resolver(stream.get_executor()), read_buffer(1024) {
-        resolver.async_resolve("test.mosquitto.org", "1883",
-                               beast::bind_front_handler(&client::resolve_complete, this));
-    }
-
-    void resolve_complete(error_code ec, const resolver_type::results_type &results) {
-        if (!ec) {
-            std::printf("Establishing TCP connection\n");
-            stream.next_layer().async_connect(*results, beast::bind_front_handler(&client::connected, this));
-        }
+    explicit client(const socket_type::executor_type& exec)
+        : stream(exec, "test.mosquitto.org", "1883"), read_buffer(1024) {
+        stream.next_layer().async_connect(beast::bind_front_handler(&client::connected, this));
     }
 
     void connected(error_code ec) {
