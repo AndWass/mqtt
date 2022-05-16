@@ -20,7 +20,7 @@ public:
 
     using base_type::span;
 
-    binary_view(boost::string_view str) // NOLINT(google-explicit-constructor)
+    binary_view(boost::string_view str)// NOLINT(google-explicit-constructor)
         : boost::span<const uint8_t>(reinterpret_cast<const uint8_t *>(str.data()), str.size()) {
     }
 

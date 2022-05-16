@@ -10,14 +10,10 @@
 
 #include <string>
 
-namespace purple
-{
-namespace tcp
-{
-namespace details
-{
-struct resolving_socket_impl
-{
+namespace purple {
+namespace tcp {
+namespace details {
+struct resolving_socket_impl {
     boost::asio::ip::tcp::socket socket_;
     boost::asio::ip::tcp::resolver resolver_;
     std::string host_;
@@ -29,6 +25,6 @@ struct resolving_socket_impl
         : socket_(exec), resolver_(exec), host_(host), service_(service) {
     }
 };
-}
-}
-}
+}// namespace details
+}// namespace tcp
+}// namespace purple

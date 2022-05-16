@@ -3,5 +3,4 @@
 #include <purple/v311/client.hpp>
 
 int main() {
-
 }

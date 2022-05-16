@@ -29,7 +29,7 @@ struct client {
     purple::stream<socket_type> stream;
     purple::byte_buffer read_buffer;
 
-    explicit client(const socket_type::executor_type& exec)
+    explicit client(const socket_type::executor_type &exec)
         : stream(exec, "test.mosquitto.org", "1883"), read_buffer(1024) {
         stream.next_layer().async_connect(beast::bind_front_handler(&client::connected, this));
     }

@@ -5,22 +5,17 @@
 
 #pragma once
 
-namespace purple
-{
-namespace v311
-{
-namespace details
-{
-struct client_state_machine
-{
-    enum class state
-    {
+namespace purple {
+namespace v311 {
+namespace details {
+struct client_state_machine {
+    enum class state {
         waiting_start,
 
         handshaking,
 
     };
 };
-}
-}
-}
+}// namespace details
+}// namespace v311
+}// namespace purple
