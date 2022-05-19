@@ -9,7 +9,7 @@
 
 #include "details/handshake.hpp"
 
-#include "connect_opts.hpp"
+#include "connect_message.hpp"
 
 #include <boost/asio/steady_timer.hpp>
 
@@ -42,7 +42,7 @@ public:
 
     template<class WriteHandler = boost::asio::default_completion_token_t<executor_type>>
     purple::async_result_t<WriteHandler, boost::system::error_code, bool>
-    async_handshake(const connect_opts &opts,
+    async_handshake(const connect_message &opts,
                     WriteHandler &&handler = boost::asio::default_completion_token_t<executor_type>{}) {
         const size_t wire_size = opts.wire_size();
         std::unique_ptr<uint8_t[]> buffer_ = std::make_unique<uint8_t[]>(wire_size);

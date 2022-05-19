@@ -18,11 +18,11 @@
 
 namespace purple {
 namespace v311 {
-struct connect_opts {
+struct connect_message {
     std::string client_id;
 
-    boost::optional<std::string> username;
-    boost::optional<purple::binary_t> password;
+    std::string username;
+    std::string password;
     boost::optional<purple::v311::will_t> will;
 
     std::chrono::seconds keep_alive;
@@ -30,11 +30,8 @@ struct connect_opts {
 
     [[nodiscard]] uint8_t flag_byte() const {
         uint8_t flags = clean_session ? 0x02 : 0;
-        if (username.has_value()) {
-            flags |= 0x80;
-            if (password.has_value()) {
-                flags |= 0x40;
-            }
+        if (!username.empty()) {
+            flags |= 0x80 | 0x40;
         }
 
         if (will.has_value()) {
@@ -48,11 +45,8 @@ struct connect_opts {
 
     [[nodiscard]] size_t wire_size() const {
         size_t retval = 10 + 2 + client_id.size();
-        if (username.has_value()) {
-            retval += 2 + static_cast<uint16_t>(username->size());
-            if (password.has_value()) {
-                retval += 2 + password->size();
-            }
+        if (!username.empty()) {
+            retval += 4 + static_cast<uint16_t>(username.size()) + static_cast<uint16_t>(password.size());
         }
 
         if (will.has_value()) {
@@ -74,11 +68,9 @@ struct connect_opts {
             out = purple::details::put_bin(will->payload, out);
         }
 
-        if (username.has_value()) {
-            out = purple::details::put_str(*username, out);
-            if (password.has_value()) {
-                out = purple::details::put_bin(*password, out);
-            }
+        if (!username.empty()) {
+            out = purple::details::put_str(username, out);
+            out = purple::details::put_str(password, out);
         }
 
         return out;

@@ -32,6 +32,14 @@ public:
         return inner_.socket_.get_executor();
     }
 
+    const boost::asio::ip::tcp::socket& next_layer() const {
+        return inner_.socket_;
+    }
+
+    boost::asio::ip::tcp::socket& next_layer() {
+        return inner_.socket_;
+    }
+
     template<class MutableBufferSequence, class Handler>
     auto async_read_some(const MutableBufferSequence &buffers, Handler &&handler) {
         return inner_.socket_.template async_read_some(buffers, std::forward<Handler>(handler));

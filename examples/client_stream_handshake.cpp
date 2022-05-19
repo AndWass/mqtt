@@ -5,7 +5,7 @@
 
 #include <purple/byte_buffer.hpp>
 #include <purple/v311/client_stream.hpp>
-#include <purple/v311/connect_opts.hpp>
+#include <purple/v311/connect_message.hpp>
 
 #include <boost/asio.hpp>
 
@@ -42,7 +42,7 @@ struct client {
     void connected(error_code ec) {
         if (!ec) {
             std::printf("TCP connection established, sending CONNECT\n");
-            purple::v311::connect_opts connect;
+            purple::v311::connect_message connect;
             connect.client_id = "ASIOMQTTCLIENT";
             connect.keep_alive = std::chrono::seconds(10);
             connect.will.emplace();
