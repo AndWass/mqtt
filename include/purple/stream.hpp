@@ -6,6 +6,7 @@
 #pragma once
 
 #include <purple/fixed_header.hpp>
+#include <purple/async_result.hpp>
 
 #include "details/bits.hpp"
 
@@ -31,9 +32,21 @@ namespace beast = boost::beast;
 namespace asio = boost::asio;
 namespace system = boost::system;
 
-template<class CompletionToken, class... Results>
-using async_result_t = typename asio::async_result<std::decay_t<CompletionToken>, void(Results...)>::return_type;
+/* tag::reference[]
+[#purple_stream]
+= `purple::stream`
 
+`purple::stream` is a low level stream to read and write MQTT messages on
+the binary format specified by
+the http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718018[MQTT standard].
+
+It can be used to implement custom MQTT clients or server, but for most client use-cases one should prefer
+to use <<purple_v311_client>> instead.
+
+No validation of the validity of messages is done, it simply makes sure
+to send data using the correct wire format.
+
+ */ // end::reference[]
 template<class NextLayer>
 class stream {
     NextLayer next_;

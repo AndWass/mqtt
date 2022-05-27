@@ -42,12 +42,12 @@ public:
 
     template<class MutableBufferSequence, class Handler>
     auto async_read_some(const MutableBufferSequence &buffers, Handler &&handler) {
-        return inner_.socket_.template async_read_some(buffers, std::forward<Handler>(handler));
+        return inner_.socket_.async_read_some(buffers, std::forward<Handler>(handler));
     }
 
     template<class ConstBufferSequence, class Handler>
     auto async_write_some(const ConstBufferSequence &buffers, Handler &&handler) {
-        return inner_.socket_.template async_write_some(buffers, std::forward<Handler>(handler));
+        return inner_.socket_.async_write_some(buffers, std::forward<Handler>(handler));
     }
 
     template<class Handler>

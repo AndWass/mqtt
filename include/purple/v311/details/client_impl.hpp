@@ -3,11 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          https://www.boost.org/LICENSE_1_0.txt)
 
-/** @file */
-
 #pragma once
 
 #include "handshake.hpp"
+#include "publish.hpp"
+#include "subscribe.hpp"
 
 #include <purple/binary.hpp>
 #include <purple/connection_event.hpp>
@@ -21,6 +21,7 @@
 #include <boost/beast/core/flat_buffer.hpp>
 
 #include <boost/assert.hpp>
+#include <boost/container/vector.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/utility/string_view.hpp>
 
@@ -35,21 +36,41 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
     using Self = client_impl<AsyncDefaultConnectableStream>;
 
     template<class... Args>
-    struct erased_handler_base {
-        virtual ~erased_handler_base() = default;
-        virtual void operator()(Args...) = 0;
-    };
+    class erased_handler {
+        struct concept_t {
+            virtual ~concept_t() = default;
+            virtual void operator()(Args... args) = 0;
+        };
 
-    template<class Handler, class... Args>
-    struct erased_handler : public erased_handler_base<Args...> {
-        Handler h_;
+        template<class Handler>
+        struct impl_t : public concept_t {
+            Handler h_;
 
-        template<class H2>
-        explicit erased_handler(H2 &&h) : h_(std::forward<H2>(h)) {
+            template<class H2, std::enable_if_t<!std::is_same_v<std::decay_t<H2>, impl_t<Handler>>>* = nullptr>
+            explicit impl_t(H2 &&h) : h_(std::forward<H2>(h)) {
+            }
+
+            void operator()(Args... args) override {
+                h_(std::move(args)...);
+            }
+        };
+
+        std::unique_ptr<concept_t> impl_;
+
+    public:
+        erased_handler() = default;
+
+        template<class Handler, std::enable_if_t<!std::is_same_v<std::decay_t<Handler>, erased_handler>> * = nullptr>
+        explicit erased_handler(Handler &&h)
+            : impl_(std::make_unique<impl_t<std::decay_t<Handler>>>(std::forward<Handler>(h))) {
         }
 
-        void operator()(Args... args) override {
-            h_(args...);
+        void operator()(Args... args) {
+            (*impl_)(std::move(args)...);
+        }
+
+        bool holds_handler() const {
+            return impl_ != nullptr;
         }
     };
 
@@ -58,15 +79,28 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         socket_connecting,
         handshaking,
         connected,
-        connection_closed,
+        disconnected,
     };
+
+    struct waiting_suback {
+        uint16_t packet_id;
+        erased_handler<boost::system::error_code> handler;
+
+        waiting_suback(uint16_t pid, erased_handler<boost::system::error_code> h)
+            : packet_id(pid), handler(std::move(h)) {
+        }
+    };
+
     purple::stream<AsyncDefaultConnectableStream> stream_;
     boost::beast::flat_buffer read_buffer_;
+    boost::container::vector<uint8_t> write_buffer_;
 
     boost::asio::steady_timer ping_timer_;
     boost::asio::steady_timer connection_timeout_timer_;
 
-    std::unique_ptr<erased_handler_base<boost::system::error_code>> run_handler_;
+    boost::container::vector<erased_handler<boost::system::error_code>> waiting_publishes_;
+
+    erased_handler<boost::system::error_code> run_handler_;
     std::function<void(boost::system::error_code, connection_event)> connection_handler_;
     std::function<void(connect_message &)> connect_decorator_;
     std::function<void(purple::fixed_header)> message_callback_;
@@ -77,9 +111,28 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
 
     connect_message connect_;
 
+    uint16_t packet_identifier_ = 0;
+
+    bool write_lock_;
+
+    bool try_acquire_write_lock() {
+        if (state_ != state_t::connected) {
+            return false;
+        }
+        if (!write_lock_) {
+            write_lock_ = true;
+            return true;
+        }
+        return false;
+    }
+
+    void release_write_lock() {
+        // TODO
+    }
+
     void close() {
         boost::beast::close_socket(boost::beast::get_lowest_layer(stream_.next_layer()));
-        set_state(state_t::connection_closed);
+        set_state(boost::system::errc::make_error_code(boost::system::errc::operation_canceled), state_t::disconnected);
     }
 
     void start_read_one_message() {
@@ -149,12 +202,19 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         return [weak](boost::system::error_code ec, bool session_present) {
             auto self = weak.lock();
             if (self && !ec) {
-                self->set_state(state_t::connected);
-                self->report_connection_event(ec, connection_event::handshake_successful);
+                self->set_state(ec, state_t::connected);
             } else if (self) {
                 self->close();
-                self->set_state(state_t::connection_closed);
-                self->report_connection_event(ec, connection_event::socket_disconnected);
+            }
+        };
+    }
+
+    static auto subscribe_handler(boost::weak_ptr<Self> weak) {
+        return [weak](boost::system::error_code ec, size_t) {
+            if (ec) {
+                auto self = weak.lock();
+                if (self) {
+                }
             }
         };
     }
@@ -163,30 +223,41 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         return [weak](boost::system::error_code ec) {
             auto self = weak.lock();
             if (self && !ec) {
-                self->connect_.keep_alive = self->keep_alive_;
-                if (self->connect_decorator_) {
-                    self->connect_decorator_(self->connect_);
-                }
-                self->async_handshake(handshake_handler(weak));
-                self->set_state(state_t::handshaking);
-                self->report_connection_event(ec, connection_event::socket_connected);
+                self->set_state(ec, state_t::handshaking);
             } else {
-                self->set_state(state_t::connection_closed);
-                self->report_connection_event(ec, connection_event::socket_disconnected);
+                self->set_state(ec, state_t::disconnected);
             }
         };
     }
 
-    void set_state(state_t new_state) {
+    void set_state(boost::system::error_code ec, state_t new_state) {
         if (state_ == state_t::idle && new_state == state_t::socket_connecting) {
             stream_.next_layer().async_connect(socket_connection_handler(this->weak_from_this()));
-            report_connection_event({}, connection_event::initiating_socket_connection);
+            report_connection_event(ec, connection_event::initiating_socket_connection);
         } else if (new_state == state_t::handshaking && state_ == state_t::socket_connecting) {
+            connect_.keep_alive = keep_alive_;
+            if (connect_decorator_) {
+                connect_decorator_(connect_);
+            }
+            async_handshake(handshake_handler(this->weak_from_this()));
             start_connection_timeout_timer();
+            report_connection_event(ec, connection_event::socket_connected);
         } else if (new_state == state_t::connected && state_ != state_t::connected) {
             start_read_one_message();
             start_connection_timeout_timer();
             start_ping_timer();
+            report_connection_event(ec, connection_event::handshake_successful);
+            if (!waiting_publishes_.empty()) {
+                write_lock_ = true;
+                auto front = std::move(waiting_publishes_.front());
+                waiting_publishes_.erase(waiting_publishes_.begin());
+                front(boost::system::error_code{});
+            }
+        } else if (new_state == state_t::disconnected && state_ != state_t::disconnected) {
+            ping_timer_.cancel();
+            connection_timeout_timer_.cancel();
+            write_lock_ = false;
+            report_connection_event(ec, connection_event::socket_disconnected);
         }
 
         state_ = new_state;
@@ -227,12 +298,35 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
 
         return boost::asio::async_initiate<Handler, void(boost::system::error_code)>(
             [this](Handler &&completion) {
-                run_handler_ = std::make_unique<handler_t>(std::forward<Handler>(completion));
+                run_handler_ = erased_handler<boost::system::error_code>(std::forward<Handler>(completion));
                 boost::asio::post(stream_.get_executor(), [this]() {
-                    set_state(state_t::socket_connecting);
+                    set_state({}, state_t::socket_connecting);
                 });
             },
             handler);
+    }
+
+    template<class Handler>
+    purple::async_result_t<Handler, boost::system::error_code>
+    async_subscribe(boost::string_view topic, purple::qos quality_of_service, Handler &&handler) {
+        throw std::runtime_error("Not implemented!");
+    }
+
+    template<class Handler>
+    purple::async_result_t<Handler, boost::system::error_code>
+    async_publish(boost::string_view topic, purple::qos quality_of_service, bool retain, purple::binary_view payload,
+                  Handler &&handler) {
+        if (quality_of_service != purple::qos::qos0) {
+            throw std::runtime_error("Not implemented");
+        }
+        const size_t buffer_size = 2 + topic.size() + payload.size();
+        uint8_t first_byte = 0x30 + (retain ? 1 : 0);
+        std::unique_ptr<uint8_t[]> buffer = std::make_unique<uint8_t[]>(buffer_size);
+        auto *ptr = purple::details::put_str(topic, buffer.get());
+        memcpy(ptr, payload.data(), payload.size());
+        return boost::asio::async_compose<Handler, void(boost::system::error_code)>(
+            details::publish_op_qos0<Self>{this->weak_from_this(), std::move(buffer), buffer_size, {}, first_byte},
+            handler, stream_);
     }
 
     void start(boost::string_view client_id, boost::string_view username, boost::string_view password) {
@@ -241,10 +335,11 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
     }
 
     void stop() {
+        close();
         auto run_handler = std::move(run_handler_);
-        if (run_handler) {
-            boost::asio::post(stream_.get_executor(), [h = std::move(run_handler)]() {
-                (*h)(boost::system::errc::make_error_code(boost::system::errc::operation_canceled));
+        if (run_handler.holds_handler()) {
+            boost::asio::post(stream_.get_executor(), [h = std::move(run_handler)]() mutable {
+                h(boost::system::errc::make_error_code(boost::system::errc::operation_canceled));
             });
         }
     }
