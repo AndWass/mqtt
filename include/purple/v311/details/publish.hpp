@@ -23,8 +23,12 @@ struct publish_op_qos0 {
     template<class Self>
     void operator()(Self &self, boost::system::error_code ec = {}, size_t /* n */ = {}) {
         auto client = client_.lock();
+        if (ec.failed()) {
+            self.complete(ec);
+            return;
+        }
         if (!client) {
-            self.complete(boost::asio::error::make_error_code(boost::asio::error::operation_aborted));
+            self.complete(purple::make_error_code(purple::error::client_aborted));
             return;
         }
         BOOST_ASIO_CORO_REENTER(coro_) {

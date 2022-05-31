@@ -12,6 +12,7 @@
 #include "details/client_impl.hpp"
 
 #include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 
 namespace purple {
 namespace v311 {

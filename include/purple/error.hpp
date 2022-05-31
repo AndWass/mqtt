@@ -19,7 +19,9 @@ enum class error {
     server_unavailable,
     bad_username_or_password,
     unauthorized,
-    message_too_large
+    message_too_large,
+    client_aborted,
+    client_stopped
 };
 }
 
@@ -51,6 +53,7 @@ public:
         case error::bad_username_or_password: return "Bad username or password";
         case error::unauthorized: return "Unauthorized";
         case error::message_too_large: return "Message too large";
+        case error::client_aborted: return "Client aborted";
         }
 
         std::snprintf(buffer, len, "Unknown MQTT error %d", ev);

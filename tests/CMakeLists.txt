@@ -3,6 +3,7 @@ add_executable(
         purple-unittests
         stream.cpp
         client_stream.cpp
+        v311_client.cpp
 )
 
 target_link_libraries(purple-unittests PUBLIC

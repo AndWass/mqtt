@@ -1,0 +1,13 @@
+code {
+    color: var(--INTERNAL-CODE-INLINE-color);
+}
+
+a {
+    color: #50bac9;
+    font-size: 100%;
+}
+
+a code {
+    color: #50bac9;
+    font-size: 100%;
+}

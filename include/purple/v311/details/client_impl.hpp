@@ -46,7 +46,7 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         struct impl_t : public concept_t {
             Handler h_;
 
-            template<class H2, std::enable_if_t<!std::is_same_v<std::decay_t<H2>, impl_t<Handler>>>* = nullptr>
+            template<class H2, std::enable_if_t<!std::is_same_v<std::decay_t<H2>, impl_t<Handler>>> * = nullptr>
             explicit impl_t(H2 &&h) : h_(std::forward<H2>(h)) {
             }
 
@@ -230,6 +230,17 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         };
     }
 
+    void finish_all_pending(boost::system::error_code ec) {
+        boost::asio::post(stream_.get_executor(), [h = std::move(run_handler_), pubs = std::move(waiting_publishes_), ec]() mutable {
+            for(auto&& pub: pubs) {
+                pub(ec);
+            }
+            if (h.holds_handler()) {
+                h(ec);
+            }
+        });
+    }
+
     void set_state(boost::system::error_code ec, state_t new_state) {
         if (state_ == state_t::idle && new_state == state_t::socket_connecting) {
             stream_.next_layer().async_connect(socket_connection_handler(this->weak_from_this()));
@@ -280,13 +291,15 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
           connection_timeout_timer_(stream_.get_executor()) {
     }
 
+    ~client_impl() {
+        finish_all_pending(purple::make_error_code(purple::error::client_aborted));
+    }
+
     template<class Handler>
     typename boost::asio::async_result<std::decay_t<Handler>, void(boost::system::error_code)>::return_type
     async_run(boost::string_view client_id, boost::string_view username, boost::string_view password,
               Handler &&handler) {
         BOOST_ASSERT(state_ == state_t::idle);
-
-        using handler_t = erased_handler<std::decay_t<Handler>, boost::system::error_code>;
 
         connect_.client_id.assign(client_id.data(), client_id.size());
         connect_.username.assign(username.data(), username.size());
@@ -297,10 +310,13 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         }
 
         return boost::asio::async_initiate<Handler, void(boost::system::error_code)>(
-            [this](Handler &&completion) {
-                run_handler_ = erased_handler<boost::system::error_code>(std::forward<Handler>(completion));
-                boost::asio::post(stream_.get_executor(), [this]() {
-                    set_state({}, state_t::socket_connecting);
+            [this](auto &&completion) {
+                using handler_t = decltype(completion);
+                run_handler_ = erased_handler<boost::system::error_code>(std::forward<handler_t>(completion));
+                boost::asio::post(stream_.get_executor(), [weak = this->weak_from_this()]() {
+                    if (auto self = weak.lock()) {
+                        self->set_state({}, state_t::socket_connecting);
+                    }
                 });
             },
             handler);
@@ -336,12 +352,7 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
 
     void stop() {
         close();
-        auto run_handler = std::move(run_handler_);
-        if (run_handler.holds_handler()) {
-            boost::asio::post(stream_.get_executor(), [h = std::move(run_handler)]() mutable {
-                h(boost::system::errc::make_error_code(boost::system::errc::operation_canceled));
-            });
-        }
+        finish_all_pending(purple::make_error_code(purple::error::client_stopped));
     }
 };
 }// namespace details
