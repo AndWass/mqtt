@@ -310,10 +310,10 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         }
 
         return boost::asio::async_initiate<Handler, void(boost::system::error_code)>(
-            [this](auto &&completion) {
+            [this, self = this](auto &&completion) {
                 using handler_t = decltype(completion);
                 run_handler_ = erased_handler<boost::system::error_code>(std::forward<handler_t>(completion));
-                boost::asio::post(stream_.get_executor(), [weak = this->weak_from_this()]() {
+                boost::asio::post(stream_.get_executor(), [weak = self->weak_from_this()]() {
                     if (auto self = weak.lock()) {
                         self->set_state({}, state_t::socket_connecting);
                     }

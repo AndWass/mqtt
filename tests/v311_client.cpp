@@ -25,19 +25,21 @@ TEST(V311Client, AbortOnDestruction) {
 
 TEST(V311Client, PublishAfterHandshake) {
     boost::asio::io_context ioc;
-    purple::stream<boost::beast::test::stream> server(ioc.get_executor());
-    purple::v311::client<client_stream> client(server.next_layer());
+    server_stream server(ioc.get_executor(), 2);
+    server.on_rx_ = [&](const server_stream::received_item& item) {
+        if (item.header.first_byte == purple::packet_type::connect) {
+            ASSERT_EQ(server.received_items.size(), 1);
+            server.write(purple::packet_type::connack, {0, 0});
+        }
+        else {
+            ASSERT_EQ(item.header.first_byte & 0xF0, purple::packet_type::publish);
+            ASSERT_EQ(server.received_items.size(), 2);
+        }
+    };
+    purple::v311::client<client_stream> client(server.stream_.next_layer());
     auto fut = client.async_run("abc", "", "", boost::asio::use_future);
     client.async_publish("/test", purple::qos::qos0, "Hello", [&](boost::system::error_code ec) {
         client.stop();
-    });
-
-    purple::byte_buffer server_buffer(1000);
-    server.async_read(server_buffer, [&](boost::system::error_code ec, purple::fixed_header hdr) {
-        ASSERT_EQ(hdr.first_byte, purple::packet_type::connect);
-        std::vector<uint8_t> resp_data{0, 0};
-        auto data = boost::asio::buffer(resp_data.data(), 2);
-        server.async_write(purple::packet_type::connack, data, [x = std::move(resp_data)](auto...) {});
     });
 
     ioc.run();
@@ -48,4 +50,5 @@ TEST(V311Client, PublishAfterHandshake) {
     catch(const boost::system::system_error& ex) {
         EXPECT_EQ(ex.code(), purple::error::client_stopped);
     }
+    EXPECT_EQ(server.received_items.size(), 2);
 }
