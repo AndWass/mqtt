@@ -14,7 +14,7 @@ namespace purple {
 namespace v311 {
 struct will_t {
     std::string topic;
-    binary_t payload;
+    binary payload;
     purple::qos quality_of_service = purple::qos::qos1;
     bool retain = false;
 };

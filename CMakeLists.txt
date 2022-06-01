@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 project(purple)
 
-include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
+find_package(Boost 1.79.0 REQUIRED COMPONENTS container)
 
 include(CTest)
 
@@ -16,7 +15,7 @@ target_compile_features(purple INTERFACE cxx_std_14)
 target_include_directories(purple INTERFACE include)
 
 target_link_libraries(purple INTERFACE
-        CONAN_PKG::boost)
+        Boost::boost Boost::container)
 
 if (BUILD_TESTING)
     add_subdirectory(tests)

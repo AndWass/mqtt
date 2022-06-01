@@ -1,3 +1,4 @@
+find_package(GTest CONFIG REQUIRED)
 
 add_executable(
         purple-unittests
@@ -7,7 +8,7 @@ add_executable(
 )
 
 target_link_libraries(purple-unittests PUBLIC
-        CONAN_PKG::gtest
+        GTest::gtest GTest::gtest_main
         purple
         )
 

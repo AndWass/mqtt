@@ -7,7 +7,6 @@
 
 #include "handshake.hpp"
 #include "publish.hpp"
-#include "subscribe.hpp"
 
 #include <purple/binary.hpp>
 #include <purple/connection_event.hpp>
@@ -277,11 +276,11 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
     template<class Handler>
     void async_handshake(Handler &&handler) {
         const size_t size = connect_.wire_size();
-        std::unique_ptr<uint8_t[]> to_write = std::make_unique<uint8_t[]>(size);
-        connect_.write_to(to_write.get());
+        write_buffer_.resize(size);
+        connect_.write_to(write_buffer_.data());
 
         boost::asio::async_compose<Handler, void(boost::system::error_code, bool)>(
-            details::handshake_op<AsyncDefaultConnectableStream>{stream_, std::move(to_write), size, {}}, handler,
+            details::handshake_op<AsyncDefaultConnectableStream>{stream_, boost::asio::buffer(write_buffer_.data(), size), {}}, handler,
             stream_);
     }
 
@@ -320,12 +319,6 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
                 });
             },
             handler);
-    }
-
-    template<class Handler>
-    purple::async_result_t<Handler, boost::system::error_code>
-    async_subscribe(boost::string_view topic, purple::qos quality_of_service, Handler &&handler) {
-        throw std::runtime_error("Not implemented!");
     }
 
     template<class Handler>

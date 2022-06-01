@@ -47,12 +47,6 @@ public:
     async_run(boost::string_view client_id, boost::string_view username, boost::string_view password,
               Handler &&handler);
 
-    template<class Handler>
-    purple::async_result_t<Handler, boost::system::error_code>
-    async_subscribe(boost::string_view topic, purple::qos quality_of_service, Handler&& handler) {
-        return inner_->async_subscribe(topic, quality_of_service, std::forward<Handler>(handler));
-    }
-
     template<class Handler = boost::asio::default_completion_token_t<executor_type>>
     purple::async_result_t<Handler, boost::system::error_code>
     async_publish(boost::string_view topic, purple::qos quality_of_service,
