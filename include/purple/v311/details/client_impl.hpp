@@ -46,7 +46,7 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         struct impl_t : public concept_t {
             Handler h_;
 
-            template<class H2, std::enable_if_t<!std::is_same_v<std::decay_t<H2>, impl_t<Handler>>> * = nullptr>
+            template<class H2, std::enable_if_t<!std::is_same<std::decay_t<H2>, impl_t<Handler>>::value> * = nullptr>
             explicit impl_t(H2 &&h) : h_(std::forward<H2>(h)) {
             }
 
@@ -60,7 +60,8 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
     public:
         erased_handler() = default;
 
-        template<class Handler, std::enable_if_t<!std::is_same_v<std::decay_t<Handler>, erased_handler>> * = nullptr>
+        template<class Handler,
+                 std::enable_if_t<!std::is_same<std::decay_t<Handler>, erased_handler>::value> * = nullptr>
         explicit erased_handler(Handler &&h)
             : impl_(std::make_unique<impl_t<std::decay_t<Handler>>>(std::forward<Handler>(h))) {
         }
@@ -73,7 +74,8 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
             return impl_ != nullptr;
         }
 
-        template<class Handler, std::enable_if_t<!std::is_same_v<std::decay_t<Handler>, erased_handler>> * = nullptr>
+        template<class Handler,
+                 std::enable_if_t<!std::is_same<std::decay_t<Handler>, erased_handler>::value> * = nullptr>
         void set(Handler &&h) {
             BOOST_ASSERT(!impl_);
             impl_ = std::make_unique<impl_t<std::decay_t<Handler>>>(std::forward<Handler>(h));

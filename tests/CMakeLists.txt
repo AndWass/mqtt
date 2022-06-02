@@ -3,7 +3,6 @@ find_package(GTest CONFIG REQUIRED)
 add_executable(
         purple-unittests
         stream.cpp
-        client_stream.cpp
         v311_client.cpp
 )
 

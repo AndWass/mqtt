@@ -53,7 +53,7 @@ public:
         : storage_(boost::make_shared<container_type>(begin, end, alloc)) {
     }
 
-    template<class Vector, std::enable_if_t<std::is_same_v<std::decay_t<Vector>, container_type>> * = nullptr>
+    template<class Vector, std::enable_if_t<std::is_same<std::decay_t<Vector>, container_type>::value> * = nullptr>
     explicit binary(Vector &&vec)
         : storage_(boost::make_shared<container_type>(std::forward<Vector>(vec), vec.get_allocator())) {
     }

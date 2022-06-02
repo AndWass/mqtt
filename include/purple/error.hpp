@@ -55,6 +55,8 @@ public:
         case error::unauthorized: return "Unauthorized";
         case error::message_too_large: return "Message too large";
         case error::client_aborted: return "Client aborted";
+        case error::client_stopped: return "Client stopped";
+        case error::socket_disconnected: return "Underlying socket disconnected";
         }
 
         std::snprintf(buffer, len, "Unknown MQTT error %d", ev);
