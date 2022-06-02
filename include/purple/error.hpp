@@ -5,6 +5,11 @@
 
 #pragma once
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#endif
+
 #include <type_traits>
 
 #include <boost/system/error_category.hpp>
@@ -76,3 +81,7 @@ inline boost::system::error_code make_error_code(error e) {
     return boost::system::error_code(static_cast<int>(e), purple_category());
 }
 }// namespace purple
+
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif

@@ -202,12 +202,12 @@ TEST(Stream, AsyncReadMultiple) {
 
     result results[2];
 
-    stream.async_read(results[0].buf, [&](boost::system::error_code ec, purple::fixed_header h) {
+    stream.async_read(results[0].buf, [&](boost::system::error_code ec, purple::fixed_header hdr) {
         results[0].final_ec = ec;
-        results[0].header = h;
+        results[0].header = hdr;
 
-        stream.async_read(results[1].buf, [&](auto ec, auto h) {
-            results[1].final_ec = ec;
+        stream.async_read(results[1].buf, [&](auto final_ec, auto h) {
+            results[1].final_ec = final_ec;
             results[1].header = h;
         });
     });

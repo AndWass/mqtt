@@ -10,5 +10,4 @@
 namespace purple {
 template<class CompletionToken, class... Results>
 using async_result_t = typename boost::asio::async_result<std::decay_t<CompletionToken>, void(Results...)>::return_type;
-;
 }// namespace purple
