@@ -79,6 +79,7 @@ jobs:
         
         cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
+              -DCMAKE_CXX_FLAGS="-Werror" \
               -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake \
               $GITHUB_WORKSPACE
 
