@@ -210,7 +210,7 @@ struct read_into_fixed_op {
     }
 
     template<class Self>
-    void operator()(Self &self, system::error_code ec = {}, fixed_header header = {}) {
+    void operator()(Self &self, system::error_code ec = {}) {
         BOOST_ASIO_CORO_REENTER(coro_) {
             while (need_more_data_for_header(ec)) {
                 if (ec) {
@@ -275,14 +275,14 @@ struct read_into_fixed_op {
     template<class Self>
     void operator()(Self &self, internal_buffer_tag, system::error_code ec, size_t n) {
         internal_buffer_.commit(n);
-        (*this)(self, ec, header_);
+        (*this)(self, ec);
     }
 
     template<class Self>
     void operator()(Self &self, user_buffer_tag, system::error_code ec, size_t n) {
         user_buffer_ += n;
         payload_left_to_read_ -= n;
-        (*this)(self, ec, header_);
+        (*this)(self, ec);
     }
 };
 }// namespace stream
