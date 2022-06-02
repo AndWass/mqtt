@@ -72,7 +72,7 @@ public:
         storage_->assign(count, value);
     }
 
-    template<class InputIt, std::enable_if_t<!std::is_convertible_v<InputIt, size_type>> * = nullptr>
+    template<class InputIt, std::enable_if_t<!std::is_convertible<InputIt, size_type>::value> * = nullptr>
     void assign(InputIt first, InputIt last) {
         ensure_unique();
         storage_->assign(first, last);
@@ -121,7 +121,7 @@ public:
         return storage_->insert(pos, count, data);
     }
 
-    template<class InputIt, std::enable_if_t<!std::is_convertible_v<InputIt, size_type>> * = nullptr>
+    template<class InputIt, std::enable_if_t<!std::is_convertible<InputIt, size_type>::value> * = nullptr>
     const_iterator insert(const const_iterator &pos, InputIt first, InputIt last) {
         ensure_unique();
         return storage_->insert(pos, first, last);
