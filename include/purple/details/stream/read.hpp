@@ -39,6 +39,10 @@ struct read_op {
     struct internal_buffer_tag {};
     struct user_buffer_tag {};
 
+    read_op(AsyncRead &stream, read_buffer &internal_buffer, DynamicBuffer &user_buffer)
+        : stream_(stream), internal_buffer_(internal_buffer), user_buffer_(user_buffer) {
+    }
+
     [[nodiscard]] bool need_more_data_for_header(boost::system::error_code &ec) const {
         ec.clear();
         auto readable = internal_buffer_.readable_area();
@@ -82,7 +86,7 @@ struct read_op {
     }
 
     template<class Self>
-    void operator()(Self &self, system::error_code ec = {}, fixed_header header = {}) {
+    void operator()(Self &self, system::error_code ec = {}) {
         BOOST_ASIO_CORO_REENTER(coro_) {
             while (need_more_data_for_header(ec)) {
                 if (ec) {
@@ -138,14 +142,14 @@ struct read_op {
     template<class Self>
     void operator()(Self &self, internal_buffer_tag, system::error_code ec, size_t n) {
         internal_buffer_.commit(n);
-        (*this)(self, ec, header_);
+        (*this)(self, ec);
     }
 
     template<class Self>
     void operator()(Self &self, user_buffer_tag, system::error_code ec, size_t n) {
         user_buffer_.commit(n);
         payload_left_to_read_ -= n;
-        (*this)(self, ec, header_);
+        (*this)(self, ec);
     }
 };
 

@@ -91,7 +91,7 @@ public:
     }
 
     const_iterator cend() const {
-        return cend();
+        return end();
     }
 
     const uint8_t *data() const {
@@ -132,7 +132,7 @@ public:
         storage_->push_back(data);
     }
 
-    void pop_back(value_type data) {
+    void pop_back() {
         ensure_unique();
         storage_->pop_back();
     }

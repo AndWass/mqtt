@@ -97,7 +97,7 @@ public:
     async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer,
                                                                              ReadHandler &&handler) {
         return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_op<NextLayer, DynamicBuffer>{next_, read_buffer_, buffer, {}}, handler, next_);
+            details::stream::read_op<NextLayer, DynamicBuffer>(next_, read_buffer_, buffer), handler, next_);
     }
 
     template<class ConstBufferSequence, class WriteHandler>

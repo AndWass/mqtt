@@ -41,6 +41,7 @@ struct resolve_connect_op {
 
     template<class Self>
     void operator()(Self &self, const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &ep) {
+        (void)ep;
         (*this)(self, ec);
     }
 };
