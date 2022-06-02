@@ -167,6 +167,10 @@ struct read_into_fixed_op {
     struct internal_buffer_tag {};
     struct user_buffer_tag {};
 
+    read_into_fixed_op(AsyncRead &stream, read_buffer &internal_buffer, const boost::asio::mutable_buffer &user_buffer)
+        : stream_(stream), internal_buffer_(internal_buffer), user_buffer_(user_buffer) {
+    }
+
     [[nodiscard]] bool need_more_data_for_header(boost::system::error_code &ec) const {
         ec.clear();
         auto readable = internal_buffer_.readable_area();

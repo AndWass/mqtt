@@ -98,7 +98,7 @@ TEST(V311Client, PublishAfterHandshake) {
     };
     purple::v311::client<client_stream> client(server.stream_.next_layer());
     auto fut = client.async_run("abc", "", "", boost::asio::use_future);
-    client.async_publish("/test", purple::qos::qos0, "Hello", [&](boost::system::error_code ec) {
+    client.async_publish("/test", purple::qos::qos0, "Hello", [&](auto...) {
         client.stop();
     });
 

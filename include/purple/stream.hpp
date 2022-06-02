@@ -89,7 +89,7 @@ public:
     async_result_t<ReadHandler, system::error_code, fixed_header> async_read(const boost::asio::mutable_buffer &buffer,
                                                                              ReadHandler &&handler) {
         return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_into_fixed_op<NextLayer>{next_, read_buffer_, buffer, {}}, handler, next_);
+            details::stream::read_into_fixed_op<NextLayer>(next_, read_buffer_, buffer), handler, next_);
     }
 
     template<class DynamicBuffer, class ReadHandler,

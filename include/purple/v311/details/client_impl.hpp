@@ -224,6 +224,7 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
 
     static auto handshake_handler(boost::weak_ptr<Self> weak) {
         return [weak](boost::system::error_code ec, bool session_present) {
+            (void)session_present;
             auto self = weak.lock();
             if (self && !ec) {
                 self->set_state(ec, state_t::connected);
