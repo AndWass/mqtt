@@ -34,7 +34,7 @@ struct is_error_code_enum<purple::error> : std::true_type {};
 }// namespace boost
 
 namespace purple {
-class purple_category_impl final: public boost::system::error_category {
+class purple_category_impl final : public boost::system::error_category {
 public:
     virtual ~purple_category_impl() = default;
     const char *name() const noexcept override {
