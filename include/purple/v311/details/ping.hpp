@@ -39,8 +39,8 @@ struct ping_op {
                 }
             }
             // We now have write lock here!
-            BOOST_ASIO_CORO_YIELD client->stream_.async_write(
-                purple::packet_type::pingreq, boost::asio::const_buffer{}, std::move(self));
+            BOOST_ASIO_CORO_YIELD client->stream_.async_write(purple::packet_type::pingreq, boost::asio::const_buffer{},
+                                                              std::move(self));
             client->release_write_lock();
 
         done:

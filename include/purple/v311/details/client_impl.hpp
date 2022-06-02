@@ -6,8 +6,8 @@
 #pragma once
 
 #include "handshake.hpp"
-#include "publish.hpp"
 #include "ping.hpp"
+#include "publish.hpp"
 
 #include <purple/binary.hpp>
 #include <purple/connection_event.hpp>
@@ -74,7 +74,7 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         }
 
         template<class Handler, std::enable_if_t<!std::is_same_v<std::decay_t<Handler>, erased_handler>> * = nullptr>
-        void set(Handler&& h) {
+        void set(Handler &&h) {
             BOOST_ASSERT(!impl_);
             impl_ = std::make_unique<impl_t<std::decay_t<Handler>>>(std::forward<Handler>(h));
         }
@@ -143,13 +143,11 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         if (waiting_ping_.holds_handler()) {
             auto ping = std::move(waiting_ping_);
             ping({});
-        }
-        else if (!waiting_publishes_.empty()) {
+        } else if (!waiting_publishes_.empty()) {
             auto front = std::move(waiting_publishes_.front());
             waiting_publishes_.erase(waiting_publishes_.begin());
             front({});
-        }
-        else {
+        } else {
             write_lock_ = false;
         }
     }
@@ -204,7 +202,8 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         return [weak](boost::system::error_code ec) {
             if (!ec) {
                 if (auto self = weak.lock()) {
-                    self->async_ping([](auto...){});
+                    self->async_ping([](auto...) {
+                    });
                 }
             } else {
             }
@@ -254,14 +253,15 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
     }
 
     void finish_all_pending(boost::system::error_code ec) {
-        boost::asio::post(stream_.get_executor(), [h = std::move(run_handler_), pubs = std::move(waiting_publishes_), ec]() mutable {
-            for(auto&& pub: pubs) {
-                pub(ec);
-            }
-            if (h.holds_handler()) {
-                h(ec);
-            }
-        });
+        boost::asio::post(stream_.get_executor(),
+                          [h = std::move(run_handler_), pubs = std::move(waiting_publishes_), ec]() mutable {
+                              for (auto &&pub: pubs) {
+                                  pub(ec);
+                              }
+                              if (h.holds_handler()) {
+                                  h(ec);
+                              }
+                          });
     }
 
     void set_state(boost::system::error_code ec, state_t new_state) {
@@ -287,8 +287,7 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
                 auto front = std::move(waiting_publishes_.front());
                 waiting_publishes_.erase(waiting_publishes_.begin());
                 front(boost::system::error_code{});
-            }
-            else {
+            } else {
                 write_lock_ = false;
             }
         } else if (new_state == state_t::disconnected && state_ != state_t::disconnected) {
@@ -310,15 +309,16 @@ struct client_impl : public boost::enable_shared_from_this<client_impl<AsyncDefa
         connect_.write_to(write_buffer_.data());
 
         boost::asio::async_compose<Handler, void(boost::system::error_code, bool)>(
-            details::handshake_op<AsyncDefaultConnectableStream>{stream_, boost::asio::buffer(write_buffer_.data(), size), {}}, handler,
-            stream_);
+            details::handshake_op<AsyncDefaultConnectableStream>{stream_,
+                                                                 boost::asio::buffer(write_buffer_.data(), size),
+                                                                 {}},
+            handler, stream_);
     }
 
     template<class Handler>
     void async_ping(Handler &&handler) {
         boost::asio::async_compose<Handler, void(boost::system::error_code)>(
-            details::ping_op<Self>{this->weak_from_this(), {}}, handler, stream_
-        );
+            details::ping_op<Self>{this->weak_from_this(), {}}, handler, stream_);
     }
 
     template<class... Args>

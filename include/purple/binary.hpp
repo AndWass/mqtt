@@ -173,7 +173,7 @@ public:
         return (*storage_)[idx];
     }
 
-    container_type& mut_ref() {
+    container_type &mut_ref() {
         ensure_unique();
         return *storage_;
     }

@@ -32,11 +32,11 @@ public:
         return inner_.socket_.get_executor();
     }
 
-    const boost::asio::ip::tcp::socket& next_layer() const {
+    const boost::asio::ip::tcp::socket &next_layer() const {
         return inner_.socket_;
     }
 
-    boost::asio::ip::tcp::socket& next_layer() {
+    boost::asio::ip::tcp::socket &next_layer() {
         return inner_.socket_;
     }
 

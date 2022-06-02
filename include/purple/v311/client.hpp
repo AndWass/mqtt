@@ -11,8 +11,8 @@
 
 #include "details/client_impl.hpp"
 
-#include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace purple {
 namespace v311 {
@@ -49,13 +49,10 @@ public:
 
     template<class Handler = boost::asio::default_completion_token_t<executor_type>>
     purple::async_result_t<Handler, boost::system::error_code>
-    async_publish(boost::string_view topic, purple::qos quality_of_service,
-                  purple::binary_view payload,
-                  Handler&& handler = boost::asio::default_completion_token_t<executor_type>{})
-    {
+    async_publish(boost::string_view topic, purple::qos quality_of_service, purple::binary_view payload,
+                  Handler &&handler = boost::asio::default_completion_token_t<executor_type>{}) {
         return inner_->async_publish(topic, quality_of_service, false, payload, std::forward<Handler>(handler));
     }
-
 
     void set_connection_event_callback(std::function<void(boost::system::error_code, connection_event)> callback);
 

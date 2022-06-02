@@ -13,22 +13,19 @@
 #include <cstdint>
 #include <string>
 
-namespace purple
-{
-namespace v311
-{
-struct subscribe_message
-{
-    struct subscription
-    {
+namespace purple {
+namespace v311 {
+struct subscribe_message {
+    struct subscription {
         std::string topic;
         purple::qos quality_of_service;
 
         subscription() = default;
-        subscription(boost::string_view topic, purple::qos qos_): topic(topic), quality_of_service(qos_) {}
+        subscription(boost::string_view topic, purple::qos qos_) : topic(topic), quality_of_service(qos_) {
+        }
     };
     uint16_t packet_identifier;
     boost::container::vector<subscription> subscriptions;
 };
-}
-}
+}// namespace v311
+}// namespace purple

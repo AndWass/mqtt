@@ -23,14 +23,11 @@ struct handshake_op {
     template<class Self>
     void operator()(Self &self, boost::system::error_code ec = {}, purple::fixed_header header = {}) {
         BOOST_ASIO_CORO_REENTER(coro_) {
-            BOOST_ASIO_CORO_YIELD stream_.async_write(purple::packet_type::connect,
-                                                      write_read_buffer,
-                                                      std::move(self));
+            BOOST_ASIO_CORO_YIELD stream_.async_write(purple::packet_type::connect, write_read_buffer, std::move(self));
             if (!ec.failed()) {
-                BOOST_ASIO_CORO_YIELD stream_.async_read(write_read_buffer,
-                                                         std::move(self));
+                BOOST_ASIO_CORO_YIELD stream_.async_read(write_read_buffer, std::move(self));
                 if (!ec) {
-                    uint8_t response_code = *(static_cast<uint8_t*>(write_read_buffer.data()) + 1);
+                    uint8_t response_code = *(static_cast<uint8_t *>(write_read_buffer.data()) + 1);
                     if (header.first_byte != purple::packet_type::connack || header.remaining_length != 2) {
                         ec = purple::make_error_code(error::invalid_connect_response);
                     } else if (response_code == 1) {
@@ -46,7 +43,7 @@ struct handshake_op {
                     }
                 }
             }
-            self.complete(ec, *static_cast<uint8_t*>(write_read_buffer.data()) == 1);
+            self.complete(ec, *static_cast<uint8_t *>(write_read_buffer.data()) == 1);
         }
     }
 

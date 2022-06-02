@@ -5,8 +5,7 @@
 
 #pragma once
 
-namespace purple
-{
+namespace purple {
 /**
  * @enum purple::v311::connection_event
  * @ingroup v311_client
@@ -22,4 +21,4 @@ enum class connection_event {
     handshake_successful,         /**< Handshake successful, connection fully established */
     socket_disconnected,          /**< Socket has disconnected. */
 };
-}
+}// namespace purple

@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include <purple/fixed_header.hpp>
 #include <purple/async_result.hpp>
+#include <purple/fixed_header.hpp>
 
 #include "details/bits.hpp"
 
@@ -92,7 +92,8 @@ public:
             details::stream::read_into_fixed_op<NextLayer>{next_, read_buffer_, buffer, {}}, handler, next_);
     }
 
-    template<class DynamicBuffer, class ReadHandler, std::enable_if_t<boost::asio::is_dynamic_buffer<DynamicBuffer>::value>* = nullptr>
+    template<class DynamicBuffer, class ReadHandler,
+             std::enable_if_t<boost::asio::is_dynamic_buffer<DynamicBuffer>::value> * = nullptr>
     async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer,
                                                                              ReadHandler &&handler) {
         return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
