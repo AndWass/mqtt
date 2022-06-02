@@ -21,7 +21,8 @@ enum class error {
     unauthorized,
     message_too_large,
     client_aborted,
-    client_stopped
+    client_stopped,
+    socket_disconnected,
 };
 }
 

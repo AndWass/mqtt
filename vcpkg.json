@@ -1,0 +1,13 @@
+{
+  "name": "purple",
+  "version-string": "0.0.1",
+  "dependencies": [
+    "gtest",
+    "boost-container",
+    "boost-beast",
+    "boost-asio",
+    "boost-system",
+    "boost-core",
+    "boost-utility"
+  ]
+}

@@ -55,18 +55,13 @@ struct server_stream {
         purple::byte_buffer data;
     };
     std::vector<received_item> received_items;
-    int left_to_receive_ = 0;
 
     purple::stream<boost::beast::test::stream> stream_;
 
     std::function<void(const received_item&)> on_rx_;
 
-    server_stream(const boost::beast::test::stream::executor_type &exec, int left_to_receive) : stream_(exec),
-                                                                                                left_to_receive_(
-                                                                                                        left_to_receive) {
-        if (left_to_receive_ > 0) {
-            start_receive();
-        }
+    explicit server_stream(const boost::beast::test::stream::executor_type &exec) : stream_(exec) {
+        start_receive();
     }
 
     void start_receive() {
@@ -74,14 +69,11 @@ struct server_stream {
         auto &buf = *buffer;
         stream_.async_read(buf, [buf = std::move(buffer), this](auto ec, purple::fixed_header hdr) mutable {
             if (!ec) {
-                left_to_receive_ -= 1;
                 received_items.push_back({hdr, std::move(*buf)});
                 if (on_rx_) {
                     on_rx_(received_items.back());
                 }
-                if (left_to_receive_ > 0) {
-                    start_receive();
-                }
+                start_receive();
             }
         });
     }

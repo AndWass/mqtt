@@ -58,12 +58,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Restore artifacts, or setup vcpkg
+      uses: lukka/run-vcpkg@v10
+      with:
+        vcpkgGitCommitId: f78f4440df86358575dea65e748a39fdad41eb85
+
+
     - name: Create Build Environment
       run: |
         ${{matrix.install}}
-        sudo apt update
-        sudo apt install python3-setuptools
-        pip3 install conan
         cmake -E make_directory ${{runner.workspace}}/build
 
     - name: Configure
@@ -73,10 +76,10 @@ jobs:
         CXX: ${{matrix.cxx}}
         CXXFLAGS: ${{matrix.cxxflags}}
       run: |
-        conan install -s build_type=${{matrix.build_type}} -s compiler=${{matrix.conan_compiler}} \
-              -s compiler.libcxx=${{matrix.conan_libcxx}} $GITHUB_WORKSPACE --build=missing
+        
         cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
+              -DCMAKE_TOOLCHAIN_FILE=${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake \
               $GITHUB_WORKSPACE
 
     - name: Build

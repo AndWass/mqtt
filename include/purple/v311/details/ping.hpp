@@ -9,41 +9,39 @@
 #include <boost/asio/error.hpp>
 #include <boost/weak_ptr.hpp>
 
+#include <purple/packet_type.hpp>
+
 namespace purple {
 namespace v311 {
 namespace details {
 template<class ClientImpl>
-struct publish_op_qos0 {
+struct ping_op {
     boost::weak_ptr<ClientImpl> client_;
-    std::unique_ptr<uint8_t[]> buffer_;
-    size_t buffer_size_;
     boost::asio::coroutine coro_;
-    uint8_t first_byte_;
 
     template<class Self>
     void operator()(Self &self, boost::system::error_code ec = {}, size_t /* n */ = {}) {
-        auto client = client_.lock();
         if (ec.failed()) {
             self.complete(ec);
             return;
         }
+        auto client = client_.lock();
         if (!client) {
             self.complete(purple::make_error_code(purple::error::client_aborted));
             return;
         }
+
         BOOST_ASIO_CORO_REENTER(coro_) {
             if (!client->try_acquire_write_lock()) {
-                BOOST_ASIO_CORO_YIELD client->waiting_publishes_.emplace_back(std::move(self));
+                BOOST_ASIO_CORO_YIELD client->waiting_ping_.set(std::move(self));
                 if (ec.failed()) {
                     goto done;
                 }
             }
             // We now have write lock here!
             BOOST_ASIO_CORO_YIELD client->stream_.async_write(
-                first_byte_, boost::asio::buffer(buffer_.get(), buffer_size_), std::move(self));
-            if (!ec) {
-                client->release_write_lock();
-            }
+                purple::packet_type::pingreq, boost::asio::const_buffer{}, std::move(self));
+            client->release_write_lock();
 
         done:
             self.complete(ec);

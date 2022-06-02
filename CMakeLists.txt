@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 project(purple)
 
-find_package(Boost 1.79.0 REQUIRED COMPONENTS container)
+find_package(Boost REQUIRED COMPONENTS container)
 
 include(CTest)
 
