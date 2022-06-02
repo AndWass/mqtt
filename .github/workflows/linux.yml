@@ -62,6 +62,7 @@ jobs:
       uses: lukka/run-vcpkg@v10
       with:
         vcpkgGitCommitId: f78f4440df86358575dea65e748a39fdad41eb85
+        appendedCacheKey: ${{matrix.cc}}-${{matrix.os}}-${{matrix.std}}
 
 
     - name: Create Build Environment
