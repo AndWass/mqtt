@@ -5,18 +5,9 @@
 
 #pragma once
 
-#include <string>
-
-#include <purple/binary.hpp>
-#include <purple/qos.hpp>
+#include <boost/asio/async_result.hpp>
 
 namespace purple {
-namespace v311 {
-struct will_t {
-    std::string topic;
-    binary payload;
-    purple::qos quality_of_service = purple::qos::qos1;
-    bool retain = false;
-};
-}// namespace v311
+template<class CompletionToken, class... Results>
+using async_result_t = typename boost::asio::async_result<std::decay_t<CompletionToken>, void(Results...)>::return_type;
 }// namespace purple

@@ -1,0 +1,35 @@
+= purple MQTT client
+:copyright: Copyright 2022 Andreas Wass
+:author: Andreas Wass
+:email: wass.andreas@gmail.com
+:reproducible:
+:source-highlighter: highlightjs
+:source-language: c++
+:sectanchors: true
+:sectnumlevels: 2
+:sectnums:
+:nofooter:
+:toc: left
+:toclevels: 2
+:asio-doc: https://www.boost.org/doc/libs/master/doc/html/boost_asio.html
+
+== Introduction
+
+purple MQTT client is a simple-to-use MQTT client built on top of
+{asio-doc}[`boost::asio`].
+
+=== License
+
+Distributed under the Boost Software License, Version 1.0.
+
+== Usage
+
+
+
+== Reference
+:leveloffset: +2
+
+include::../include/purple/v311/client.hpp[tag=reference]
+include::../include/purple/stream.hpp[tag=reference]
+
+:leveloffset: -2

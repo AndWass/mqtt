@@ -7,6 +7,7 @@
 
 #include <boost/asio/coroutine.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/type_traits/make_void.hpp>
 
 #include <boost/asio/write.hpp>
 
@@ -22,7 +23,7 @@ struct use_asio_write : std::false_type {};
 template<class AsyncStream, class ConstBufferSequence, class Handler>
 struct use_asio_write<
     AsyncStream, ConstBufferSequence, Handler,
-    std::void_t<decltype(boost::asio::async_write(
+    boost::void_t<decltype(boost::asio::async_write(
         std::declval<AsyncStream &>(), std::declval<const ConstBufferSequence &>(), std::declval<Handler &&>()))>>
     : std::true_type {};
 

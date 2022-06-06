@@ -5,6 +5,11 @@
 
 #pragma once
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#endif
+
 #include <type_traits>
 
 #include <boost/system/error_category.hpp>
@@ -19,7 +24,10 @@ enum class error {
     server_unavailable,
     bad_username_or_password,
     unauthorized,
-    message_too_large
+    message_too_large,
+    client_aborted,
+    client_stopped,
+    socket_disconnected,
 };
 }
 
@@ -31,8 +39,9 @@ struct is_error_code_enum<purple::error> : std::true_type {};
 }// namespace boost
 
 namespace purple {
-class purple_category_impl : public boost::system::error_category {
+class purple_category_impl final : public boost::system::error_category {
 public:
+    virtual ~purple_category_impl() = default;
     const char *name() const noexcept override {
         return "purple mqtt";
     }
@@ -51,6 +60,9 @@ public:
         case error::bad_username_or_password: return "Bad username or password";
         case error::unauthorized: return "Unauthorized";
         case error::message_too_large: return "Message too large";
+        case error::client_aborted: return "Client aborted";
+        case error::client_stopped: return "Client stopped";
+        case error::socket_disconnected: return "Underlying socket disconnected";
         }
 
         std::snprintf(buffer, len, "Unknown MQTT error %d", ev);
@@ -69,3 +81,7 @@ inline boost::system::error_code make_error_code(error e) {
     return boost::system::error_code(static_cast<int>(e), purple_category());
 }
 }// namespace purple
+
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif

@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <purple/async_result.hpp>
 #include <purple/fixed_header.hpp>
 
 #include "details/bits.hpp"
@@ -31,9 +32,21 @@ namespace beast = boost::beast;
 namespace asio = boost::asio;
 namespace system = boost::system;
 
-template<class CompletionToken, class... Results>
-using async_result_t = typename asio::async_result<std::decay_t<CompletionToken>, void(Results...)>::return_type;
+/* tag::reference[]
+[#purple_stream]
+= `purple::stream`
 
+`purple::stream` is a low level stream to read and write MQTT messages on
+the binary format specified by
+the http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718018[MQTT standard].
+
+It can be used to implement custom MQTT clients or server, but for most client use-cases one should prefer
+to use <<purple_v311_client>> instead.
+
+No validation of the validity of messages is done, it simply makes sure
+to send data using the correct wire format.
+
+ */ // end::reference[]
 template<class NextLayer>
 class stream {
     NextLayer next_;
@@ -72,18 +85,19 @@ public:
         return next_;
     }
 
-    template<class DynamicBuffer, class ReadHandler>
-    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer,
-                                                                             ReadHandler &&handler) {
-        return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_op<NextLayer, DynamicBuffer>{next_, read_buffer_, buffer, {}}, handler, next_);
-    }
-
     template<class ReadHandler>
     async_result_t<ReadHandler, system::error_code, fixed_header> async_read(const boost::asio::mutable_buffer &buffer,
                                                                              ReadHandler &&handler) {
         return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
-            details::stream::read_into_fixed_op<NextLayer>{next_, read_buffer_, buffer, {}}, handler, next_);
+            details::stream::read_into_fixed_op<NextLayer>(next_, read_buffer_, buffer), handler, next_);
+    }
+
+    template<class DynamicBuffer, class ReadHandler,
+             std::enable_if_t<boost::asio::is_dynamic_buffer<DynamicBuffer>::value> * = nullptr>
+    async_result_t<ReadHandler, system::error_code, fixed_header> async_read(DynamicBuffer &buffer,
+                                                                             ReadHandler &&handler) {
+        return asio::async_compose<ReadHandler, void(system::error_code, fixed_header)>(
+            details::stream::read_op<NextLayer, DynamicBuffer>(next_, read_buffer_, buffer), handler, next_);
     }
 
     template<class ConstBufferSequence, class WriteHandler>
@@ -94,7 +108,7 @@ public:
 
         uint8_t *data = write_buffer_.data();
         data[0] = first_byte;
-        details::put_varlen_int(buffer_len, data + 1);
+        details::put_varlen_int(static_cast<uint32_t>(buffer_len), data + 1);
 
         if (fixed_header_len + buffer_len < write_buffer_.capacity()) {
             boost::asio::buffer_copy(write_buffer_.mutable_buffer(fixed_header_len), buffer);

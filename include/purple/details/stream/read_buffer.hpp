@@ -37,25 +37,25 @@ public:
         if (ready_to_read_ == capacity_) {
             throw std::length_error("Cannot grow the read buffer!");
         }
-        return boost::asio::mutable_buffer(out(), capacity_ - ready_to_read_);
+        return {out(), capacity_ - ready_to_read_};
     }
 
-    [[nodiscard]] boost::span<const uint8_t> readable_area() const {
-        return boost::span<const uint8_t>(storage_.get(), ready_to_read_);
+    boost::span<const uint8_t> readable_area() const {
+        return {storage_.get(), ready_to_read_};
     }
 
-    [[nodiscard]] boost::asio::const_buffer const_buffer() const {
-        return boost::asio::const_buffer(storage_.get(), ready_to_read_);
+    boost::asio::const_buffer const_buffer() const {
+        return {storage_.get(), ready_to_read_};
     }
 
     void consume(size_t n) {
         if (n >= ready_to_read_) {
-            memmove(storage_.get(), out(), end() - out());
+            memmove(storage_.get(), out(), static_cast<size_t>(end() - out()));
             ready_to_read_ = 0;
         } else {
             const uint8_t *source = storage_.get() + n;
             auto num_to_copy = end() - source;
-            memmove(storage_.get(), source, num_to_copy);
+            memmove(storage_.get(), source, static_cast<size_t>(num_to_copy));
             ready_to_read_ -= n;
         }
     }
@@ -68,19 +68,19 @@ public:
         ready_to_read_ = 0;
     }
 
-    [[nodiscard]] size_t size() const {
+    size_t size() const {
         return ready_to_read_;
     }
 
-    [[nodiscard]] size_t capacity() const {
+    size_t capacity() const {
         return capacity_;
     }
 
-    [[nodiscard]] size_t writable_capacity() const {
+    size_t writable_capacity() const {
         return capacity_ - ready_to_read_;
     }
 
-    [[nodiscard]] size_t max_size() const {
+    size_t max_size() const {
         return capacity();
     }
 };
