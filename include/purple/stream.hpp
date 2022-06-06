@@ -108,7 +108,7 @@ public:
 
         uint8_t *data = write_buffer_.data();
         data[0] = first_byte;
-        details::put_varlen_int(buffer_len, data + 1);
+        details::put_varlen_int(static_cast<uint32_t>(buffer_len), data + 1);
 
         if (fixed_header_len + buffer_len < write_buffer_.capacity()) {
             boost::asio::buffer_copy(write_buffer_.mutable_buffer(fixed_header_len), buffer);

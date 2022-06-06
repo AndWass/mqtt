@@ -28,7 +28,7 @@ struct connect_message {
     std::chrono::seconds keep_alive;
     bool clean_session = true;
 
-    [[nodiscard]] uint8_t flag_byte() const {
+    uint8_t flag_byte() const {
         uint8_t flags = clean_session ? 0x02 : 0;
         if (!username.empty()) {
             flags |= 0x80 | 0x40;
@@ -37,20 +37,20 @@ struct connect_message {
         if (will.has_value()) {
             flags |= 0x04;
             flags |= static_cast<uint8_t>(will->quality_of_service) << 3;
-            flags |= will->retain ? 0x20 : 0;
+            flags |= static_cast<uint8_t>(will->retain ? 0x20 : 0);
         }
 
         return flags;
     }
 
-    [[nodiscard]] size_t wire_size() const {
+    size_t wire_size() const {
         size_t retval = 10 + 2 + client_id.size();
         if (!username.empty()) {
-            retval += 4 + static_cast<uint16_t>(username.size()) + static_cast<uint16_t>(password.size());
+            retval += 4u + static_cast<uint16_t>(username.size()) + static_cast<uint16_t>(password.size());
         }
 
         if (will.has_value()) {
-            retval += 4 + will->topic.size() + will->payload.size();
+            retval += 4u + will->topic.size() + will->payload.size();
         }
 
         return retval;
@@ -60,7 +60,7 @@ struct connect_message {
         memcpy(out, "\x00\x04MQTT\x04", 7);// NOLINT(bugprone-not-null-terminated-result)
         out += 7;
         *out++ = flag_byte();
-        out = purple::details::put_u16(keep_alive.count(), out);
+        out = purple::details::put_u16(static_cast<uint16_t>(keep_alive.count()), out);
         out = purple::details::put_str(client_id, out);
 
         if (will.has_value()) {

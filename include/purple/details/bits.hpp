@@ -15,7 +15,7 @@
 
 namespace purple {
 namespace details {
-inline size_t num_varlen_int_bytes(uint32_t value) {
+inline size_t num_varlen_int_bytes(size_t value) {
     if (value < 128) {
         return 1;
     } else if (value < 16384) {
