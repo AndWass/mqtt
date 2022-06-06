@@ -7,7 +7,7 @@ project(
     VERSION 0.1.0
     DESCRIPTION "Asio based MQTT library"
     HOMEPAGE_URL "https://github.com/AndWass/purple"
-    LANGUAGES NONE
+    LANGUAGES CXX
 )
 
 include(cmake/project-is-top-level.cmake)
@@ -45,6 +45,7 @@ endif()
 if(PROJECT_IS_TOP_LEVEL)
   option(BUILD_EXAMPLES "Build examples tree." "${purple_DEVELOPER_MODE}")
   if(BUILD_EXAMPLES)
+    find_package(Threads REQUIRED)
     add_subdirectory(example)
   endif()
 endif()

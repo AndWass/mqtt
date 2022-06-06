@@ -7,13 +7,14 @@ include(../cmake/folders.cmake)
 
 if(PROJECT_IS_TOP_LEVEL)
   find_package(purple REQUIRED)
+  find_package(Threads REQUIRED)
 endif()
 
 add_custom_target(run-examples)
 
 function(add_example NAME)
   add_executable("${NAME}" "${NAME}.cpp")
-  target_link_libraries("${NAME}" PRIVATE purple::purple)
+  target_link_libraries("${NAME}" PRIVATE purple::purple Threads::Threads)
   target_compile_features("${NAME}" PRIVATE cxx_std_14)
   add_custom_target("run_${NAME}" COMMAND "${NAME}" VERBATIM)
   add_dependencies("run_${NAME}" "${NAME}")

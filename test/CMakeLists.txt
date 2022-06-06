@@ -12,6 +12,7 @@ if(PROJECT_IS_TOP_LEVEL)
   enable_testing()
 endif()
 
+find_package(Threads REQUIRED)
 find_package(GTest REQUIRED)
 
 # ---- Tests ----
@@ -24,6 +25,7 @@ add_executable(purple_test
 target_link_libraries(
     purple_test PRIVATE
     purple::purple
+    Threads::Threads
     GTest::gtest
     GTest::gtest_main
 )
