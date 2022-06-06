@@ -6,6 +6,6 @@ compiler.libcxx=libstdc++11
 compiler.version=12
 os=Linux
 
-[environment]
+[env]
 CXX=clang++-12
 CC=clang-12
